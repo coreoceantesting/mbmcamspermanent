@@ -1,0 +1,87 @@
+3 latemark = 1 CL
+6 latemark = 2 cl
+1 halfday = 0.5 CL => when applied from checker maker.
+
+
+
+1. corebio on click of counts open page = done
+2. every 30sec refresh = done
+3. department wise report = done
+4. remove OT from muster report = done.
+5. datatable export pdf n excel = done.
+6. monthwise report remove unpaid leave, total paid leave on last column of all leaves = done,
+7. monthwise list report columns = done
+    - total working days, present days, absent days, late mark, both half day, leave_lists_all, total paid leaves, weekoffs, holiday, total present days, total absent days+half_day.
+
+
+
+---------------------------------------------------------------------------
+
+
+June = #207302
+
+10+1.5 = 11.5
+3+5+1.5 = 9.5
+
+Weekoff = 10
+
+FORMULA:.
+8hours_present + halfday_duration/2 + applied_halfday/2 = total_present
+absent + single_punch + halfday_duration = total_absent
+
+
+
+-----------------------------------------------------------------------------
+
+-rename halfday to short day = done.
+-remove clhalfday from halfday count and = done.
+-below 8 hours will come under short day = done.
+-calculate present+short day together = done .
+
+------------------------------------------------------------------------------
+
+-Presenet Day + paid leave + WO + holy
+
+
+------------------------------------------------------------------------------
+
+-In Manual attendance change date limit of 3 days to current month back date attendance. = done
+-All reports should also be visible to checker and maker based on their access, so we need to add permission to that role = done.
+-Create outpost leave remove leave word. = done
+
+-------------------------------------------------------------------------------
+
+- Add Subdepartment dropdown in all report and show reports based on sub department only
+- check muster report counts are not proper = done
+- Need to remove trigger for punches import and do the same through cron job for better accuracy
+- Add date n time on each page of muster report
+
+
+--------------------------------------------------------------------------------
+
+- add background color in muster report for half day cl
+- show in and out time of holiday if user has punched
+- show only half day in paid leaves count.
+- on manual attendance show current year calendar
+
+------------------------------------------------------------------------------
+
+-In medical leave remove approve reject button from maker and make button working currntly it is not working,
+-Add to date and file option in medical leave
+-Add Medical leave count col in muster report
+-Medical leave correction is incomplete
+-August month in out punch up and dropdown = 200527, 200790, 201176,=> 26,27-June / 05,28-07
+-Outpost in july 20th etender 200807, outpost will be added in present count and not be added in paid leaves
+-In manual attendance 205830 6th July, check_in 10:00 check_out 7:10pm
+-200527
+-Update latemark if importing punches
+-Add cronjob to swap in-time and out-time if check_in n check_out is not proper
+
+
+- On month wise report show remark column and print all date on which the user has taken CL, EL, ML
+- Add limit of leaves a user can take within a year.
+CL = 10
+EL = 30
+ML = 20
+
+- Roster points changes

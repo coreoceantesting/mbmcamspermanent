@@ -1,0 +1,197 @@
+.roles-checkbox-group {
+    border: 1px solid #eee !important;
+    border-radius: 5px !important;
+    background-color: #eee !important;
+}
+
+.js-example-basic-single.is-invalid+span.select2-container {
+    border: 1px solid #dc3545 !important;
+    border-radius: 5px !important;
+}
+
+.form-control,
+.form-select {
+    color: #000000 !important;
+    font-weight: 500 !important;
+}
+
+body::-webkit-scrollbar {
+    width: 0.8em;
+}
+
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #f5f7fb;
+    outline: 2px solid #c8cfdd;
+    border-radius: 8px;
+}
+
+.custom-hor-scroll
+{
+    overflow: auto !important;
+    white-space:nowrap !important;
+}
+.custom-hor-scroll::-webkit-scrollbar {
+    height: 0.7em;
+}
+
+.custom-hor-scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-hor-scroll::-webkit-scrollbar-thumb {
+    background-color: #f5f7fb;
+    outline: 2px solid #c8cfdd;
+    border-radius: 8px;
+}
+
+.font-16{
+    font-size: 16px !important;
+}
+
+.font-12{
+    font-size: 12px !important;
+}
+
+.color-black{
+    color: #000 !important;
+}
+
+.color-green-blue{
+    background-color: #3a9aa8 !important;
+    border: none !important;
+}
+
+
+/* ##########  Clock CSS  ############ */
+
+.clockdate-wrapper {
+    /* background-color: #665ed5; */
+    padding: 0px 12px;
+    max-width:380px;
+    /* width:112%; */
+    text-align:center;
+    border-radius:5px;
+    margin:0 auto;
+
+}
+#clock{
+    /* background-color:#665ed5; */
+    font-family: sans-serif;
+    font-size: 22px;
+    text-shadow:0px 0px 1px #000;
+    color:#000;
+}
+#clock span {
+    color:#000;
+    /* text-shadow:0px 0px 1px #665ed5; */
+    font-size:22px;
+    position:relative;
+    /* top:-2px; */
+    left:5px;
+}
+#date {
+    letter-spacing:3px;
+    font-size:14px;
+    font-family:arial,sans-serif;
+    color:#000;
+}
+
+
+/* ##########  CUSTOM TABLE CSS  ############ */
+
+table#list_table {
+    border-collapse: collapse;
+}
+
+#list_table th {
+    text-transform: uppercase;
+}
+#list_table .sortable:hover{
+    cursor: pointer;
+}
+#list_table .sortable .arrow::before{
+    position: relative;
+    bottom: 0px;
+    float: right;
+    right: 20px;
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 0.2em solid #eee;
+    border-top: 0.2em solid #eee;
+    transform: rotate(135deg);
+    margin-top: 8px;
+}
+#list_table .sortable .arrow::after {
+    position: relative;
+    bottom: 0px;
+    float: right;
+    right: 15px;
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-right: 0.2em solid #eee;
+    border-top: 0.2em solid #eee;
+    transform: rotate(-45deg);
+    margin-top: 4px;
+}
+#list_table .sortable:hover .arrow::after, #list_table .sortable:hover .arrow::before{
+    border-color: #bbbbbb;
+}
+#list_table .sortable.active .arrow::after, #list_table .sortable.active .arrow::before{
+    border-color: #bbbbbb;
+}
+#list_table .sortable.active.ASC .arrow::before, #list_table .sortable.active.DESC .arrow::after{
+    border-color: #5c5c5c;
+}
+
+/* .sortable .arrow{
+    min-width: 20px;
+} */
+.custom_th{
+    font-weight: 700;
+}
+#list_table th{
+    /* padding-left: 0 !important; */
+    padding-right: 0 !important;
+}
+
+#list_table table tfoot th,
+#list_table .table thead th {
+    font-size: .7875rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #7e7e7e;
+    border-bottom-width: 1px;
+    background-color: #fff;
+}
+
+#list_table .table td,
+#list_table .table th {
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+
+/* DATATABLE CUSTOMIZED CSS */
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter{
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.dt-buttons.mb-2.pb-1.text-right{
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    -webkit-box-pack: end !important;
+    -ms-flex-pack: end !important;
+    justify-content: flex-end !important;
+}
