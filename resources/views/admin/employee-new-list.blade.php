@@ -274,8 +274,8 @@
                                             <th>Designation</th>
                                             <th>Office</th>
                                             <th>Location</th>
-                                            <th>Emp Type</th>
-                                            <th>Contractor</th>
+                                            {{-- <th>Emp Type</th>
+                                            <th>Contractor</th> --}}
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -289,8 +289,8 @@
                                                 <td>{{ $employee->designations_name }}</td>
                                                 <td>{{ $employee->ward_name }}</td>
                                                 <td>{{ $employee->location_name }}</td>
-                                                <td>{{ $employee->employee_type == 0 ? 'Contractual' : 'Permanent' }}</td>
-                                                <td>{{ $employee?->contractor?->name }}</td>
+                                                {{-- <td>{{ $employee->employee_type == 0 ? 'Contractual' : 'Permanent' }}</td>
+                                                <td>{{ $employee?->contractor?->name }}</td> --}}
                                                 <td>
                                                     {{-- @can('classes.edit') --}}
                                                         <button class="edit-element btn btn-primary px-2 py-1" title="Edit Employee" data-id="{{ $employee->id }}"><i data-feather="edit"></i></button>

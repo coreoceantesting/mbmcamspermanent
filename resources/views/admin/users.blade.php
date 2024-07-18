@@ -62,7 +62,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="email">User Email</label>
+                                            <label class="col-form-label" for="email">User Email <span class="text-danger">*</span></label>
                                             <input class="form-control" id="email" name="email" type="email" placeholder="Enter User Email">
                                             <span class="text-danger error-text email_err"></span>
                                         </div>

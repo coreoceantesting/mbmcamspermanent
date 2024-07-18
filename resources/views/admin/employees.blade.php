@@ -143,13 +143,13 @@
                                             <span class="text-danger error-text department_id_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Select Sub Department </label>
                                             <select class="js-example-basic-single col-sm-12" name="sub_department_id">
                                                 <option value="">--Select Sub Department--</option>
                                             </select>
                                             <span class="text-danger error-text sub_department_id_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Select Machine <span class="text-danger">*</span></label>

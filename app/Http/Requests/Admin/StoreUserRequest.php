@@ -31,7 +31,7 @@ class StoreUserRequest extends FormRequest
             'role' => 'required',
             'name' => 'required',
             // 'ward_id' => 'required',
-            'email' => 'nullable|unique:app_users,email|email',
+            'email' => 'required|unique:app_users,email|email',
             'mobile' => 'nullable|unique:app_users,mobile|digits:10',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',

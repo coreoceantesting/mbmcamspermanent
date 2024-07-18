@@ -33,8 +33,8 @@
                         <th style="min-width: 160px" wire:click="sorting('departments.name', '{{$order}}')" class="sortable {{ $column == 'departments.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Department </span> <span class="arrow"></span> </th>
                         <th style="min-width: 140px" wire:click="sorting('wards.name', '{{$order}}')" class="sortable {{ $column == 'wards.name' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Office </span> <span class="arrow"></span> </th>
                         <th style="min-width: 160px" wire:click="sorting('Devices.DeviceLocation', '{{$order}}')" class="sortable {{ $column == 'Devices.DeviceLocation' ? 'active' : '' }} {{ $order }}" scope="col"> <span class="custom_th">Location </span> <span class="arrow"></span> </th>
-                        <th style="min-width: 120px" scope="col">Emp Type</th>
-                        <th style="min-width: 120px" scope="col">Contractor</th>
+                        {{-- <th style="min-width: 120px" scope="col">Emp Type</th> --}}
+                        {{-- <th style="min-width: 120px" scope="col">Contractor</th> --}}
                         <th style="min-width: 120px" scope="col">Details</th>
                         <th style="min-width: 90px" scope="col">Status</th>
                         <th style="min-width: 90px" scope="col">Retirement Status</th>
@@ -54,8 +54,8 @@
                             <td>{{ $emp->department_name }}</td>
                             <td>{{ $emp->ward_name }}</td>
                             <td>{{ $emp->location_name }}</td>
-                            <td>{{ $emp->employee_type == 0 ? 'Contractual' : 'Permanent' }}</td>
-                            <td>{{ $emp?->contractor?->name }}</td>
+                            {{-- <td>{{ $emp->employee_type == 0 ? 'Contractual' : 'Permanent' }}</td> --}}
+                            {{-- <td>{{ $emp?->contractor?->name }}</td> --}}
                             <td>
                                 <button class="emp-more-info btn btn-primary px-2 py-1" title="More info" data-id="{{ $emp->id }}"><i class="fa fa-circle-info"></i></button>
                             </td>

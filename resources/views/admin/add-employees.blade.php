@@ -152,13 +152,13 @@
                                             <span class="text-danger error-text department_id_err"></span>
                                         </div>
 
-                                        <div class="col-md-4 mt-3">
+                                        {{-- <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Select Sub Department </label>
                                             <select class="js-example-basic-single col-sm-12" name="sub_department_id">
                                                 <option value="">--Select Sub Department--</option>
                                             </select>
                                             <span class="text-danger error-text sub_department_id_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" >Select Machine <span class="text-danger">*</span></label>
@@ -356,32 +356,32 @@
 
 <!-- Get Sub departments -->
 <script>
-    $("select[name='department_id']").change( function(e) {
-        e.preventDefault();
+    // $("select[name='department_id']").change( function(e) {
+    //     e.preventDefault();
 
-        var model_id = $(this).val();
-        var url = "{{ route('departments.sub_departments', ':model_id') }}";
+    //     var model_id = $(this).val();
+    //     var url = "{{ route('departments.sub_departments', ':model_id') }}";
 
-        $.ajax({
-            url: url.replace(':model_id', model_id),
-            type: 'GET',
-            data: {
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data, textStatus, jqXHR)
-            {
-                if (!data.error)
-                {
-                    $("select[name='sub_department_id']").html(data.subDepartmentHtml);
-                } else {
-                    swal("Error!", data.error, "error");
-                }
-            },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                swal("Error!", "Some thing went wrong", "error");
-            },
-        });
-    });
+    //     $.ajax({
+    //         url: url.replace(':model_id', model_id),
+    //         type: 'GET',
+    //         data: {
+    //             '_token': "{{ csrf_token() }}"
+    //         },
+    //         success: function(data, textStatus, jqXHR)
+    //         {
+    //             if (!data.error)
+    //             {
+    //                 $("select[name='sub_department_id']").html(data.subDepartmentHtml);
+    //             } else {
+    //                 swal("Error!", data.error, "error");
+    //             }
+    //         },
+    //         error: function(error, jqXHR, textStatus, errorThrown) {
+    //             swal("Error!", "Some thing went wrong", "error");
+    //         },
+    //     });
+    // });
 </script>
 
 

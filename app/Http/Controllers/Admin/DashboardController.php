@@ -102,8 +102,8 @@ class DashboardController extends Controller
 
     public function tabularViewStatistics()
     {
-        $departmentwise = Department::withCount('users')
-            ->withCount(['users as present_count' => fn ($q) => $q->withWhereHas('punches', fn ($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))])->get();
+        $departmentwise = Department::withCount(['users' => fn ($q) => $q->where('employee_type', 1)])
+            ->withCount(['users as present_count' => fn ($q) => $q->withWhereHas('punches', fn ($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->get();
 
         return view('admin.dashboard.tabular-view-statistics')->with([
             'departmentwise' => $departmentwise,
@@ -134,7 +134,7 @@ class DashboardController extends Controller
     public function fetchdesignation(Request $request, $contractorid)
     {
         $departmentId = $request->departmentid;
-        $employeeType = session('EMPLOYEE_TYPE') == 1 ? 0 : 1;
+        $employeeType = 1;
 
         // Query to fetch designations along with user counts and present counts
         $designations = DB::table('designations')
@@ -168,7 +168,7 @@ class DashboardController extends Controller
     {
         $departmentId = $request->departmentid;
         $contractorId = $request->contractorId;
-        $employeeType = session('EMPLOYEE_TYPE') == 1 ? 0 : 1;
+        $employeeType = 1;
 
         // Query to fetch designations along with user counts and present counts
         $employee_list = DB::table('designations')

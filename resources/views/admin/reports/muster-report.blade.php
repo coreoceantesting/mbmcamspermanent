@@ -104,7 +104,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-md-3 mt-3">
+                                        {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="contractor">Contractors  <span class="text-danger"></span></label>
                                             <select class="js-example-basic-single col-sm-12  @error('contractor') is-invalid  @enderror" name="contractor" required>
                                                 <option value="">--Select Contractors--</option>
@@ -114,9 +114,9 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-3 mt-3">
+                                        {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="designation">Designation  <span class="text-danger"></span></label>
                                             <select class="js-example-basic-single col-sm-12  @error('designation') is-invalid  @enderror" name="designation">
                                                 <option value="">--Select Designation--</option>
@@ -129,7 +129,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div>
+                                        </div> --}}
 
                                         {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="sub_department">Sub Department </label>
