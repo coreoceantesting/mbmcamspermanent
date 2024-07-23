@@ -99,7 +99,7 @@ class ReportController extends Controller
 
         $wards = Ward::latest()->get();
         $class = Clas::latest()->get();
-        // $designations = Designation::latest()->get();
+        $designations = Designation::latest()->get();
         // $contractors = Contractor::latest()->get();
         $empList = [];
         $weekDays = '';
@@ -131,7 +131,7 @@ class ReportController extends Controller
                 ->where('department_id', $department)
                 ->when(!$request->emp_code && $request->sub_department, fn ($qr) => $qr->where('sub_department_id', $request->sub_department))
                 ->when(!$request->emp_code && $request->class, fn ($qr) => $qr->where('clas_id', $request->class))
-                // ->when(!$request->emp_code && $request->designation, fn ($qr) => $qr->where('designation_id', $request->designation))
+                ->when(!$request->emp_code && $request->designation, fn ($qr) => $qr->where('designation_id', $request->designation))
                 // ->when(!$request->emp_code && $request->contractor, fn ($qr) => $qr->where('contractor_id', $request->contractor))
                 ->when($request->emp_code, fn ($qr) => $qr->where('emp_code', $request->emp_code))
                 ->orderBy('emp_code')
@@ -184,7 +184,7 @@ class ReportController extends Controller
             'fromDate' => $fromDate,
             'toDate' => $toDate,
             'totalDays' => $totalDays,
-            // 'designations' => $designations,
+            'designations' => $designations,
             // 'contractors' => $contractors,
         ]);
     }

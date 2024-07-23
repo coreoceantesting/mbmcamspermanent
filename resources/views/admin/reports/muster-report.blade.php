@@ -74,7 +74,7 @@
                                             <span class="text-danger error-text to_date_err"></span>
                                         </div>
 
-                                        {{-- <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="class">Ward  <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12  @error('ward') is-invalid  @enderror" name="ward" required>
                                                 <option value="">--Select Ward--</option>
@@ -87,10 +87,10 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div> --}}
+                                        </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="department">Department <span class="text-danger">*</span> </label>
+                                            <label class="col-form-label" for="department">Department </label>
                                             <select class="js-example-basic-single col-sm-12  @error('department') is-invalid  @enderror" name="department">
                                                 <option value="">--Select Department--</option>
                                                 @foreach ($departments as $department)
@@ -116,7 +116,7 @@
                                             @enderror
                                         </div> --}}
 
-                                        {{-- <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="designation">Designation  <span class="text-danger"></span></label>
                                             <select class="js-example-basic-single col-sm-12  @error('designation') is-invalid  @enderror" name="designation">
                                                 <option value="">--Select Designation--</option>
@@ -129,7 +129,7 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
-                                        </div> --}}
+                                        </div>
 
                                         {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="sub_department">Sub Department </label>

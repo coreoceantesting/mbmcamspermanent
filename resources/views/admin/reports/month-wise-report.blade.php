@@ -83,7 +83,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3 d-none">
                                             <label class="col-form-label" for="contractor">Contractor  <span class="text-danger"></span></label>
                                             <select class="js-example-basic-single col-sm-12  @error('contractor') is-invalid  @enderror" name="contractor">
                                                 <option value="">--Select Contractor--</option>

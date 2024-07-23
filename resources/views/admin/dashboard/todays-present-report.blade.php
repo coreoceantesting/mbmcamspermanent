@@ -125,7 +125,7 @@
                                             <th>Emp Name</th>
                                             <th>Designation</th>
                                             <th>Department</th>
-                                            <th>Contractor Name</th>
+                                            {{-- <th>Contractor Name</th> --}}
                                             <th>Date</th>
                                             <th>In Time</th>
                                             <th>Out Time</th>
@@ -139,7 +139,7 @@
                                                 <td>{{ $value->user->name }}</td>
                                                 <td>{{ $value->user->designation?->name }}</td>
                                                 <td>{{ $value->user->department?->name }}</td>
-                                                <td>{{ $value->user->contractor?->name }}</td>
+                                                {{-- <td>{{ $value->user->contractor?->name }}</td> --}}
                                                 <td>{{ Carbon\Carbon::parse($value->punch_date)->format('Y-m-d') }}</td>
                                                 <td>{{ $value->check_in ?? '-' }}</td>
                                                 <td>{{ $value->check_out ?? '-' }}</td>

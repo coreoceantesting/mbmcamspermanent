@@ -31,9 +31,9 @@
                                 @can('departments.view')
                                     <li><a href="{{ route('departments.index') }}">Main Departments </a></li>
                                 @endcan
-                                @can('sub-departments.view')
+                                {{-- @can('sub-departments.view')
                                     <li><a href="{{ route('sub-departments.index') }}">Sub Departments </a></li>
-                                @endcan
+                                @endcan --}}
                                 @can('designations.view')
                                     <li><a href="{{ route('designations.index') }}">Designations </a></li>
                                 @endcan
@@ -55,9 +55,9 @@
                                 @can('wards.view')
                                     <li><a href="{{ route('wards.index') }}">Office </a></li>
                                 @endcan
-                                @can('contractors.view')
+                                {{-- @can('contractors.view')
                                     <li><a href="{{ route('contractors.index') }}">Contractors </a></li>
-                                @endcan
+                                @endcan --}}
                             </ul>
                         </li>
                     @endcan

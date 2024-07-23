@@ -98,7 +98,7 @@
                                             @enderror
                                         </div>
 
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3 d-none">
                                             <label class="col-form-label" for="sub_department">Sub Department </label>
                                             <select class="js-example-basic-single col-sm-12  @error('sub_department') is-invalid  @enderror" name="sub_department">
                                                 <option value="">--Select Sub Department--</option>
@@ -358,25 +358,25 @@
         var model_id = $(this).val();
         var url = "{{ route('departments.sub_departments', ':model_id') }}";
 
-        $.ajax({
-            url: url.replace(':model_id', model_id),
-            type: 'GET',
-            data: {
-                '_token': "{{ csrf_token() }}"
-            },
-            success: function(data, textStatus, jqXHR)
-            {
-                if (!data.error)
-                {
-                    $("select[name='sub_department']").html(data.subDepartmentHtml);
-                } else {
-                    swal("Error!", data.error, "error");
-                }
-            },
-            error: function(error, jqXHR, textStatus, errorThrown) {
-                swal("Error!", "Some thing went wrong", "error");
-            },
-        });
+        // $.ajax({
+        //     url: url.replace(':model_id', model_id),
+        //     type: 'GET',
+        //     data: {
+        //         '_token': "{{ csrf_token() }}"
+        //     },
+        //     success: function(data, textStatus, jqXHR)
+        //     {
+        //         if (!data.error)
+        //         {
+        //             $("select[name='sub_department']").html(data.subDepartmentHtml);
+        //         } else {
+        //             swal("Error!", data.error, "error");
+        //         }
+        //     },
+        //     error: function(error, jqXHR, textStatus, errorThrown) {
+        //         swal("Error!", "Some thing went wrong", "error");
+        //     },
+        // });
     });
 </script>
 
