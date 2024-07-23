@@ -179,18 +179,18 @@
                                 <i data-feather="layout"></i><span>Reports</span>
                             </a>
                             <ul class="nav-submenu menu-content">
-                                {{-- @can('reports.month-wise') --}}
-                                    {{-- <li><a href="{{ route('reports.index') }}">Month wise report </a></li> --}}
-                                {{-- @endcan --}}
+                                @can('reports.month-wise')
+                                    <li><a href="{{ route('reports.index') }}">Month wise report </a></li>
+                                @endcan
 
-                                <li><a href="{{ route('vendor-reports.index') }}">Vendor Working Hour report </a></li>
+                                {{-- <li><a href="{{ route('vendor-reports.index') }}">Vendor Working Hour report </a></li> --}}
 
                                 @can('reports.muster')
                                     <li><a href="{{ route('reports.muster') }}">Muster report </a></li>
                                 @endcan
-                                {{-- @can('reports.muster')
+                                @can('reports.muster')
                                     <li><a href="{{ route('reports.leave-report') }}">Leave report </a></li>
-                                @endcan --}}
+                                @endcan
                                 @can('reports.month-wise')
                                     <li><a href="{{ route('dashboard.device-log-report') }}">Daily attendance </a></li>
                                 @endcan
@@ -203,12 +203,12 @@
                                 @can('reports.month-wise')
                                     <li><a href="{{ route('dashboard.department-wise-report') }}">Department wise </a></li>
                                 @endcan
-                                {{-- @can('reports.month-wise')
+                                @can('reports.month-wise')
                                     <li><a href="{{ route('dashboard.todays-leave-bifurcation') }}">Leave bifurcation </a></li>
                                 @endcan
                                 @can('reports.month-wise')
                                     <li><a href="{{ route('dashboard.employee-wise-report') }}">Emp wise report </a></li>
-                                @endcan --}}
+                                @endcan
                             </ul>
                         </li>
                     @endcan

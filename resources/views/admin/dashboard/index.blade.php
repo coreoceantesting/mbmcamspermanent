@@ -1,5 +1,5 @@
 <x-admin.admin-layout>
-    <x-slot name="title">Core Bio - Dashboard</x-slot>
+    <x-slot name="title">{{ auth()->user()->tenant_name }} - Dashboard</x-slot>
 
     <div class="page-body">
         <!-- Container-fluid starts-->
