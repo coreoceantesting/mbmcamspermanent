@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Scopes\PermanentScope;
 
 class Department extends BaseModel
 {
@@ -29,6 +30,7 @@ class Department extends BaseModel
         return $this->hasMany(User::class);
     }
 
+
     public static function booted()
     {
         static::created(function (Department $department) {
@@ -48,5 +50,7 @@ class Department extends BaseModel
                 'deleted_by' => Auth::user()->id,
             ]);
         });
+
+        static::addGlobalScope(new PermanentScope);
     }
 }

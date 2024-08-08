@@ -50,7 +50,7 @@ class EmployeeController extends Controller
         $contractors = Contractor::get();
 
 
-        return view('admin.add-employees')->with(['wards'=> $wards, 'contractors' => $contractors, 'departments'=> $departments, 'designations'=> $designations, 'clas'=> $clas, 'shifts'=> $shifts, 'devices'=>$devices]);
+        return view('admin.add-employees')->with(['wards' => $wards, 'contractors' => $contractors, 'departments' => $departments, 'designations' => $designations, 'clas' => $clas, 'shifts' => $shifts, 'devices' => $devices]);
     }
 
     /**
@@ -58,13 +58,10 @@ class EmployeeController extends Controller
      */
     public function store(StoreEmployeeRequest $request)
     {
-        try
-        {
+        try {
             $this->employeeRepository->store($request->validated());
-            return response()->json(['success'=> 'Employee created successfully!']);
-        }
-        catch(Exception $e)
-        {
+            return response()->json(['success' => 'Employee created successfully!']);
+        } catch (Exception $e) {
             return $this->respondWithAjax($e, 'adding', 'Employee');
         }
     }
@@ -90,13 +87,10 @@ class EmployeeController extends Controller
      */
     public function update(UpdateEmployeeRequest $request, User $employee)
     {
-        try
-        {
+        try {
             $this->employeeRepository->updateEmployee($request->validated(), $employee);
-            return response()->json(['success'=> 'Employee updated successfully!']);
-        }
-        catch(Exception $e)
-        {
+            return response()->json(['success' => 'Employee updated successfully!']);
+        } catch (Exception $e) {
             return $this->respondWithAjax($e, 'updating', 'Employee');
         }
     }
@@ -113,11 +107,11 @@ class EmployeeController extends Controller
     {
         $authUser = auth()->user();
 
-        if( $authUser->hasRole(['Admin', 'Super Admin']) )
+        if ($authUser->hasRole(['Admin', 'Super Admin']))
             return $employee->load(['ward', 'clas', 'department']);
 
-        if( $authUser->sub_department_id != $employee->sub_department_id )
-            return response()->json(['error2'=> 'Employee does not belongs to your department']);
+        if ($authUser->sub_department_id != $employee->sub_department_id)
+            return response()->json(['error2' => 'Employee does not belongs to your department']);
 
         return $employee->load(['ward', 'clas', 'department']);
     }
@@ -134,13 +128,15 @@ class EmployeeController extends Controller
         $backDate = Carbon::today()->subDay()->toDateString();
 
         $punchData = Punch::whereIn('punch_date', [$todaysDate, $backDate])
-        ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
-        ->withWhereHas('user', fn($q) => $q->with('department')
-                                ->when(!$is_admin, fn($qr) => $qr->where('department_id', $authUser->department_id) )
-                                ->when($is_admin && $departmentId, fn($qr) => $qr->where('department_id', $departmentId))
-                                ->where('employee_type', $employeeType)
-        )
-        ->latest()->get();
+            ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
+            ->withWhereHas(
+                'user',
+                fn ($q) => $q->with('department')
+                    ->when(!$is_admin, fn ($qr) => $qr->where('department_id', $authUser->department_id))
+                    ->when($is_admin && $departmentId, fn ($qr) => $qr->where('department_id', $departmentId))
+                    ->where('employee_type', $employeeType)
+            )
+            ->latest()->get();
 
         // Get user IDs for present and absent employees
         $presentEmployees = $punchData->where('punch_date', '>=', Carbon::parse($todaysDate)->toDateString())->pluck('emp_code')->toArray();;
@@ -149,7 +145,7 @@ class EmployeeController extends Controller
         $employeesQuery = User::where('contractor_id', $contractorId)
             ->with(['designation', 'department'])
             ->where('department_id', $departmentId);
-            // ->where('employee_type', $employeeType);
+        // ->where('employee_type', $employeeType);
         // Check request status and filter employees accordingly
         $status = $request->status;
         switch ($status) {
