@@ -31,7 +31,7 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $authUser = Auth::user();
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
@@ -93,7 +93,7 @@ class ReportController extends Controller
     {
         // designation
         $authUser = Auth::user();
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
@@ -227,7 +227,7 @@ class ReportController extends Controller
     {
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
@@ -266,7 +266,7 @@ class ReportController extends Controller
     public function departmentWiseReport(Request $request)
     {
         $data = Department::withCount(['users' => fn ($q) => $q->where('employee_type', 1)])
-            ->withCount(['users as present_count' => fn ($q) => $q->withWhereHas('punches', fn ($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->get();
+            ->withCount(['users as present_count' => fn ($q) => $q->withWhereHas('punches', fn ($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->where('is_permanent', 1)->get();
 
         return view('admin.dashboard.department-wise-attendance-report')->with(['data' => $data]);
     }
@@ -276,7 +276,7 @@ class ReportController extends Controller
     {
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
@@ -302,7 +302,7 @@ class ReportController extends Controller
     {
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
@@ -331,7 +331,7 @@ class ReportController extends Controller
         $shiftId = Crypt::decrypt($shiftId) ?? '1';
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $departments = $isAdmin ? Department::whereDepartmentId(null)->orderBy('name')->get() : [];
+        $departments = $isAdmin ? Department::whereDepartmentId(null)->where('is_permanent', 1)->orderBy('name')->get() : [];
         $wards = Ward::orderBy('name')->get();
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
 
@@ -353,7 +353,7 @@ class ReportController extends Controller
         $leave_type_id = $request->leave_type_id;
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $departments = $isAdmin ? Department::whereDepartmentId(null)->orderBy('name')->get() : [];
+        $departments = $isAdmin ? Department::whereDepartmentId(null)->where('is_permanent', 1)->orderBy('name')->get() : [];
         $wards = Ward::orderBy('name')->get();
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
         $date = $request->date ?? Carbon::today()->toDateString();
@@ -376,7 +376,7 @@ class ReportController extends Controller
     public function monthWiseLatemark(Request $request)
     {
         $authUser = Auth::user();
-        $departments = Department::whereDepartmentId(null)->orderBy('name')->get();
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)->orderBy('name')->get();
         $wards = Ward::orderBy('name')->get();
         $class = Clas::orderBy('name')->get();
 
@@ -419,7 +419,7 @@ class ReportController extends Controller
     public function empLeaveCounts(Request $request)
     {
         $authUser = Auth::user();
-        $departments = Department::whereDepartmentId(null)
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 

@@ -20,9 +20,9 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        $departments = Department::whereDepartmentId(null)->latest()->get();
+        $departments = Department::whereDepartmentId(null)->where('is_permanent', 1)->latest()->get();
 
-        return view('admin.masters.departments')->with(['departments'=> $departments]);
+        return view('admin.masters.departments')->with(['departments' => $departments]);
     }
 
     /**
@@ -38,17 +38,15 @@ class DepartmentController extends Controller
      */
     public function store(StoreDepartmentRequest $request)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $input = $request->validated();
-            Department::create( Arr::only( $input, Department::getFillables() ) );
+            $input['is_permanent'] = 1;
+            Department::create(Arr::only($input, Department::getFillables()));
             DB::commit();
 
-            return response()->json(['success'=> 'Department created successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Department created successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'creating', 'Department');
         }
     }
@@ -58,7 +56,6 @@ class DepartmentController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -66,15 +63,12 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        if ($department)
-        {
+        if ($department) {
             $response = [
                 'result' => 1,
                 'department' => $department,
             ];
-        }
-        else
-        {
+        } else {
             $response = ['result' => 0];
         }
         return $response;
@@ -85,18 +79,15 @@ class DepartmentController extends Controller
      */
     public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $input = $request->validated();
             $input['name'] = $input['edit_name'];
-            $department->update( Arr::only( $input, Department::getFillables() ) );
+            $department->update(Arr::only($input, Department::getFillables()));
             DB::commit();
 
-            return response()->json(['success'=> 'Department updated successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Department updated successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'updating', 'Department');
         }
     }
@@ -106,15 +97,12 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        try
-        {
+        try {
             DB::beginTransaction();
             $department->delete();
             DB::commit();
-            return response()->json(['success'=> 'Department deleted successfully!']);
-        }
-        catch(\Exception $e)
-        {
+            return response()->json(['success' => 'Department deleted successfully!']);
+        } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'deleting', 'Department');
         }
     }
@@ -124,25 +112,22 @@ class DepartmentController extends Controller
     {
         $authUser = Auth::user();
         $sub_departments = Department::whereDepartmentId($department->id)
-                            ->when( !$authUser->hasRole(['Admin', 'Super Admin']), fn($q)=> $q->where('id', $authUser->sub_department_id) )
-                            ->latest()->get();
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($q) => $q->where('id', $authUser->sub_department_id))
+            ->latest()->get();
 
-        if ($sub_departments)
-        {
+        if ($sub_departments) {
             $subDepartmentHtml = '<span>
                 <option value="">--Select Sub Department--</option>';
-                foreach($sub_departments as $dep):
-                    $subDepartmentHtml .= '<option value="'.$dep->id.'" >'.$dep->name.'</option>';
-                endforeach;
+            foreach ($sub_departments as $dep) :
+                $subDepartmentHtml .= '<option value="' . $dep->id . '" >' . $dep->name . '</option>';
+            endforeach;
             $subDepartmentHtml .= '</span>';
 
             $response = [
                 'result' => 1,
                 'subDepartmentHtml' => $subDepartmentHtml,
             ];
-        }
-        else
-        {
+        } else {
             $response = ['result' => 0];
         }
         return $response;
@@ -153,22 +138,19 @@ class DepartmentController extends Controller
     {
         $departments = Department::whereWardId($ward->id)->orderBy('name')->get();
 
-        if ($departments)
-        {
+        if ($departments) {
             $departmentHtml = '<span>
                 <option value="">--Select Department--</option>';
-                foreach($departments as $dep):
-                    $departmentHtml .= '<option value="'.$dep->id.'" >'.$dep->name.'</option>';
-                endforeach;
+            foreach ($departments as $dep) :
+                $departmentHtml .= '<option value="' . $dep->id . '" >' . $dep->name . '</option>';
+            endforeach;
             $departmentHtml .= '</span>';
 
             $response = [
                 'result' => 1,
                 'departmentHtml' => $departmentHtml,
             ];
-        }
-        else
-        {
+        } else {
             $response = ['result' => 0];
         }
         return $response;

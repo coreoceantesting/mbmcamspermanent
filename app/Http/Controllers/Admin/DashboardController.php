@@ -40,6 +40,7 @@ class DashboardController extends Controller
                         ->when($department, fn ($qr) => $qr->where('department_id', $department))
                         ->where('employee_type', $employeeType)
                 ])
+                ->where('is_permanent', 1)
                 ->whereDepartmentId(null)
                 ->orderBy('orderno', 'ASC')
                 ->get();

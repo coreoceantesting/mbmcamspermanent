@@ -12,7 +12,7 @@ class Department extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = [ 'department_id', 'name', 'initial', 'level' ];
+    protected $fillable = ['department_id', 'name', 'initial', 'level', 'is_permanent'];
 
     public function parentDepartment()
     {
@@ -31,27 +31,22 @@ class Department extends BaseModel
 
     public static function booted()
     {
-        static::created(function (Department $department)
-        {
+        static::created(function (Department $department) {
             self::where('id', $department->id)->update([
-                'initial'=> preg_filter('/[^A-Z]/', '', ucwords($department->name)),
-                'created_by'=> Auth::user()->id,
+                'initial' => preg_filter('/[^A-Z]/', '', ucwords($department->name)),
+                'created_by' => Auth::user()->id,
             ]);
         });
-        static::updated(function (Department $department)
-        {
+        static::updated(function (Department $department) {
             self::where('id', $department->id)->update([
-                'initial'=> preg_filter('/[^A-Z]/', '', ucwords($department->name)),
-                'updated_by'=> Auth::user()->id,
+                'initial' => preg_filter('/[^A-Z]/', '', ucwords($department->name)),
+                'updated_by' => Auth::user()->id,
             ]);
         });
-        static::deleted(function (Department $department)
-        {
+        static::deleted(function (Department $department) {
             self::where('id', $department->id)->update([
-                'deleted_by'=> Auth::user()->id,
+                'deleted_by' => Auth::user()->id,
             ]);
         });
     }
-
-
 }
