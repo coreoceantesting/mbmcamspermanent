@@ -23,7 +23,7 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'emp_code' => 'required|regex:/^[A-Z0-9 ]+$/',
+            'emp_code' => 'required',
             'name' => 'required',
             'email' => 'nullable|sometimes|email',
             'mobile' => 'nullable|sometimes|digits:10',
