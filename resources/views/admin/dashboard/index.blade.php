@@ -506,7 +506,7 @@
                                         @php
                                             $currentDeptData = $todayPunchData
                                                             // ->where( fn($item) => $item->user->ward_id == request()->ward )
-                                                            ->where( fn($item) => $item->user->department_id == $department->id )
+                                                            ->where( fn($item) => $item->user?->department_id == $department->id )
                                                             ->where( fn($item) => $item->user->employee_type == $employeeType );
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
@@ -524,7 +524,7 @@
                                                         </div>
                                                         <div class="col-4 text-center">
                                                             <h6 class="mb-0">Absent</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $department->users_count-$currentDeptData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(((($department->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $department->users_count-$currentDeptData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(((($department?->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)</strong> <br>
                                                         </div>
                                                     </div>
                                                 </div>
