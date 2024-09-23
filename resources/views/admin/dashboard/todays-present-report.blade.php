@@ -137,8 +137,8 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $value->user?->emp_code }}</td>
                                                 <td>{{ $value->user?->name }}</td>
-                                                <td>{{ $value->user->designation?->name }}</td>
-                                                <td>{{ $value->user->department?->name }}</td>
+                                                <td>{{ $value->user?->designation?->name }}</td>
+                                                <td>{{ $value->user?->department?->name }}</td>
                                                 {{-- <td>{{ $value->user->contractor?->name }}</td> --}}
                                                 <td>{{ Carbon\Carbon::parse($value->punch_date)->format('Y-m-d') }}</td>
                                                 <td>{{ $value->check_in ?? '-' }}</td>
