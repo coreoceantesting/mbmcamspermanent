@@ -132,7 +132,9 @@ class ReportController extends Controller
                 })
                 ->where('is_employee', 1)
                 ->where('employee_type', 1)
-                ->where('department_id', $department)
+                ->when(isset($request->department) && $request->department != "", function ($q) use ($department) {
+                    $q->where('department_id', $department);
+                })
                 ->when(!$request->emp_code && $request->sub_department, fn($qr) => $qr->where('sub_department_id', $request->sub_department))
                 ->when(!$request->emp_code && $request->class, fn($qr) => $qr->where('clas_id', $request->class))
                 ->when(!$request->emp_code && $request->designation, fn($qr) => $qr->where('designation_id', $request->designation))

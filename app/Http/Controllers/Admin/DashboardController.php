@@ -26,8 +26,8 @@ class DashboardController extends Controller
         $is_admin = $authUser->hasRole(['Admin', 'Super Admin']) ? true : false;
         $department = $request->ward;
 
-        $totalEmployees = User::when(!$is_admin && !$department, fn ($qr) => $qr->where('department_id', $authUser->department_id))
-            ->when($department, fn ($qr) => $qr->where('department_id', $department))
+        $totalEmployees = User::when(!$is_admin && !$department, fn($qr) => $qr->where('department_id', $authUser->department_id))
+            ->when($department, fn($qr) => $qr->where('department_id', $department))
             ->where('employee_type', $employeeType)
             ->whereIsEmployee('1')
             ->count();
@@ -36,10 +36,13 @@ class DashboardController extends Controller
         if ($is_admin) {
             $departments = Department::query()
                 ->withCount([
-                    'users' => fn ($q) => $q
-                        ->when($department, fn ($qr) => $qr->where('department_id', $department))
+                    'users' => fn($q) => $q
+                        ->when($department, fn($qr) => $qr->where('department_id', $department))
                         ->where('employee_type', $employeeType)
                 ])
+                ->whereHas('users', function ($q) use ($employeeType) {
+                    $q->where('employee_type', $employeeType);
+                })
                 ->whereDepartmentId(null)
                 ->orderBy('orderno', 'ASC')
                 ->get();
@@ -51,7 +54,7 @@ class DashboardController extends Controller
 
 
         $totalHolidays = Holiday::where('year', date('Y'))->count();
-        $totalWards = Ward::withCount(['users' => fn ($q) => $q->where('employee_type', $employeeType)])->get();
+        $totalWards = Ward::withCount(['users' => fn($q) => $q->where('employee_type', $employeeType)])->get();
         // $totalContractors = Contractor::withCount(['users' => fn($q) => $q->where('employee_type', $employeeType) $q->where('department_id', $request->department)])->get();
         $departmentId = $request->department;
         $totalContractors = Contractor::whereHas('users', function ($query) use ($employeeType, $departmentId) {
@@ -71,9 +74,9 @@ class DashboardController extends Controller
             ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
             ->withWhereHas(
                 'user',
-                fn ($q) => $q->with('department')
-                    ->when(!$is_admin, fn ($qr) => $qr->where('department_id', $authUser->department_id))
-                    ->when($is_admin && $department, fn ($qr) => $qr->where('department_id', $department))
+                fn($q) => $q->with('department')
+                    ->when(!$is_admin, fn($qr) => $qr->where('department_id', $authUser->department_id))
+                    ->when($is_admin && $department, fn($qr) => $qr->where('department_id', $department))
                     ->where('employee_type', $employeeType)
             )
             ->latest()->get();
@@ -102,8 +105,8 @@ class DashboardController extends Controller
 
     public function tabularViewStatistics()
     {
-        $departmentwise = Department::withCount(['users' => fn ($q) => $q->where('employee_type', 1)])
-            ->withCount(['users as present_count' => fn ($q) => $q->withWhereHas('punches', fn ($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->get();
+        $departmentwise = Department::withCount(['users' => fn($q) => $q->where('employee_type', 1)])
+            ->withCount(['users as present_count' => fn($q) => $q->withWhereHas('punches', fn($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->get();
 
         return view('admin.dashboard.tabular-view-statistics')->with([
             'departmentwise' => $departmentwise,
