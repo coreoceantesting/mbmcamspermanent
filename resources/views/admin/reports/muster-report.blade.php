@@ -75,8 +75,8 @@
                                         </div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="class">Ward  <span class="text-danger">*</span></label>
-                                            <select class="js-example-basic-single col-sm-12  @error('ward') is-invalid  @enderror" name="ward" required>
+                                            <label class="col-form-label" for="class">Ward</label>
+                                            <select class="js-example-basic-single col-sm-12  @error('ward') is-invalid  @enderror" name="ward">
                                                 <option value="">--Select Ward--</option>
                                                 @foreach ($wards as $w)
                                                     <option value="{{ $w->id }}" {{ request()->ward == $w->id ? 'selected' : '' }} >{{ $w->name }}</option>

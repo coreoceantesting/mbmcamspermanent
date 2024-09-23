@@ -127,7 +127,9 @@ class ReportController extends Controller
                         ->whereBetween('punch_date', [$fromDate, $toDate])
                         ->select('id', 'emp_code', 'check_in', 'check_out', 'punch_date', 'is_latemark', 'type', 'leave_type_id', 'is_paid', 'duration', 'punch_by')
                 )
-                // ->where('ward_id', $request->ward)
+                ->when(isset($request->ward) && $request->ward != "", function ($q) use ($request) {
+                    $q->where('ward_id', $request->ward);
+                })
                 ->where('is_employee', 1)
                 ->where('employee_type', 1)
                 ->where('department_id', $department)
