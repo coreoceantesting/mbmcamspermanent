@@ -23,7 +23,7 @@
 
                         <div class="card">
                             <form class="theme-form" method="GET" action="{{ route('reports.muster') }}" target="_blank">
-                                @csrf
+                                
                                 <div class="card-body pt-0">
 
                                     <div class="mb-3 row">
