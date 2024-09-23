@@ -180,9 +180,9 @@
                                             @endphp
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $emp->emp_code }}</td>
-                                                    <td>{{ $emp->name }}</td>
-                                                    <td>{{ $emp->department->name }}</td>
+                                                    <td>{{ $emp?->emp_code }}</td>
+                                                    <td>{{ $emp?->name }}</td>
+                                                    <td>{{ $emp->department?->name }}</td>
                                                     <td>{{ $totalDays }}</td>
                                                     <td>{{ $latemark }} </td>
                                                     <td>{{ $halfDays }}</td>

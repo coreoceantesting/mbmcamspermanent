@@ -29,7 +29,7 @@
                                     <div class="mb-3 row">
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="year">Year <span class="text-danger">*</span> </label>
-                                            <select name="year" class="form-control" id="year">
+                                            <select name="year" class="form-select" id="year">
                                                 <option value="2024" {{ request()->year == '2024' ? 'selected' : '' }}>2024</option>
                                                 <option value="2023" {{ request()->year == '2023' ? 'selected' : '' }}>2023</option>
                                                 <option value="2022" {{ request()->year == '2022' ? 'selected' : '' }}>2022</option>
@@ -39,7 +39,7 @@
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="month">Select Month <span class="text-danger">*</span></label>
-                                            <select class="col-sm-12 form-control @error('month') is-invalid  @enderror" value="{{ old('month') }}" required name="month">
+                                            <select class="col-sm-12 form-select @error('month') is-invalid  @enderror" value="{{ old('month') }}" required name="month">
                                                 <option value="">--Select Month--</option>
                                                 <option value="1" {{ request()->month == 1 ? 'selected' : '' }} >January</option>
                                                 <option value="2" {{ request()->month == 2 ? 'selected' : '' }} >February</option>
@@ -92,7 +92,7 @@
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="department">Department </label>
                                             <select class="js-example-basic-single col-sm-12  @error('department') is-invalid  @enderror" name="department">
-                                                <option value="">--Select Department--</option>
+                                                <option value="">--Select All Department--</option>
                                                 @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}" {{ request()->department == $department->id ? 'selected' : '' }} >{{ $department->name }}</option>
                                                 @endforeach

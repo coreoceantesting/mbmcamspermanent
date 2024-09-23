@@ -53,10 +53,12 @@ class ReportController extends Controller
         $otherLeavesArray = ['no' => 'NIGHTOFF', 'co' => 'COMPENS', 'ph' => 'PUBLIC', 'so' => 'SATOFF', 'do' => 'DAYOFF'];
 
         if ($request->month) {
-            $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
+            // $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
             $empList = User::whereNot('id', $authUser->id)
                 ->with(['department', 'shift', 'empShifts' => fn($q) => $q->whereBetween('from_date', [$fromDate, $toDate])])
-                ->where('department_id', $departmentId)
+                ->when(isset($request->department), function ($q) use ($request) {
+                    $q->where('department_id', $request->department_id);
+                })
                 ->where('is_employee', 1)
                 ->where('employee_type', 1)
                 ->orderBy('emp_code')
@@ -406,7 +408,7 @@ class ReportController extends Controller
 
         $data = [];
         if ($request->emp_code) {
-            $data = Punch::withWhereHas(['user' => fn($q) => $q->where('employee_type', 1)])->with('device')
+            $data = Punch::withWhereHas('user', fn($q) => $q->where('employee_type', 1))->with(['device'])
                 ->when($request->from_date, fn($qr) => $qr->whereDate('punch_date', '>=', $fromDate))
                 ->when($request->to_date, fn($qr) => $qr->whereDate('punch_date', '<=', $toDate))
                 ->where('emp_code', $request->emp_code)
@@ -438,14 +440,16 @@ class ReportController extends Controller
         $otherLeavesArray = ['no' => 'NIGHTOFF', 'co' => 'COMPENS', 'ph' => 'PUBLIC', 'so' => 'SATOFF', 'do' => 'DAYOFF'];
 
         if ($request->month) {
-            $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
+            // $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
             $empList = User::whereNot('id', $authUser->id)
                 ->with([
                     'department',
                     'leaveRequests' => fn($q) => $q->whereBetween('from_date', [$fromDate, $toDate]),
                     'punches' => fn($q) => $q->whereBetween('punch_date', [$fromDate, $toDate])
                 ])
-                ->where('department_id', $departmentId)
+                ->when(isset($request->department) && $request->department != "", function ($q) use ($request) {
+                    $q->where('department_id', $request->department_id);
+                })
                 ->where('is_employee', 1)
                 ->when($request->ward, fn($qr) => $qr->where('ward_id', $request->ward))
                 ->when($request->class, fn($qr) => $qr->where('clas_id', $request->class))

@@ -18,7 +18,7 @@
 
                         <div class="card">
                             <form class="theme-form" method="GET" action="{{ route('dashboard.device-log-report') }}">
-                                @csrf
+                             
                                 <div class="card-body pt-0">
 
                                     <div class="mb-3 row">
@@ -150,11 +150,11 @@
                                         @foreach ($datas as $data)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $data->user->emp_code }}</td>
-                                                <td>{{ $data->user->name }}</td>
+                                                <td>{{ $data->user?->emp_code }}</td>
+                                                <td>{{ $data->user?->name }}</td>
                                                 <td>{{ $data->device?->DeviceLocation }}</td>
-                                                <td>{{ $data->user->ward?->name }}</td>
-                                                <td>{{ $data->user->department?->name }}</td>
+                                                <td>{{ $data->user?->ward?->name }}</td>
+                                                <td>{{ $data->user?->department?->name }}</td>
                                                 <td>{{ $data->user?->clas?->name }} </td>
                                                 <td>{{ Carbon\Carbon::parse($data->LogDate)->format('Y-m-d') }}</td>
                                                 <td>{{ $data->LogDate }}</td>

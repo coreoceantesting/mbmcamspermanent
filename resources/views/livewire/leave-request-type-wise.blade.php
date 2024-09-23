@@ -59,10 +59,10 @@
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $request->user->emp_code }}</td>
-                            <td>{{ $request->user->name }}</td>
-                            <td>{{ $request->user->department?->name }}</td>
-                            <td>{{ $request->user->ward?->name }}</td>
-                            <td>{{ $request->user->clas?->name }}</td>
+                            <td>{{ $request->user?->name }}</td>
+                            <td>{{ $request->user?->department?->name }}</td>
+                            <td>{{ $request->user?->ward?->name }}</td>
+                            <td>{{ $request->user?->clas?->name }}</td>
                             <td>{{ $request->from_date }}</td>
                             @if ($pageType == 'full_day')
                                 <td>{{ $request->leaveType->name }}</td>

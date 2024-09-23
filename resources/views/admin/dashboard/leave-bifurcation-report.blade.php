@@ -18,7 +18,7 @@
 
                         <div class="card">
                             <form class="theme-form" method="GET" action="{{ route('dashboard.todays-leave-bifurcation') }}">
-                                @csrf
+                              
                                 <div class="card-body pt-0">
 
                                     <div class="mb-3 row">
@@ -61,7 +61,7 @@
                                             <div class="col-md-3 mt-3">
                                                 <label class="col-form-label" for="department">Department  </label>
                                                 <select class="js-example-basic-single col-sm-12  @error('department') is-invalid  @enderror" name="department">
-                                                    <option value="">--Select Department--</option>
+                                                    <option value="">--Select All Department--</option>
                                                     @foreach ($departments as $department)
                                                         <option value="{{ $department->id }}" {{ request()->department == $department->id ? 'selected' : '' }} >{{ $department->name }}</option>
                                                     @endforeach
@@ -124,11 +124,11 @@
                                             @if ($value->user)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $value->user->emp_code }}</td>
-                                                    <td>{{ $value->user->name }}</td>
-                                                    <td>{{ $value->user->device?->name }}</td>
-                                                    <td>{{ $value->user->ward?->name }}</td>
-                                                    <td>{{ $value->user->department?->name }}</td>
+                                                    <td>{{ $value->user?->emp_code }}</td>
+                                                    <td>{{ $value->user?->name }}</td>
+                                                    <td>{{ $value->user?->device?->name }}</td>
+                                                    <td>{{ $value->user?->ward?->name }}</td>
+                                                    <td>{{ $value->user?->department?->name }}</td>
                                                     <td>{{ $value->leaveType?->name }}</td>
                                                 </tr>
                                             @endif

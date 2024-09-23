@@ -124,8 +124,8 @@
                                         @forelse ($data as $value)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $value->emp_code }}</td>
-                                                <td>{{ $value->name }}</td>
+                                                <td>{{ $value?->emp_code }}</td>
+                                                <td>{{ $value?->name }}</td>
                                                 <td>{{ $value->device?->name }}</td>
                                                 <td>{{ $value->ward?->name }}</td>
                                                 <td>{{ $value->department?->name }}</td>

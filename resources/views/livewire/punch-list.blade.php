@@ -46,8 +46,8 @@
                     @foreach ($punches as $punch)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $punch->user->emp_code }}</td>
-                            <td>{{ $punch->user->name }}</td>
+                            <td>{{ $punch->user?->emp_code }}</td>
+                            <td>{{ $punch->user?->name }}</td>
                             <td>{{ $punch->user?->ward?->name }}</td>
                             <td>{{ $punch->user?->department?->name }}</td>
                             {{-- <td>{{ $punch->device->name }}</td> --}}

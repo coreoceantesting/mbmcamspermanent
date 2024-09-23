@@ -54,11 +54,11 @@
                     @foreach ($leaveRequests as $request)
                         <tr>
                             <td>{{ ++$i }}</td>
-                            <td>{{ $request->user->emp_code }}</td>
-                            <td>{{ $request->user->name }}</td>
-                            <td>{{ $request->user->department?->name }}</td>
-                            <td>{{ $request->user->ward?->name }}</td>
-                            <td>{{ $request->user->clas?->name }}</td>
+                            <td>{{ $request->user?->emp_code }}</td>
+                            <td>{{ $request->user?->name }}</td>
+                            <td>{{ $request->user?->department?->name }}</td>
+                            <td>{{ $request->user?->ward?->name }}</td>
+                            <td>{{ $request->user?->clas?->name }}</td>
                             <td>{{ $request->leaveType ? $request->leaveType->name : 'Half Day' }}</td>
                             <td>{{ $request->from_date }}</td>
                             <td>{{ $request->to_date }}</td>

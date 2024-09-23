@@ -111,7 +111,7 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $emp->emp_code }}</td>
-                                                    <td>{{ $emp->user->name }}</td>
+                                                    <td>{{ $emp->user?->name }}</td>
                                                     <td>{{ $emp->device?->DeviceLocation }}</td>
                                                     <td>{{ $emp->device?->SerialNumber}}</td>
                                                     <td>{{ $emp->check_in }}</td>
