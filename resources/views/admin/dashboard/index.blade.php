@@ -236,7 +236,7 @@
                                     <div class="media py-2">
                                         <div class="col-12">
                                             <div class="media-body">
-                                                <span>{{ Str::limit(ucwords($latest->user->name), 25) }}</span> <br>
+                                                <span>{{ Str::limit(ucwords($latest->user?->name), 25) }}</span> <br>
                                                 <span>#{{ $latest->emp_code }}</span> &nbsp;&nbsp; <span class="text-danger"> {{  Carbon\Carbon::parse($latest->check_in)->format('d-m-Y h:i A') }} </span>
                                                 <p style="font-size: 10px">{{ Str::limit(ucfirst($latest->user->department?->name), 25) }}</p>
                                             </div>
