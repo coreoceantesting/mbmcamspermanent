@@ -22,6 +22,7 @@
                                                 <option value="2022" {{ date('Y') == '2022' ? 'selected' : '' }}>2022</option>
                                                 <option value="2023" {{ date('Y') == '2023' ? 'selected' : '' }}>2023</option>
                                                 <option value="2024" {{ date('Y') == '2024' ? 'selected' : '' }}>2024</option>
+                                                <option value="2025" {{ date('Y') == '2025' ? 'selected' : '' }}>2025</option>
                                             </select>
                                             <span class="text-danger error-text year_err"></span>
                                         </div>

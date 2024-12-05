@@ -30,6 +30,7 @@
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="year">Year <span class="text-danger">*</span> </label>
                                             <select name="year" class="form-select" id="year">
+                                                <option value="2025" {{ request()->year == '2025' ? 'selected' : '' }}>2025</option>
                                                 <option value="2024" {{ request()->year == '2024' ? 'selected' : '' }}>2024</option>
                                                 <option value="2023" {{ request()->year == '2023' ? 'selected' : '' }}>2023</option>
                                                 <option value="2022" {{ request()->year == '2022' ? 'selected' : '' }}>2022</option>
