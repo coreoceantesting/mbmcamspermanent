@@ -108,12 +108,11 @@
 
                                 <div class="col-5 py-2">
                                     <label class="mb-1" for="year">Year </label>
-                                    <select class="col-sm-12 form-control @error('year') is-invalid  @enderror" value="{{ old('year') }}" required name="year">
-                                        <option value="">--Select Year--</option>
-                                        <option value="2022" {{ request()->year == 2022 ? 'selected' : '' }}>2022</option>
-                                        <option value="2023" {{ request()->year == 2023 ? 'selected' : '' }}>2023</option>
-                                        <option value="2024" {{ request()->year == 2024 ? 'selected' : '' }}>2024</option>
-                                        <option value="2025" {{ request()->year == 2025 ? 'selected' : '' }}>2025</option>
+                                    <select name="year" class="form-select" id="year">
+                                        @php $year = (date('m') == 12) ? $year = date('Y') + 1 : date('Y'); @endphp
+                                        @for($i=2022; $i <= $year; $i++)
+                                        <option value="{{ $i }}" {{ date('Y') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                        @endfor
                                     </select>
                                     @error('year')
                                         <span class="invalid-feedback" role="alert">

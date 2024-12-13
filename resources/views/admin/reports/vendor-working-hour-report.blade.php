@@ -27,11 +27,11 @@
                                     <div class="mb-3 row">
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="year">Year <span class="text-danger">*</span> </label>
-                                            <select name="year" class="form-control" id="year">
-                                                <option value="2025" {{ request()->year == '2025' ? 'selected' : '' }}>2025</option>
-                                                <option value="2024" {{ request()->year == '2024' ? 'selected' : '' }}>2024</option>
-                                                <option value="2023" {{ request()->year == '2023' ? 'selected' : '' }}>2023</option>
-                                                <option value="2022" {{ request()->year == '2022' ? 'selected' : '' }}>2022</option>
+                                            <select name="year" class="form-select" id="year">
+                                                @php $year = (date('m') == 12) ? $year = date('Y') + 1 : date('Y'); @endphp
+                                                @for($i=$year; $i >= 2022; $i--)
+                                                <option value="{{ $i }}" {{ date('Y') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                                                @endfor
                                             </select>
                                             <span class="text-danger error-text year_err"></span>
                                         </div>
