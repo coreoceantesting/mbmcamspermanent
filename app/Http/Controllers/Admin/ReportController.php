@@ -56,15 +56,15 @@ class ReportController extends Controller
             // $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
             $empList = User::whereNot('id', $authUser->id)
                 ->with(['department', 'shift', 'empShifts' => fn($q) => $q->whereBetween('from_date', [$fromDate, $toDate])])
-                ->when(isset($request->department), function ($q) use ($request) {
-                    $q->where('department_id', $request->department_id);
+                ->when(isset($request->department) && $request->department != "", function ($q) use ($request) {
+                    $q->where('department_id', $request->department);
                 })
                 ->where('is_employee', 1)
                 ->where('employee_type', 1)
                 ->orderBy('emp_code')
                 ->with('punches', fn($q) => $q->whereBetween('punch_date', [$fromDate, $toDate]))
-                ->when($request->contractor, fn($qr) => $qr->where('contractor_id', $request->contractor))
-                ->when($request->designation, fn($qr) => $qr->where('designation_id', $request->designation))
+                ->when(isset($request->contractor) && $request->contractor, fn($qr) => $qr->where('contractor_id', $request->contractor))
+                ->when(isset($request->designation) && $request->designation, fn($qr) => $qr->where('designation_id', $request->designation))
                 ->get();
 
             $holidays = Holiday::whereBetween('date', [$fromDate, $toDate])->get();
