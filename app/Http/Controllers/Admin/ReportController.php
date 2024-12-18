@@ -30,6 +30,7 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
@@ -93,6 +94,7 @@ class ReportController extends Controller
 
     public function musterReport(Request $request)
     {
+        set_time_limit(0);
         // designation
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
@@ -198,6 +200,7 @@ class ReportController extends Controller
 
     public function getContractorsNames($id)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $departmentId = $id;
         $contractors = Contractor::whereHas('users', function ($query) use ($departmentId) {
@@ -231,6 +234,7 @@ class ReportController extends Controller
 
     public function deviceLogReport(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
         $departments = Department::whereDepartmentId(null)
@@ -271,6 +275,7 @@ class ReportController extends Controller
 
     public function departmentWiseReport(Request $request)
     {
+        set_time_limit(0);
         $data = Department::withCount(['users' => fn($q) => $q->where('employee_type', 1)])
             ->withCount(['users as present_count' => fn($q) => $q->withWhereHas('punches', fn($qr) => $qr->where('punch_date', Carbon::today()->toDateString()))->where('employee_type', 1)])->get();
 
@@ -280,6 +285,7 @@ class ReportController extends Controller
     // Same as device log report
     public function todaysPresentReport(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
         $departments = Department::whereDepartmentId(null)
@@ -306,6 +312,7 @@ class ReportController extends Controller
 
     public function todaysAbsentReport(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
         $departments = Department::whereDepartmentId(null)
@@ -334,6 +341,7 @@ class ReportController extends Controller
 
     public function shiftWiseEmployees(Request $request, $shiftId)
     {
+        set_time_limit(0);
         $shiftId = Crypt::decrypt($shiftId) ?? '1';
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
@@ -356,6 +364,7 @@ class ReportController extends Controller
 
     public function todaysLeaveBifurcation(Request $request)
     {
+        set_time_limit(0);
         $leave_type_id = $request->leave_type_id;
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
@@ -381,6 +390,7 @@ class ReportController extends Controller
 
     public function monthWiseLatemark(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)->orderBy('name')->get();
         $wards = Ward::orderBy('name')->get();
@@ -407,6 +417,7 @@ class ReportController extends Controller
 
     public function employeeWiseReport(Request $request)
     {
+        set_time_limit(0);
         $fromDate = $request->from_date ??  Carbon::today()->endOfMonth()->toDateString();
         $toDate = $request->to_date ?? Carbon::today()->startOfMOnth()->toDateString();
 
@@ -424,6 +435,7 @@ class ReportController extends Controller
 
     public function empLeaveCounts(Request $request)
     {
+        set_time_limit(0);
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
             ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
@@ -467,15 +479,9 @@ class ReportController extends Controller
         return view('admin.reports.emp-leaves-count')->with(['dateRanges' => $dateRanges, 'leavesArray' => $leavesArray, 'otherLeavesArray' => $otherLeavesArray, 'empList' => $empList, 'departments' => $departments, 'holidays' => $holidays, 'settings' => $settings, 'leaveTypes' => $leaveTypes, 'wards' => $wards, 'class' => $class, 'fromDate' => $fromDate, 'toDate' => $toDate, 'totalDays' => $totalDays]);
     }
 
-
-
-
-
-
-
-
     public function monthWiseDate(Request $request)
     {
+        set_time_limit(0);
         $year = $request->year ?? date('Y');
         $month = $request->month ?? 1;
 
