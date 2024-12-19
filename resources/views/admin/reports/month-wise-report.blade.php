@@ -228,7 +228,7 @@
                                                 $absendDays = 0;
                                                 $holidayCount = 0;
                                                 $actualPresent = 0;
-                                                $latemarkGraceTime = $emp->is_divyang == 'y' ? $settings['LATE_MARK_TIMING_DIVYANG'] : $settings['LATE_MARK_TIMING'];
+                                                $latemarkGraceTime = $emp->is_divyang == 'y' ? $settings['PERMANENT_LATE_MARK_TIMING_DIVYANG'] : $settings['PERMANENT_LATE_MARK_TIMING'];
                                             @endphp
 
                                             @foreach ($dateRanges as $dateRange)
