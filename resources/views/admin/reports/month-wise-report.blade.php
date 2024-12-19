@@ -202,7 +202,7 @@
                                             <th>Present Days</th>
                                             <th>Late Marks</th>
                                             {{-- <th>Late Mark CL</th> --}}
-                                            <th>Short Day</th>
+                                            <th>Half Day</th>
                                             {{-- @foreach ($leaveTypes as $leaveType)
                                                 <th>{{ ucfirst($leaveType->name) }}</th>
                                             @endforeach --}}

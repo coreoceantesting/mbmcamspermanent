@@ -438,7 +438,7 @@
                     <th colspan="1" style="text-align: center; font-weight:700">ABS DAY</th>
                     <th colspan="1" style="text-align: center; font-weight:700">LATE MARK</th>
                     <th colspan="1" style="text-align: center; font-weight:700">LATE MARK CL</th>
-                    <th colspan="1" style="text-align: center; font-weight:700">SHORT-DAY</th>
+                    <th colspan="1" style="text-align: center; font-weight:700">HALF-DAY</th>
                     @foreach ($leaveTypes as $leaveType)
                         <th style="text-align: center; font-weight:700">{{ strtoupper($leaveType->name) }}</th>
                     @endforeach
