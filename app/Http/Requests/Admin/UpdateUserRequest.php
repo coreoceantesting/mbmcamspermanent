@@ -25,14 +25,14 @@ class UpdateUserRequest extends FormRequest
         return [
             'department_id' => 'required|exists:departments,id',
             // 'sub_department_id' => 'required|exists:departments,id',
-            'emp_code' => 'required|max:15|regex:/^[A-Z0-9]+$/',
+            'emp_code' => 'nullable',
             // 'dob' => 'required',
             'gender' => ['required', Rule::in(['m', 'f', 'o'])],
             'role' => 'required',
             'name' => 'required',
             // 'ward_id' => 'required',
             'email' => 'required',
-            'mobile' => 'required|digits:10',
+            'mobile' => 'nullable|digits:10',
         ];
     }
 }

@@ -25,7 +25,7 @@ class StoreUserRequest extends FormRequest
         return [
             'department_id' => 'required|exists:departments,id',
             // 'sub_department_id' => 'required|exists:departments,id',
-            'emp_code' => 'required|max:15|unique:app_users,emp_code|regex:/^[A-Z0-9]+$/',
+            'emp_code' => 'nullable|max:15|unique:app_users,emp_code|regex:/^[A-Z0-9]+$/',
             // 'dob' => 'required',
             'gender' => ['required', Rule::in(['m', 'f', 'o'])],
             'role' => 'required',
