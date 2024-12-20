@@ -158,7 +158,7 @@ class ReportController extends Controller
                 $data['totalDays'] = $totalDays;
                 $data['dateRanges'] = $dateRanges;
                 $data['defaultShift'] = $defaultShift;
-                $data['leavesArray'] = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'OUTPOST', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI'];
+                $data['leavesArray'] = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'ELECTION DUTY', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI'];
                 $data['otherLeavesArray'] = ['no' => 'NIGHTOFF', 'co' => 'COMPENS', 'ph' => 'PUBLIC', 'so' => 'SATOFF', 'do' => 'DAYOFF'];
 
                 $filename = str_replace('/', '_', 'MUSTER_' . $fromDate . '_' . $toDate);
