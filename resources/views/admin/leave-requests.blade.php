@@ -108,11 +108,11 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-md-3 mt-3">
+                                        {{-- <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="file">Choose File <span class="text-danger">*</span> </label>
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
