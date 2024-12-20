@@ -32,11 +32,10 @@ class StoreLeaveRequestRequest extends FormRequest
 
             'leave_type_id' => 'required_unless:page_type,half_day',
             'from_date' => 'required_unless:page_type,half_day|date',
-            'file' => 'required|mimes:png,jpg,jpeg,pdf',
+            'file' => 'nullable|mimes:png,jpg,jpeg,pdf',
             'remark' => 'required',
         ];
-        if( request()->page_type != 'half_day' )
-        {
+        if (request()->page_type != 'half_day') {
             $rules['to_date'] = 'required|date|after_or_equal:from_date';
             $rules['no_of_days'] = 'required|numeric|max:30';
         }
