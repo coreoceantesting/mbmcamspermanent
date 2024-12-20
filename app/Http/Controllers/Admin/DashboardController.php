@@ -23,7 +23,7 @@ class DashboardController extends Controller
         $employeeType = 1;
 
         $authUser = auth()->user();
-        $is_admin = $authUser->hasRole(['Admin', 'Super Admin']) ? true : false;
+        $is_admin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? true : false;
         $department = $request->ward;
 
         $totalEmployees = User::when(!$is_admin && !$department, fn($qr) => $qr->where('department_id', $authUser->department_id))

@@ -273,6 +273,7 @@
                                             <th>Full Name</th>
                                             <th>Email</th>
                                             <th>Mobile</th>
+                                            <th>Department</th>
                                             <th style="min-width: 100px;">Status</th>
                                             <th>Registered On</th>
                                             <th>Action</th>
@@ -285,6 +286,7 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->mobile }}</td>
+                                                <td>{{ $user->department?->name }}</td>
                                                 <td>
                                                     <div class="media-body text-end icon-state">
                                                         <label class="switch">

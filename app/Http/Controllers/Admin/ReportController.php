@@ -33,7 +33,7 @@ class ReportController extends Controller
         set_time_limit(0);
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $wards = Ward::orderBy('name')->get();
@@ -98,7 +98,7 @@ class ReportController extends Controller
         // designation
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $wards = Ward::latest()->get();
@@ -236,9 +236,9 @@ class ReportController extends Controller
     {
         set_time_limit(0);
         $authUser = Auth::user();
-        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
+        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']);
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $wards = Ward::orderBy('name')->get();
@@ -287,9 +287,9 @@ class ReportController extends Controller
     {
         set_time_limit(0);
         $authUser = Auth::user();
-        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
+        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']);
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $wards = Ward::orderBy('name')->get();
@@ -314,9 +314,9 @@ class ReportController extends Controller
     {
         set_time_limit(0);
         $authUser = Auth::user();
-        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
+        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']);
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
@@ -344,7 +344,7 @@ class ReportController extends Controller
         set_time_limit(0);
         $shiftId = Crypt::decrypt($shiftId) ?? '1';
         $authUser = Auth::user();
-        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
+        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']);
         $departments = $isAdmin ? Department::whereDepartmentId(null)->orderBy('name')->get() : [];
         $wards = Ward::orderBy('name')->get();
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
@@ -367,7 +367,7 @@ class ReportController extends Controller
         set_time_limit(0);
         $leave_type_id = $request->leave_type_id;
         $authUser = Auth::user();
-        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
+        $isAdmin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']);
         $departments = $isAdmin ? Department::whereDepartmentId(null)->orderBy('name')->get() : [];
         $wards = Ward::orderBy('name')->get();
         $selectedDepartmentId = $isAdmin ? $request->department : $authUser->department_id;
@@ -396,8 +396,8 @@ class ReportController extends Controller
         $wards = Ward::orderBy('name')->get();
         $class = Clas::orderBy('name')->get();
 
-        $departmentId = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->department_id;
-        $ward = $authUser->hasRole(['Admin', 'Super Admin']) ? $request->department : $authUser->ward_id;
+        $departmentId = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? $request->department : $authUser->department_id;
+        $ward = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? $request->department : $authUser->ward_id;
         $fromDate = $request->from_date ??  Carbon::today()->endOfMonth()->toDateString();
         $toDate = $request->to_date ?? Carbon::today()->startOfMOnth()->toDateString();
 
@@ -438,7 +438,7 @@ class ReportController extends Controller
         set_time_limit(0);
         $authUser = Auth::user();
         $departments = Department::whereDepartmentId(null)
-            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($qr) => $qr->where('id', $authUser->department_id))
+            ->when(!$authUser->hasRole(['Admin', 'Super Admin', 'Officer']), fn($qr) => $qr->where('id', $authUser->department_id))
             ->orderBy('name')->get();
 
         $wards = Ward::orderBy('name')->get();

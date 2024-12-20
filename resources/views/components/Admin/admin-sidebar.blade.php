@@ -173,7 +173,7 @@
                     @endrole
 
 
-                    @can('reports.month-wise')
+                    @canany(['reports.month-wise', 'reports.muster', 'reports.leave-report', 'reports.daily-attendance', 'reports.today-present-report', 'reports.today-absent-report', 'reports.department-wise', 'reports.leave-bifurcation', 'reports.emp-wise-report'])
                         <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="layout"></i><span>Reports</span>
@@ -188,25 +188,25 @@
                                 @can('reports.muster')
                                     <li><a href="{{ route('reports.muster') }}">Muster report </a></li>
                                 @endcan
-                                @can('reports.muster')
+                                @can('reports.leave-report')
                                     <li><a href="{{ route('reports.leave-report') }}">Leave report </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.daily-attendance')
                                     <li><a href="{{ route('dashboard.device-log-report') }}">Daily attendance </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.today-present-report')
                                     <li><a href="{{ route('dashboard.todays-present-report') }}">Today's present </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.today-absent-report')
                                     <li><a href="{{ route('dashboard.todays-absent-report') }}">Today's absent </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.department-wise')
                                     <li><a href="{{ route('dashboard.department-wise-report') }}">Department wise </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.leave-bifurcation')
                                     <li><a href="{{ route('dashboard.todays-leave-bifurcation') }}">Leave bifurcation </a></li>
                                 @endcan
-                                @can('reports.month-wise')
+                                @can('reports.emp-wise-report')
                                     <li><a href="{{ route('dashboard.employee-wise-report') }}">Emp wise report </a></li>
                                 @endcan
                             </ul>
