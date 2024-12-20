@@ -238,13 +238,13 @@
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="work_duration">Work Duration </label>
-                                            <input class="form-control" id="work_duration" name="work_duration" type="number" min="1" max="12" placeholder="Enter Work Duration">
+                                            <input class="form-control" id="work_duration" name="work_duration" type="number" min="1" max="12" placeholder="Enter Work Duration"  step="any">
                                             <span class="text-danger error-text work_duration_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="sa_duration">Saturday Work Duration </label>
-                                            <input class="form-control" id="sa_duration" name="sa_duration" type="number" min="1" max="12" placeholder="Enter Saturday Work Duration">
+                                            <input class="form-control" id="sa_duration" name="sa_duration" type="number" min="1" max="12" placeholder="Enter Saturday Work Duration" step="any">
                                             <span class="text-danger error-text sa_duration_err"></span>
                                         </div>
 
