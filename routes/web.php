@@ -34,7 +34,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
 
     // Auth Routes
     Route::get('edit-profile', [App\Http\Controllers\Admin\DashboardController::class, 'editProfile'])->name('edit-profile');
-    Route::get('home', fn () => redirect()->route('dashboard'))->name('home');
+    Route::get('home', fn() => redirect()->route('dashboard'))->name('home');
     Route::get('change-employee-type/{type}', [App\Http\Controllers\Admin\AuthController::class, 'changeEmployeeType'])->name('change-employee-type');
     Route::post('logout', [App\Http\Controllers\Admin\AuthController::class, 'Logout'])->name('logout');
     Route::get('show-change-password', [App\Http\Controllers\Admin\AuthController::class, 'showChangePassword'])->name('show-change-password');
@@ -139,7 +139,7 @@ Route::prefix('employee')->name('employee.')->group(function () {
 
     // Guest employees
     Route::middleware(['employee.guest', 'PreventBackHistory'])->group(function () {
-        Route::get('/', fn () => redirect()->route('login', ['device_type' => 'mobile']))->name('login');
+        Route::get('/', fn() => redirect()->route('login', ['device_type' => 'mobile']))->name('login');
         Route::get('/register', [App\Http\Controllers\Employee\AuthController::class, 'showRegister'])->name('register');
         Route::post('/emp-info', [App\Http\Controllers\Employee\AuthController::class, 'searchEmployeeCode'])->name('emp-info');
         Route::post('/register', [App\Http\Controllers\Employee\AuthController::class, 'register'])->name('signup');
@@ -159,7 +159,7 @@ Route::prefix('employee')->name('employee.')->group(function () {
 Route::get('/privacy-policy', [App\Http\Controllers\Employee\HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 
 
-
+Route::resource('file-test', App\Http\Controllers\FileUploadTestController::class);
 
 
 
