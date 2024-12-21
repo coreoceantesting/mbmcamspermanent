@@ -43,7 +43,7 @@
                         <th style="min-width: 120px" >To Date</th>
                         <th>Days</th>
                         <th style="min-width: 150px">Remark</th>
-                        {{-- <th>View Document</th> --}}
+                        <th>View Document</th>
                         <th style="min-width: 150px" >Action</th>
                     </tr>
                 </thead>
@@ -64,9 +64,9 @@
                             <td>{{ $request->to_date }}</td>
                             <td>{{ $request->no_of_days }}</td>
                             <td>{{ Str::limit($request->remark, 60) }}</td>
-                            {{-- <td>
+                            <td>
                                 <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View </a>
-                            </td> --}}
+                            </td>
                             <td>
                                 {{-- @if($type_const == 'pending') --}}
                                     @if ($request->is_approved == 0)
