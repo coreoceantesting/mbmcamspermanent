@@ -159,8 +159,6 @@ Route::prefix('employee')->name('employee.')->group(function () {
 Route::get('/privacy-policy', [App\Http\Controllers\Employee\HomeController::class, 'privacyPolicy'])->name('privacy-policy');
 
 
-Route::resource('file-test', App\Http\Controllers\FileUploadTestController::class);
-
 
 
 
