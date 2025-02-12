@@ -21,14 +21,20 @@ class AddRoster extends Component
 
     public function render()
     {
-        if($this->to_date)
-            $this->date_ranges = CarbonPeriod::create( Carbon::parse($this->from_date ?? Carbon::today()->startOfWeek()->toDateString()), Carbon::parse($this->to_date ?? Carbon::today()->endOfWeek()->toDateString()) )->toArray();
+        if ($this->to_date)
+            $this->date_ranges = CarbonPeriod::create(Carbon::parse($this->from_date ?? Carbon::today()->startOfWeek()->toDateString()), Carbon::parse($this->to_date ?? Carbon::today()->endOfWeek()->toDateString()))->toArray();
 
-        return view('livewire.add-roster')->with([ 'wards'=>$this->wards, 'departments'=> $this->departments, 'shiftLists'=> $this->shiftLists, 'designations'=> $this->designations ]);
+        return view('livewire.add-roster')->with(['wards' => $this->wards, 'departments' => $this->departments, 'shiftLists' => $this->shiftLists, 'designations' => $this->designations]);
     }
     public function boot()
     {
-        $this->departments = Department::whereNot('department_id', null)->orderBy('name')->get();
+        $user = auth()->user();
+        $userRole = $user->roles[0];
+        $this->departments = Department::query()
+            ->when($userRole->name == 'Clerk', fn($q) => $q->where('id', $userRole->department_id))
+            ->whereIsPermanent(0)
+            ->orderBy('name')->get();
+
         $this->wards = Ward::orderBy('name')->get();
         $this->designations = Designation::orderBy('name')->get();
         $this->shiftLists = Shift::get();
@@ -39,39 +45,34 @@ class AddRoster extends Component
         $this->addValidate(array($key));
         $user = User::where('emp_code', $this->emp_code[$key])->first();
 
-        $date_ranges = CarbonPeriod::create( Carbon::parse($this->from_date), Carbon::parse($this->to_date) )->toArray();
-        foreach($date_ranges as $date_range)
-        {
+        $date_ranges = CarbonPeriod::create(Carbon::parse($this->from_date), Carbon::parse($this->to_date))->toArray();
+        foreach ($date_ranges as $date_range) {
             $varName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
             $val = $this->{$varName}[$key];
             $shift = '';
             $isNight = 0;
             $toDate = Carbon::parse($date_range)->toDateString();
-            if(is_numeric($val))
-            {
-                $shift = Shift::find( $val );
-                if(Carbon::parse($shift->to_time)->lt($shift->from_time))
-                {
+            if (is_numeric($val)) {
+                $shift = Shift::find($val);
+                if (Carbon::parse($shift->to_time)->lt($shift->from_time)) {
                     $toDate = Carbon::parse($date_range)->addDay()->toDateString();
                     $isNight = 1;
-                }
-                else
-                {
+                } else {
                     $toDate = Carbon::parse($date_range)->toDateString();
                 }
             }
 
             EmployeeShift::updateOrCreate([
-                    'user_id'=> $user->id,
-                    'from_date'=> Carbon::parse($date_range)->toDateString(),
-                ], [
-                    'shift_id'=> is_numeric($val) ? $shift->id : 0,
-                    'emp_code'=> $user->emp_code,
-                    'to_date'=> $toDate,
-                    'in_time'=> is_numeric($val) ? $shift->from_time : $val,
-                    'weekday'=> $varName,
-                    'is_night'=> $isNight
-                ]);
+                'user_id' => $user->id,
+                'from_date' => Carbon::parse($date_range)->toDateString(),
+            ], [
+                'shift_id' => is_numeric($val) ? $shift->id : 0,
+                'emp_code' => $user->emp_code,
+                'to_date' => $toDate,
+                'in_time' => is_numeric($val) ? $shift->from_time : $val,
+                'weekday' => $varName,
+                'is_night' => $isNight
+            ]);
         }
 
         array_push($this->except_this_emp_code, $this->emp_code[$key]);
@@ -83,13 +84,13 @@ class AddRoster extends Component
     protected function fetchEmployees()
     {
         $this->employees = User::query()
-                            ->where('is_rotational', '1')
-                            ->whereActiveStatus('1')
-                            ->whereNotIn('emp_code', $this->except_this_emp_code)
-                            ->when($this->is_department == 1, fn($q)=> $q->where('sub_department_id', $this->selected_department) )
-                            ->when($this->is_department == 2, fn($q)=> $q->where('designation_id', $this->selected_designation) )
-                            // ->pluck('emp_code');
-                            ->select('tenant_id', 'emp_code', 'name')->get();
+            ->where('is_rotational', '1')
+            ->whereActiveStatus('1')
+            ->whereNotIn('emp_code', $this->except_this_emp_code)
+            ->when($this->is_department == 1, fn($q) => $q->where('sub_department_id', $this->selected_department))
+            ->when($this->is_department == 2, fn($q) => $q->where('designation_id', $this->selected_designation))
+            // ->pluck('emp_code');
+            ->select('tenant_id', 'emp_code', 'name')->get();
 
         $this->emp_code = $this->employees->pluck('emp_code');
     }
@@ -123,8 +124,7 @@ class AddRoster extends Component
 
         $fieldArray = [];
         $messageArray = [];
-        foreach ($empIdArray as $id)
-        {
+        foreach ($empIdArray as $id) {
             $fieldArray['su.' . $id] = 'required';
             $fieldArray['mo.' . $id] = 'required';
             $fieldArray['tu.' . $id] = 'required';
@@ -142,18 +142,17 @@ class AddRoster extends Component
             $messageArray['sa.' . $id . '.required'] = 'required';
         }
         $validator = Validator::make([
-                'su' => $this->su,
-                'mo' => $this->mo,
-                'tu' => $this->tu,
-                'we' => $this->we,
-                'th' => $this->th,
-                'fr' => $this->fr,
-                'sa' => $this->sa,
-            ], $fieldArray, $messageArray);
+            'su' => $this->su,
+            'mo' => $this->mo,
+            'tu' => $this->tu,
+            'we' => $this->we,
+            'th' => $this->th,
+            'fr' => $this->fr,
+            'sa' => $this->sa,
+        ], $fieldArray, $messageArray);
 
-        if ($validator->fails())
-        {
-            $this->dispatchBrowserEvent('validate:scroll-to', [ 'query' => '[name="'.$validator->errors()->keys()[0].'"]'  ]);
+        if ($validator->fails()) {
+            $this->dispatchBrowserEvent('validate:scroll-to', ['query' => '[name="' . $validator->errors()->keys()[0] . '"]']);
         }
         $validator->validate();
     }

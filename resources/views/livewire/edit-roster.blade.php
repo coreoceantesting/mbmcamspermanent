@@ -1,8 +1,8 @@
-<div >
+<div>
     @push('styles')
         <style>
-            .modal-bg{
-                background: rgba(0,0,0,0.5);
+            .modal-bg {
+                background: rgba(0, 0, 0, 0.5);
             }
         </style>
     @endpush
@@ -17,38 +17,54 @@
                     </button>
                 </div>
 
-                    <div class="modal-body">
+                <div class="modal-body">
 
-                        <div class="row">
-                            @foreach($date_ranges as $key => $date_range)
-                                <div class="col-6">
-                                    <div class="form-group">
-                                        <label>{{ $date_range->toDateString() }} - ({{ strtoupper($date_range->format('D')) }}) Shift</label>
-                                        <select class="form-control @if ($errors->has('editable_dates.{{$key}}')) is-invalid @endif" name="editable_dates.{{$key}}" wire:model.defer="editable_dates.{{$key}}">
-                                            <option value="">----</option>
-                                            <option value="wo">WEEK OFF</option>
-                                            <option value="no">NIGHT OFF</option>
-                                            <option value="rem">REMOVE SHIFT</option>
-                                            @foreach ($shiftLists as $shiftList)
-                                                <option value="{{ $shiftList->id }}">{{ $shiftList->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        @if ($errors->has('editable_dates.{{$key}}'))
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $errors->first('editable_dates.'.$key) }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                    <div class="row">
+                        @foreach ($date_ranges as $key => $date_range)
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>{{ $date_range->toDateString() }} - ({{ strtoupper($date_range->format('D')) }}) Shift</label>
+                                    <select class="form-select @if ($errors->has('editable_dates.{{ $key }}')) is-invalid @endif" name="editable_dates.{{ $key }}" wire:model.defer="editable_dates.{{ $key }}">
+                                        <option value="">----</option>
+                                        <option value="wo">WEEK OFF</option>
+                                        <option value="no">NIGHT OFF</option>
+                                        <option value="rem">REMOVE SHIFT</option>
+                                        @foreach ($shiftLists as $shiftList)
+                                            <option value="{{ $shiftList->id }}">{{ $shiftList->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('editable_dates.{{ $key }}'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('editable_dates.' . $key) }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
+                    </div>
 
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-light" wire:click="$set('is_modal_open', false)" data-dismiss="modal">Close</button>
-                        <button type="submit" wire:click="update()" class="btn btn-primary">Update</button>
-                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-light" wire:click="$set('is_modal_open', false)" data-dismiss="modal">Close</button>
+                    <button type="submit" wire:click="update()" class="btn btn-primary">Update</button>
+                </div>
                 </form>
+            </div>
+
+            <div wire:loading.flex style="position: absolute;
+                width: 100%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+                background: rgba(245,245,251,0.6);
+                z-index: 9;
+                pointer-events: none;
+                font-size: 20px;
+                top: 0;
+                left: 0;
+                align-content: center;
+                text-align: center;
+                font-weight: 600">Loading...
             </div>
         </div>
     </div>

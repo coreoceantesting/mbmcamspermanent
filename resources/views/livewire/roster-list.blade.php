@@ -12,7 +12,7 @@
         height: 100%;
         justify-content: center;
         align-items: center;
-        background: rgba(245,245,251,0.6);
+        background: rgba(245,245,251,0.8);
         margin-top: -30px;
         margin-left: -30px;
         z-index: 4;
@@ -32,9 +32,9 @@
         </div>
 
         <div class="col-3">
-            <label class="form-label mb-0" for="">Sub Department</label>
+            <label class="form-label mb-0" for="">Department</label>
             <select name="" class="form-control" wire:model="department_id">
-                <option value="">Select Sub Department</option>
+                <option value="">Select Department</option>
                 @foreach ($departments as $department)
                     <option value="{{$department->id}}">{{ $department->name }}</option>
                 @endforeach
@@ -68,9 +68,9 @@
             </div>
         </div>
 
-        <div class="row mt-4" style="overflow-x: scroll">
+        <div class="row mt-3" style="overflow-x: scroll">
             <div class="col-12">
-                <table class="table table-hover" id="list_table">
+                <table class="table table-hover table-striped" id="list_table">
                     <thead>
                         <tr>
                             <th style="min-width: 60px"> <span class="custom_th">Sr No. </span> <span class="arrow"></span> </th>
@@ -96,7 +96,7 @@
                                 <td>{{ $user->department?->name }}</td>
                                 <td>{{ $user->subDepartment?->name }}</td>
                                 @foreach ($date_ranges as $date_range)
-                                    <td>{{ $user->empShifts->where('from_date', $date_range->toDateString())->value('in_time') ?? $defaultShift['from_time'] }}</td>
+                                    <td>{{ $user->empShifts->where('from_date', $date_range->toDateString())->value('in_time') ?? '--' }}</td>
                                 @endforeach
                                 <td>
                                     <button class="btn btn-primary px-2 py-1" title="Edit Shift" wire:click="editShift({{$user->id}})"><i class="fa fa-pencil"></i></button>

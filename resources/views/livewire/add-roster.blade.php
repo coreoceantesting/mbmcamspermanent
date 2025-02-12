@@ -9,7 +9,7 @@
         height: 100%;
         justify-content: center;
         align-items: center;
-        background: rgba(245,245,251,0.6);
+        background: rgba(245,245,251,0.9);
         margin-top: -30px;
         margin-left: -30px;
         z-index: 4;
@@ -34,7 +34,9 @@
             <select wire:model="day_count" id="day_count" class="form-control">
                 <option value="">Select Days Count</option>
                 <option value="6">1 Week</option>
-                <option value="13">2 Week</option>
+                <option value="13">2 Week</option>                
+                <option value="20">3 Week</option>
+                <option value="27">4 Week</option>
             </select>
         </div>
     </div>
@@ -56,7 +58,7 @@
                 <div class="form-group m-t-15 m-checkbox-inline mb-0 custom-radio-ml">
                     <div class="radio radio-primary">
                         <input id="radioinline1" type="radio" name="is_department" wire:click="$set('is_department', '1')" value="1">
-                        <label class="mb-0" for="radioinline1">Sub Department</label>
+                        <label class="mb-0" for="radioinline1">Department</label>
                     </div>
                     <div class="radio radio-primary">
                         <input id="radioinline2" type="radio" name="is_department" wire:click="$set('is_department', '2')" value="2">
@@ -67,9 +69,9 @@
         </div>
         @if ($is_department == 1)
             <div class="col-md-4">
-                <label class="col-form-label">Select Sub Department <span class="text-danger">*</span></label>
+                <label class="col-form-label">Select Department <span class="text-danger">*</span></label>
                 <select class="col-sm-12 form-control" wire:model="selected_department">
-                    <option value="">--Select Sub Department--</option>
+                    <option value="">--Select Department--</option>
                     @foreach ($departments as $department)
                         <option value="{{ $department->id }}">{{ $department->name }}</option>
                     @endforeach
@@ -99,7 +101,7 @@
             </div>
 
             <div class="table-responsive mt-3">
-                <table class="table table-hover">
+                <table class="table table-hover table-striped">
                     <thead>
                         <tr>
                             <th style="min-width: 80px; max-width: 80px" scope="col">Emp Code</th>
