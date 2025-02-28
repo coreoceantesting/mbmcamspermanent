@@ -16,15 +16,15 @@
                                 <h3>Add Shift</h3>
                             </div>
 
-                            <div class="card-body">
+                            {{-- <div class="card-body"> --}}
 
                                 <livewire:add-roster />
 
-                            </div>
-                            <div class="card-footer">
+                            {{-- </div> --}}
+                            {{-- <div class="card-footer">
                                 <button type="submit" class="btn btn-primary" id="addSubmit">Submit</button>
                                 <button type="reset" class="btn btn-warning">Reset</button>
-                            </div>
+                            </div> --}}
 
                         </div>
                     </div>

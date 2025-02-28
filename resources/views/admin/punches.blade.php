@@ -328,7 +328,7 @@
                             </div>
                             <div >
                                 {{-- <livewire:punch-list :from_date="{{ $request->from_date }}" /> --}}
-                                @livewire('punch-list',['from_date'=> request()->from_date, 'to_date'=> request()->to_date, 'selected_ward'=> request()->ward, 'selected_department'=> request()->department])
+                                {{-- @livewire('punch-list',['from_date'=> request()->from_date, 'to_date'=> request()->to_date, 'selected_ward'=> request()->ward, 'selected_department'=> request()->department]) --}}
 
                             </div>
                         </div>

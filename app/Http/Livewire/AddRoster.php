@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AddRoster extends Component
 {
-    public $emp_code, $from_date, $to_date, $is_department = 0, $su, $mo, $tu, $we, $th, $fr, $sa;
+    public $emp_code, $from_date, $to_date, $is_department, $su0, $mo1, $tu2, $we3, $th4, $fr5, $sa6, $su7, $mo8, $tu9, $we10, $th11, $fr12, $sa13, $su14, $mo15, $tu16, $we17, $th18, $fr19, $sa20, $su21, $mo22, $tu23, $we24, $th25, $fr26, $sa27;
     public $employees = [], $except_this_emp_code = [], $selected_department, $selected_designation, $date_ranges = [], $day_count;
     protected $wards, $departments, $designations, $shiftLists;
 
@@ -42,12 +42,19 @@ class AddRoster extends Component
 
     public function saveShift($key)
     {
-        $this->addValidate(array($key));
+        // $this->addValidate(array($key));
         $user = User::where('emp_code', $this->emp_code[$key])->first();
 
         $date_ranges = CarbonPeriod::create(Carbon::parse($this->from_date), Carbon::parse($this->to_date))->toArray();
-        foreach ($date_ranges as $date_range) {
-            $varName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
+        foreach ($date_ranges as $i => $date_range) {
+            // $varName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
+            $weekday  = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
+            $varName = $weekday . $i;
+
+            if (!isset($this->{$varName}[$key]))
+                continue;
+
+
             $val = $this->{$varName}[$key];
             $shift = '';
             $isNight = 0;
@@ -70,7 +77,7 @@ class AddRoster extends Component
                 'emp_code' => $user->emp_code,
                 'to_date' => $toDate,
                 'in_time' => is_numeric($val) ? $shift->from_time : $val,
-                'weekday' => $varName,
+                'weekday' => $weekday,
                 'is_night' => $isNight
             ]);
         }
@@ -84,15 +91,35 @@ class AddRoster extends Component
     protected function fetchEmployees()
     {
         $this->employees = User::query()
+            ->with(['empShifts' => fn($q) => $q->select('user_id', 'shift_id', 'from_date', 'in_time')->whereBetween('from_date', [$this->from_date, $this->to_date])])
             ->where('is_rotational', '1')
             ->whereActiveStatus('1')
-            ->whereNotIn('emp_code', $this->except_this_emp_code)
+            // ->whereNotIn('emp_code', $this->except_this_emp_code)
             ->when($this->is_department == 1, fn($q) => $q->where('sub_department_id', $this->selected_department))
             ->when($this->is_department == 2, fn($q) => $q->where('designation_id', $this->selected_designation))
             // ->pluck('emp_code');
-            ->select('tenant_id', 'emp_code', 'name')->get();
+            // ->select('tenant_id', 'emp_code', 'name')->get();
+            ->select('tenant_id', 'emp_code', 'name', 'id')->get();
 
-        $this->emp_code = $this->employees->pluck('emp_code');
+        // $this->emp_code = $this->employees->pluck('emp_code');
+
+        $this->date_ranges = CarbonPeriod::create(Carbon::parse($this->from_date ?? Carbon::today()->startOfWeek()->toDateString()), Carbon::parse($this->to_date ?? Carbon::today()->endOfWeek()->toDateString()))->toArray();
+        foreach ($this->employees as $key => $employee) {
+            foreach ($this->date_ranges as $i => $date_range) {
+                $date = substr($date_range, 0, 10);
+                $shiftVal = $employee->empShifts->where('from_date', '>=', $date)->where('from_date', '<=', $date)->first();
+                if ($shiftVal) {
+                    $fieldName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2)) . $i . '.' . $key;
+                    $shiftVal = ctype_alpha($shiftVal->in_time) ? $shiftVal->in_time : $shiftVal->shift_id;
+                    $this->{$fieldName} = $shiftVal;
+                }
+                // else{
+                //     $this->emp_roster[$employee->emp_code][substr($date_range, 8,2)] = '';
+                // }
+            }
+        }
+        $empCodes = $this->employees;
+        $this->emp_code = $empCodes->pluck('emp_code');
     }
 
 
