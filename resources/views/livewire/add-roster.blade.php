@@ -132,7 +132,8 @@
                                     </th>
                                     @foreach ($date_ranges as $i => $date_range)
                                         @php
-                                            $fieldName = strtolower(substr(Carbon\Carbon::parse($date_range)->format('D'), 0, 2)).$i.'.'.$key;
+                                            // $fieldName = strtolower(substr(Carbon\Carbon::parse($date_range)->format('D'), 0, 2)).$i.'.'.$key;
+                                            $fieldName = '_'.($i+1).'.'.$key;
                                         @endphp
                                         <td>
                                             <select class="form-select" name="{{ $fieldName }}" wire:model.defer="{{ $fieldName }}">

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Validator;
 
 class AddRoster extends Component
 {
-    public $emp_code, $from_date, $to_date, $is_department, $su0, $mo1, $tu2, $we3, $th4, $fr5, $sa6, $su7, $mo8, $tu9, $we10, $th11, $fr12, $sa13, $su14, $mo15, $tu16, $we17, $th18, $fr19, $sa20, $su21, $mo22, $tu23, $we24, $th25, $fr26, $sa27;
+    public $emp_code, $from_date, $to_date, $is_department, $_1, $_2, $_3, $_4, $_5, $_6, $_7, $_8, $_9, $_10, $_11, $_12, $_13, $_14, $_15, $_16, $_17, $_18, $_19, $_20, $_21, $_22, $_23, $_24, $_25, $_26, $_27, $_28, $_29, $_30, $_31;
     public $employees = [], $except_this_emp_code = [], $selected_department, $selected_designation, $date_ranges = [], $day_count;
     protected $wards, $departments, $designations, $shiftLists;
 
@@ -49,7 +49,7 @@ class AddRoster extends Component
         foreach ($date_ranges as $i => $date_range) {
             // $varName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
             $weekday  = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2));
-            $varName = $weekday . $i;
+            $varName = '_' . ($i + 1);
 
             if (!isset($this->{$varName}[$key]))
                 continue;
@@ -109,7 +109,8 @@ class AddRoster extends Component
                 $date = substr($date_range, 0, 10);
                 $shiftVal = $employee->empShifts->where('from_date', '>=', $date)->where('from_date', '<=', $date)->first();
                 if ($shiftVal) {
-                    $fieldName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2)) . $i . '.' . $key;
+                    // $fieldName = strtolower(substr(Carbon::parse($date_range)->format('D'), 0, 2)) . $i . '.' . $key;
+                    $fieldName = '_' . ($i + 1) . '.' . $key;
                     $shiftVal = ctype_alpha($shiftVal->in_time) ? $shiftVal->in_time : $shiftVal->shift_id;
                     $this->{$fieldName} = $shiftVal;
                 }
