@@ -71,13 +71,12 @@ class SubDepartmentController extends Controller
 
         if ($sub_department)
         {
-            $departmentHtml = '<span>
+            $departmentHtml = '
                 <option value="">--Select Department--</option>';
                 foreach($departments as $dep):
                     $is_select = $dep->id == $sub_department->department_id ? "selected" : "";
                     $departmentHtml .= '<option value="'.$dep->id.'" '.$is_select.'>'.$dep->name.'</option>';
                 endforeach;
-            $departmentHtml .= '</span>';
 
             $response = [
                 'result' => 1,

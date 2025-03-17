@@ -37,13 +37,12 @@ class DeviceRepository
         $device->load('wardDevice');
         if ($device)
         {
-            $wardHtml = '<span>
+            $wardHtml = '
                 <option value="">--Select Office--</option>';
                 foreach($wards as $ward):
                     $is_select = $ward->id == $device->wardDevice?->ward_id ? "selected" : "";
                     $wardHtml .= '<option value="'.$ward->id.'" '.$is_select.'>'.$ward->name.'</option>';
                 endforeach;
-            $wardHtml .= '</span>';
 
             $response = [
                 'wardHtml'=> $wardHtml,

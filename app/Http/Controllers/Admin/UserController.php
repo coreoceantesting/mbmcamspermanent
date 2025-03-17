@@ -79,37 +79,33 @@ class UserController extends Controller
         $user->loadMissing('roles');
 
         if ($user) {
-            $departmentHtml = '<span>
+            $departmentHtml = '
                 <option value="">--Select Sub Department--</option>';
             foreach ($departments as $dep):
                 $is_select = $dep->id == $user->department_id ? "selected" : "";
                 $departmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
             endforeach;
-            $departmentHtml .= '</span>';
 
-            $subDepartmentHtml = '<span>
+            $subDepartmentHtml = '
                 <option value="">--Select Sub Department--</option>';
             foreach ($subDepartments as $dep):
                 $is_select = $dep->id == $user->sub_department_id ? "selected" : "";
                 $subDepartmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
             endforeach;
-            $subDepartmentHtml .= '</span>';
 
-            $roleHtml = '<span>
+            $roleHtml = '
                 <option value="">--Select Role --</option>';
             foreach ($roles as $role):
                 $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
                 $roleHtml .= '<option value="' . $role->id . '" ' . $is_select . '>' . $role->name . '</option>';
             endforeach;
-            $roleHtml .= '</span>';
 
-            $wardHtml = '<span>
+            $wardHtml = '
                 <option value="">--Select Office --</option>';
             foreach ($wards as $ward):
                 $is_select = $user->ward_id == $ward->id ? "selected" : "";
                 $wardHtml .= '<option value="' . $ward->id . '" ' . $is_select . '>' . $ward->name . '</option>';
             endforeach;
-            $wardHtml .= '</span>';
 
             $response = [
                 'result' => 1,
@@ -200,13 +196,12 @@ class UserController extends Controller
         $user->load('roles');
         if ($user) {
             $roles = Role::orderBy('id', 'DESC')->where('tenant_id', Auth::user()->tenant_id)->get();
-            $roleHtml = '<span>
+            $roleHtml = '
                 <option value="">--Select Role--</option>';
             foreach ($roles as $role):
                 $is_select = $role->id == $user->roles[0]->id ? "selected" : "";
                 $roleHtml .= '<option value="' . $role->id . '" ' . $is_select . '>' . $role->name . '</option>';
             endforeach;
-            $roleHtml .= '</span>';
 
             $response = [
                 'result' => 1,

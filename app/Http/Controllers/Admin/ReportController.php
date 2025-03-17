@@ -209,13 +209,12 @@ class ReportController extends Controller
         })
             ->get();
         if ($contractors) {
-            $ContractorHtml = '<span>
+            $ContractorHtml = '
                 <option value="">--Select Department--</option>';
             // $ContractorHtml .= '<option value="'.$cont->id.'" >'.$cont->name.'</option>';
             foreach ($contractors as $cont) :
                 $ContractorHtml .= '<option value="' . $cont->id . '" >' . $cont->name . '</option>';
             endforeach;
-            $ContractorHtml .= '</span>';
 
             $response = [
                 'result' => 1,

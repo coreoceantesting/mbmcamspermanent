@@ -81,14 +81,13 @@ class PunchController extends Controller
         $punch_date = Carbon::parse($punch->punch_date)->format('Y-m-d');
         $punch->check_in = Carbon::parse($punch->check_in)->format('H:i:s');
         $punch->check_out = Carbon::parse($punch->check_out)->format('H:i:s');
-        // dd($punch_date);
-        $deviceHtml = '<span>
+
+        $deviceHtml = '
             <option value="">--Select Machine --</option>';
             foreach($devices as $device):
                 $is_select = $device->DeviceId == $punch->device_id ? "selected" : "";
                 $deviceHtml .= '<option value="'.$device->DeviceId.'" '.$is_select.'>'.$device->DeviceLocation.'</option>';
             endforeach;
-        $deviceHtml .= '</span>';
 
         return [
             'result' => 1,

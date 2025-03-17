@@ -42,13 +42,12 @@ class LeaveRepository
         $leaveTypes = LeaveType::latest()->get();
 
         if ($leaveTypes) {
-            $leaveTypeHtml = '<span>
+            $leaveTypeHtml = '
                 <option value="">--Select Leave Type--</option>';
             foreach ($leaveTypes as $lt):
                 $is_select = $lt->id == $leave_request->leave_type_id ? "selected" : "";
                 $leaveTypeHtml .= '<option value="' . $lt->id . '" ' . $is_select . '>' . $lt->name . '</option>';
             endforeach;
-            $leaveTypeHtml .= '</span>';
 
             // Make file html
             $fileHtml = '';

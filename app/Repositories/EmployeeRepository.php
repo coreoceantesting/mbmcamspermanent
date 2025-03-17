@@ -53,69 +53,61 @@ class EmployeeRepository
             $user->work_duration = $user->work_duration ? (($user->work_duration / 60) / 60) : null;
             $user->sa_duration = $user->sa_duration ? (($user->sa_duration / 60) / 60) : null;
 
-            $departmentHtml = '<span>
+            $departmentHtml = '
                 <option value="">--Select Sub Department--</option>';
             foreach ($departments as $dep) :
                 $is_select = $dep->id == $user->department_id ? "selected" : "";
                 $departmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
             endforeach;
-            $departmentHtml .= '</span>';
 
-            $subDepartmentHtml = '<span>
+            $subDepartmentHtml = '
                 <option value="">--Select Sub Department--</option>';
             foreach ($subDepartments as $dep) :
                 $is_select = $dep->id == $user->sub_department_id ? "selected" : "";
                 $subDepartmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
             endforeach;
-            $subDepartmentHtml .= '</span>';
 
-            $deviceHtml = '<span>
+            $deviceHtml = '
                 <option value="">--Select Machine --</option>';
             foreach ($devices as $device) :
                 $is_select = $device->DeviceId == $user->device_id ? "selected" : "";
                 $deviceHtml .= '<option value="' . $device->DeviceId . '" ' . $is_select . '>' . $device->DeviceLocation . '</option>';
             endforeach;
-            $deviceHtml .= '</span>';
 
-            $wardHtml = '<span>
+            $wardHtml = '
                 <option value="">--Select Office --</option>';
             foreach ($wards as $ward) :
                 $is_select = $ward->id == $user->ward_id ? "selected" : "";
                 $wardHtml .= '<option value="' . $ward->id . '" ' . $is_select . '>' . $ward->name . '</option>';
             endforeach;
-            $wardHtml .= '</span>';
 
-            $clasHtml = '<span>
+            $clasHtml = '
                 <option value="">--Select Class --</option>';
             foreach ($class as $clas) :
                 $is_select = $clas->id == $user->clas_id ? "selected" : "";
                 $clasHtml .= '<option value="' . $clas->id . '" ' . $is_select . '>' . $clas->name . '</option>';
             endforeach;
-            $clasHtml .= '</span>';
 
-            $designationHtml = '<span>
+            $designationHtml = '
                 <option value="">--Select Designation --</option>';
             foreach ($designations as $designation) :
                 $is_select = $designation->id == $user->designation_id ? "selected" : "";
                 $designationHtml .= '<option value="' . $designation->id . '" ' . $is_select . '>' . $designation->name . '</option>';
             endforeach;
-            $designationHtml .= '</span>';
 
-            $shiftHtml = '<span>
+            $shiftHtml = '
                 <option value="">--Select Shift --</option>';
             foreach ($shifts as $shift) :
                 $is_select = $shift->id == $user->shift_id ? "selected" : "";
                 $shiftHtml .= '<option value="' . $shift->id . '" ' . $is_select . '>' . Carbon::parse($shift->from_time)->format('h:i A') . ' - ' . Carbon::parse($shift->to_time)->format('h:i A') . '</option>';
             endforeach;
-            $shiftHtml .= '</span>';
 
-            $contractorHtml = '<span>
+            $contractorHtml = '
             <option value="">--Select Contractor --</option>';
             foreach ($contractors as $contractor) :
                 $is_select = $contractor->id == $user->contractor_id ? "selected" : "";
                 $contractorHtml .= '<option value="' . $contractor->id . '" ' . $is_select . '>' . $contractor->name . '</option>';
             endforeach;
-            $contractorHtml .= '</span>';
 
             $response = [
                 'result' => 1,

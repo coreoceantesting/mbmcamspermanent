@@ -116,12 +116,11 @@ class DepartmentController extends Controller
             ->latest()->get();
 
         if ($sub_departments) {
-            $subDepartmentHtml = '<span>
+            $subDepartmentHtml = '
                 <option value="">--Select Sub Department--</option>';
             foreach ($sub_departments as $dep) :
                 $subDepartmentHtml .= '<option value="' . $dep->id . '" >' . $dep->name . '</option>';
             endforeach;
-            $subDepartmentHtml .= '</span>';
 
             $response = [
                 'result' => 1,
@@ -139,12 +138,11 @@ class DepartmentController extends Controller
         $departments = Department::whereWardId($ward->id)->orderBy('name')->get();
 
         if ($departments) {
-            $departmentHtml = '<span>
+            $departmentHtml = '
                 <option value="">--Select Department--</option>';
             foreach ($departments as $dep) :
                 $departmentHtml .= '<option value="' . $dep->id . '" >' . $dep->name . '</option>';
             endforeach;
-            $departmentHtml .= '</span>';
 
             $response = [
                 'result' => 1,

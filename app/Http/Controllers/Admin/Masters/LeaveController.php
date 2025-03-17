@@ -69,13 +69,12 @@ class LeaveController extends Controller
 
         if ($leaf)
         {
-            $leaveTypeHtml = '<span>
+            $leaveTypeHtml = '
                 <option value="">--Select Leave Type--</option>';
                 foreach($leaveTypes as $type):
                     $is_select = $type->id == $leaf->leave_type_id ? "selected" : "";
                     $leaveTypeHtml .= '<option value="'.$type->id.'" '.$is_select.'>'.$type->name.'</option>';
                 endforeach;
-            $leaveTypeHtml .= '</span>';
 
             $response = [
                 'result' => 1,
