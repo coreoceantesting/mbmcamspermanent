@@ -398,7 +398,7 @@
                                     </div>
                                 </div>
                             @else
-                                <div class="{{ $hasPunch->punch_by == '1' ? 'row_cell full_height_blue' : '' }} {{ $islate ? 'row_cell full_height_red' : '' }}">
+                                <div class="{{ $islate ? 'row_cell full_height_red' : '' }}">
                                     <div class="row_cell">
                                         <span>{{ Carbon\Carbon::parse($hasPunch->check_in)->format('h:i A') }}</span>
                                     </div>

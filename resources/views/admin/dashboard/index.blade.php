@@ -169,7 +169,7 @@
                             </div>
 
                             {{-- Repeatedly latemark / absent --}}
-                            <div class="row">
+                            {{-- <div class="row">
                                 @php
                                     $repeatedlyLateMark = $punchData->groupBy('emp_code')->countBy( fn($item) => $item->where('is_latemark', '>', '0')->count() > 1 );
                                     $repeatedlyLateMark = array_key_exists('1', $repeatedlyLateMark->toArray()) ? $repeatedlyLateMark['1'] : 0;
@@ -219,7 +219,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
 
