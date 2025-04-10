@@ -550,11 +550,11 @@
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '0')->count() }}</span></h3>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer row">
+                                                {{-- <div class="card-footer row">
                                                     <div class="col-12 col-sm-12">
                                                         <a href="{{ route('dashboard', ['department'=> $department->id]) }}" class="btn btn-primary color-green-blue font-12">CLICK HERE FOR MORE DETAILS</a>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     @endforeach
