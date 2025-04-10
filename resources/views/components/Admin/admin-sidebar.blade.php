@@ -209,6 +209,9 @@
                                 @can('reports.emp-wise-report')
                                     <li><a href="{{ route('dashboard.employee-wise-report') }}">Emp wise report </a></li>
                                 @endcan
+                                @can('reports.month-wise')
+                                    <li><a href="{{ route('reports.device-wise-report') }}">Device Wise Report </a></li>
+                                @endcan
                             </ul>
                         </li>
                     @endcan
