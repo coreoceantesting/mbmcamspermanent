@@ -578,8 +578,7 @@
         <script>
             setInterval(function(){
                 window.location.reload(1);
-                // alert("Refreshed");
-            }, 60000);
+            }, 300000);
         </script>
     @endpush
 

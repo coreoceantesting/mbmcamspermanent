@@ -8,9 +8,9 @@
                         <div class="mobile-back text-end"><span>Back</span><i class="fa fa-angle-right ps-2" aria-hidden="true"></i></div>
                     </li>
                     <li class="sidebar-main-title">
-                        <div>
+                        {{-- <div>
                             <h6>General </h6>
-                        </div>
+                        </div> --}}
                     </li>
                     @can('dashboard.view')
                         <li class="dropdown">
@@ -192,7 +192,7 @@
                                     <li><a href="{{ route('reports.leave-report') }}">Leave report </a></li>
                                 @endcan
                                 @can('reports.daily-attendance')
-                                    <li><a href="{{ route('dashboard.device-log-report') }}">Daily attendance </a></li>
+                                    {{-- <li><a href="{{ route('dashboard.device-log-report') }}">Daily attendance </a></li> --}}
                                 @endcan
                                 @can('reports.today-present-report')
                                     <li><a href="{{ route('dashboard.todays-present-report') }}">Today's present </a></li>

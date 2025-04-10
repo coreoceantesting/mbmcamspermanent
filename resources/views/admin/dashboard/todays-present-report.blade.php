@@ -35,7 +35,7 @@
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="month">Select Date <span class="text-danger">*</span> </label>
-                                            <input class="form-control" name="date" type="date" onclick="this.showPicker()" value="{{ request()->date }}" required>
+                                            <input class="form-control" name="date" type="date" onclick="this.showPicker()" value="{{ (isset(request()->date)) ? request()->date : date('Y-m-d') }}" required>
                                             @error('date')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
