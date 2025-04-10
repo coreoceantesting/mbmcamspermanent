@@ -36,10 +36,12 @@ class UpdateLeaveRequestRequest extends FormRequest
             'remark' => 'required',
         ];
 
-        if( request()->page_type != 'half_day' )
-        {
+        if (request()->page_type != 'half_day') {
             $rules['to_date'] = 'required|date|after_or_equal:from_date';
             $rules['no_of_days'] = 'required|numeric|max:30';
+        }
+        if (request()->page_type == 'half_day') {
+            $rules['half_day_type'] = 'required';
         }
 
         return $rules;
@@ -53,6 +55,7 @@ class UpdateLeaveRequestRequest extends FormRequest
             'leave_type_id.required_unless' => 'Leave Type field is required',
             'from_date.required_unless' => 'From date field is required',
             'file.required_unless' => 'The file field is required',
+            'half_day_type.required' => 'Please select half day type',
         ];
     }
 }
