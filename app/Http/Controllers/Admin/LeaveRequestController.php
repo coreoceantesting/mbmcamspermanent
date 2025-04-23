@@ -37,22 +37,24 @@ class LeaveRequestController extends Controller
         $type_const = strtoupper('LEAVE_FOR_TYPE_' . $pageType);
         $authUser = Auth::user();
 
-        $leaveRequests = LeaveRequest::with('leaveType', 'document')
-            ->withWhereHas(
-                'user',
-                fn($qr) => $qr
-                    ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($q) => $q
-                        ->where('sub_department_id', $authUser->sub_department_id)->with('ward', 'clas', 'department'))
-                    ->where('employee_type', '1')
-            )
-            ->whereRequestForType(constant("App\Models\LeaveRequest::$type_const"))
-            ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
-            ->whereIsApproved('0')
-            ->latest()->get();
+        $leaveRequests = LeaveRequest::with('leaveType', 'document', 'approvalHierarchy')
+                                    ->withWhereHas(
+                                        'user',
+                                        fn($qr) => $qr
+                                            ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($q) => $q
+                                                ->where('sub_department_id', $authUser->sub_department_id)->with('ward', 'clas', 'department'))
+                                            ->where('employee_type', '1')
+                                    )
+                                    ->whereRequestForType(constant("App\Models\LeaveRequest::$type_const"))
+                                    ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
+                                    ->whereIsApproved('0')
+                                    ->latest()->get();
+
+        // dd($leaveRequests);
 
         $leaveTypes = LeaveType::with('leave')
-            ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2', '7']))
-            ->get();
+                                ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2', '7']))
+                                ->get();
 
         return view('admin.leave-requests')->with(['leaveRequests' => $leaveRequests, 'pageType' => $pageType, 'leaveTypes' => $leaveTypes]);
     }

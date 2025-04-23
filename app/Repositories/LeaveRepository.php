@@ -2,8 +2,10 @@
 
 namespace App\Repositories;
 
+use App\Models\LeaveApprovalHierarchy;
 use App\Models\LeaveRequest;
 use App\Models\LeaveRequestDocument;
+use App\Models\LeaveRequestHierarchy;
 use App\Models\LeaveType;
 use App\Models\Punch;
 use App\Models\User;
@@ -29,6 +31,67 @@ class LeaveRepository
         $input['is_backdated'] = Carbon::parse($input['from_date'])->lte(Carbon::today()->toDateString()) ? 1 : 0;
 
         $leaveRequest = LeaveRequest::create(Arr::only($input, LeaveRequest::getFillables()));
+
+
+        $hierarchy = LeaveRequestHierarchy::where(['clas_id'=> $user->clas_id, 'requester_designation_id' => $user->designation_id])->first();
+        if($hierarchy->{'1_approver_designation_id'})
+        {
+            $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'}, 'clas_id' => $user->clas_id, 'department_id' => $user->department_id])->first();
+            if($approver)
+            {
+                LeaveApprovalHierarchy::create([
+                    'hierarchy_id' => $hierarchy->id,
+                    'leave_request_id' => $leaveRequest->id,
+                    'requester_user_id' => $user->id,
+                    'requester_designation_id' => $user->designation_id,
+                    'requester_department_id' => $user->department_id,
+                    'approver_user_id' => $approver->id,
+                    'approver_designation_id' => $approver->designation_id,
+                    'approver_department_id' => $approver->department_id,
+                    'status' => 0,
+                ]);
+            }
+        }
+
+        if($hierarchy->{'2_approver_designation_id'})
+        {
+            $approver = User::where(['designation_id'=> $hierarchy->{'2_approver_designation_id'}, 'clas_id' => $user->clas_id, 'department_id' => $user->department_id])->first();
+            if($approver)
+            {
+                LeaveApprovalHierarchy::create([
+                    'hierarchy_id' => $hierarchy->id,
+                    'leave_request_id' => $leaveRequest->id,
+                    'requester_user_id' => $user->id,
+                    'requester_designation_id' => $user->designation_id,
+                    'requester_department_id' => $user->department_id,
+                    'approver_user_id' => $approver->id,
+                    'approver_designation_id' => $approver->designation_id,
+                    'approver_department_id' => $approver->department_id,
+                    'status' => 0,
+                ]);
+            }
+        }
+
+        if($hierarchy->{'3_approver_designation_id'})
+        {
+            $approver = User::where(['designation_id'=> $hierarchy->{'3_approver_designation_id'}, 'clas_id' => $user->clas_id, 'department_id' => $user->department_id])->first();
+            if($approver)
+            {
+                LeaveApprovalHierarchy::create([
+                    'hierarchy_id' => $hierarchy->id,
+                    'leave_request_id' => $leaveRequest->id,
+                    'requester_user_id' => $user->id,
+                    'requester_designation_id' => $user->designation_id,
+                    'requester_department_id' => $user->department_id,
+                    'approver_user_id' => $approver->id,
+                    'approver_designation_id' => $approver->designation_id,
+                    'approver_department_id' => $approver->department_id,
+                    'status' => 0,
+                ]);
+            }
+        }
+
+
         $leaveRequest->document()->create(Arr::only($input, LeaveRequestDocument::getFillables()));
         DB::commit();
 

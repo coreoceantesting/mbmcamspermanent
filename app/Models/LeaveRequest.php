@@ -36,6 +36,11 @@ class LeaveRequest extends BaseModel
         return $this->belongsTo(LeaveType::class);
     }
 
+    public function approvalHierarchy()
+    {
+        return $this->hasMany(LeaveApprovalHierarchy::class, 'leave_request_id', 'id');
+    }
+
     public function path(): Attribute
     {
         return new Attribute(

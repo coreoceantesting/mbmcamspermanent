@@ -53,6 +53,12 @@
                                             <span class="text-danger error-text department_err"></span>
                                         </div>
 
+                                        {{-- <div class="col-md-3 mt-3">
+                                            <label class="col-form-label" for="designation">Department <span class="text-danger">*</span> </label>
+                                            <input class="form-control" name="department" type="text" placeholder="Department" readonly>
+                                            <span class="text-danger error-text department_err"></span>
+                                        </div> --}}
+
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="class">Class <span class="text-danger">*</span> </label>
                                             <input class="form-control" name="class" type="text" placeholder="Class" readonly>
@@ -316,10 +322,10 @@
                                             <th style="min-width: 120px">Department</th>
                                             <th style="min-width: 120px">Office</th>
                                             <th style="min-width: 120px">Class</th>
-                                            <th style="min-width: 80px">{{ $pageType == 'half_day' ? 'Date' : 'From Date' }}</th>
                                             @if ($pageType == 'full_day')
                                                 <th style="min-width: 120px">Leave Type</th>
                                             @endif
+                                            <th style="min-width: 80px">{{ $pageType == 'half_day' ? 'Date' : 'From Date' }}</th>
                                             @if( $pageType != 'half_day' )
                                                 <th style="min-width: 80px">To Date</th>
                                                 <th>No. Of Days</th>
@@ -327,6 +333,7 @@
                                             @if( $pageType == 'half_day' )
                                                 <th>Half Day Type</th>
                                             @endif
+                                            <th>Approval Status</th>
                                             <th style="min-width: 150px">Remark</th>
                                             <th>View Documents</th>
                                             <th style="min-width: 100px">Action</th>
@@ -341,10 +348,10 @@
                                                 <td>{{ $request->user->department?->name }}</td>
                                                 <td>{{ $request->user->ward?->name }}</td>
                                                 <td>{{ $request->user->clas?->name }}</td>
-                                                <td>{{ $request->from_date }}</td>
                                                 @if ($pageType == 'full_day')
                                                     <td>{{ $request->leaveType->name }}</td>
                                                 @endif
+                                                <td>{{ $request->from_date }}</td>
                                                 @if( $pageType != 'half_day' )
                                                     <td>{{ $request->to_date }}</td>
                                                     <td>{{ $request->no_of_days }}</td>
@@ -352,6 +359,11 @@
                                                 @if( $pageType == 'half_day' )
                                                     <td>{{ ['1' => 'First Half', '2' => 'Second Half'][$request->half_day_type] ?? '-' }}</td>
                                                 @endif
+                                                <td>
+                                                    @foreach ($request->approvalHierarchy as $hierarchy)
+                                                        <strong>{{ $loop->iteration }} Approver</strong> - {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
+                                                    @endforeach
+                                                </td>
                                                 <td>{{ $request->remark }}</td>
                                                 <td>
                                                     <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View File</a>
