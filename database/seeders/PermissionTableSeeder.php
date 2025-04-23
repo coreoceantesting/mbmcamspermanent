@@ -409,6 +409,26 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'contractors.delete',
                 'group' => 'contractors',
             ],
+            [
+                'id' => 80,
+                'name' => 'leave-balance.index',
+                'group' => 'leave-balance',
+            ],
+            [
+                'id' => 81,
+                'name' => 'leave-balance.create',
+                'group' => 'leave-balance',
+            ],
+            [
+                'id' => 82,
+                'name' => 'leave-balance.edit',
+                'group' => 'leave-balance',
+            ],
+            [
+                'id' => 83,
+                'name' => 'leave-balance.delete',
+                'group' => 'leave-balance',
+            ],
         ];
 
         foreach ($permissions as $permission) {

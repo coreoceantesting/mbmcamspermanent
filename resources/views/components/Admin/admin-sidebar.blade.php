@@ -164,6 +164,15 @@
                     @endcan
 
 
+                    @can('leave-balance.view')
+                        <li class="dropdown">
+                            <a class="nav-link menu-title link-nav {{ request()->routeIs('leave-balance.index') ? 'active-bg' : '' }}" href="{{ route('leave-balance.index') }}">
+                                <i data-feather="bold"></i><span>Balance Leaves</span>
+                            </a>
+                        </li>
+                    @endcan
+
+
                     @role('Super Admin')
                         <li class="dropdown">
                             <a class="nav-link menu-title link-nav {{ request()->routeIs('manual-sync.index') ? 'active-bg' : '' }}" href="{{ route('manual-sync.index') }}">

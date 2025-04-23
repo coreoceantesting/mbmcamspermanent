@@ -103,6 +103,11 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('leave-applications', [App\Http\Controllers\Admin\LeaveRequestController::class, 'pendingLeaveRequest'])->name('leave-requests.application');
 
 
+
+    // Leave Balances
+    Route::get('leave-balance', [App\Http\Controllers\Admin\LeaveBalanceController::class, 'index'])->name('leave-requests.application');
+
+
     // Employee Shifts
     Route::resource('rosters', App\Http\Controllers\Admin\RosterController::class);
     // Route::get('sample_roster', [App\Http\Controllers\Admin\RosterController::class, 'downloadSample'] )->name('rosters.sample');
