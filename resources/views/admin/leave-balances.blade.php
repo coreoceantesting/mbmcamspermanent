@@ -282,9 +282,9 @@
                                                 <td>{{ $request->department?->name }}</td>
                                                 <td>{{ $request->designation?->name }}</td>
                                                 <td>{{ $request->clas?->name }}</td>
-                                                <td>{{ 30 }}</td>
+                                                <td>{{ 30 - $request->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>{{ $request->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                                                <td>{{ 20 }}</td>
+                                                <td>{{ 20 - $request->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>{{ $request->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>
                                                     {{-- @if ($isAdmin)
