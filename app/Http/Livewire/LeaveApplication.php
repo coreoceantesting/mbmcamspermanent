@@ -37,7 +37,7 @@ class LeaveApplication extends Component
                                     )
                                     ->when(!$isAdmin, fn($qr) => $qr
                                         ->withWhereHas('approvalHierarchy', fn($q) => $q
-                                            ->where('approver_user_id', $authUser->id)
+                                            ->where('approver_user_id', $authUser->id)->where('status', 0)
                                         )
                                     )
                                     ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
