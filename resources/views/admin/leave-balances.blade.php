@@ -283,9 +283,9 @@
                                                 <td>{{ $request->designation?->name }}</td>
                                                 <td>{{ $request->clas?->name }}</td>
                                                 <td>{{ 30 }}</td>
-                                                <td>{{ $request->leaveRequests->where('leave_type_id', 5)->count() }}</td>
+                                                <td>{{ $request->leaveRequests->where('leave_type_id', 5)->sum('no_of_days') }}</td>
                                                 <td>{{ 20 }}</td>
-                                                <td>{{ $request->leaveRequests->where('leave_type_id', 6)->count() }}</td>
+                                                <td>{{ $request->leaveRequests->where('leave_type_id', 6)->sum('no_of_days') }}</td>
                                                 <td>
                                                     {{-- @if ($isAdmin)
                                                         <button class="rem-element btn btn-danger px-2 py-1" title="Delete Leave Request" data-id="{{ $request->id }}"><i data-feather="trash"></i></button>
