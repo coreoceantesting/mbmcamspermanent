@@ -12,6 +12,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
@@ -166,6 +167,7 @@ class LeaveRepository
     // Approve/Reject Leave Request
     public function changeRequest($input, $leave_request)
     {
+        $user = Auth::user();
         // If request is rejected then update the status and return response
         if ($input['status'] == 2) {
             $leave_request->is_approved = $input['status'];
@@ -176,10 +178,19 @@ class LeaveRepository
 
         // #### If request is approved then proceed further conditions ####
         DB::beginTransaction();
-        $leave_request->is_approved = $input['status'];
-        $leave_request->save();
 
-        if ($leave_request->to_date == null && $leave_request->request_for_type == 2)                      // Check if leave is half day
+        $hierarchy = LeaveApprovalHierarchy::where(['approver_user_id' => $user->id, 'leave_request_id' => $leave_request->id])->first();
+        $hierarchy->status = 1;
+        $hierarchy->save();
+
+        if(!LeaveApprovalHierarchy::where(['leave_request_id' => $leave_request->id, 'status' => 0])->exists())
+        {
+            $leave_request->is_approved = $input['status'];
+            $leave_request->save();
+        }
+
+        // Check if leave is half day
+        if ($leave_request->to_date == null && $leave_request->request_for_type == 2)
             $this->createLeaveRequestPunch($leave_request, 'half_day');
 
         // else if( $leave_request->to_date == null && $leave_request->request_for_type != 2 )                 // Check if leave is Unpredictable/Medical leave
