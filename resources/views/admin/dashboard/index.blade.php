@@ -169,7 +169,7 @@
                             </div>
 
                             {{-- Repeatedly latemark / absent --}}
-                            <div class="row">
+                            {{-- <div class="row">
                                 @php
                                     $repeatedlyLateMark = $punchData->groupBy('emp_code')->countBy( fn($item) => $item->where('is_latemark', '>', '0')->count() > 1 );
                                     $repeatedlyLateMark = array_key_exists('1', $repeatedlyLateMark->toArray()) ? $repeatedlyLateMark['1'] : 0;
@@ -219,7 +219,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -550,11 +550,11 @@
                                                         <h3 class="font-16"><span class="counter">{{ $currentDeptData->where('leave_type_id', '0')->count() }}</span></h3>
                                                     </div>
                                                 </div>
-                                                <div class="card-footer row">
+                                                {{-- <div class="card-footer row">
                                                     <div class="col-12 col-sm-12">
                                                         <a href="{{ route('dashboard', ['department'=> $department->id]) }}" class="btn btn-primary color-green-blue font-12">CLICK HERE FOR MORE DETAILS</a>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     @endforeach
@@ -578,8 +578,7 @@
         <script>
             setInterval(function(){
                 window.location.reload(1);
-                // alert("Refreshed");
-            }, 60000);
+            }, 300000);
         </script>
     @endpush
 

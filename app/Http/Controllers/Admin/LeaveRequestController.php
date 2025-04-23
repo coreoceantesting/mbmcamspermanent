@@ -40,18 +40,18 @@ class LeaveRequestController extends Controller
         $leaveRequests = LeaveRequest::with('leaveType', 'document')
             ->withWhereHas(
                 'user',
-                fn ($qr) => $qr
-                    ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($q) => $q
+                fn($qr) => $qr
+                    ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn($q) => $q
                         ->where('sub_department_id', $authUser->sub_department_id)->with('ward', 'clas', 'department'))
                     ->where('employee_type', '1')
             )
             ->whereRequestForType(constant("App\Models\LeaveRequest::$type_const"))
-            ->when($pageType == 'full_day', fn ($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
+            ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
             ->whereIsApproved('0')
             ->latest()->get();
 
         $leaveTypes = LeaveType::with('leave')
-            ->when($pageType == 'full_day', fn ($qr) => $qr->whereNotIn('id', ['2', '7']))
+            ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2', '7']))
             ->get();
 
         return view('admin.leave-requests')->with(['leaveRequests' => $leaveRequests, 'pageType' => $pageType, 'leaveTypes' => $leaveTypes]);
@@ -200,7 +200,7 @@ class LeaveRequestController extends Controller
             ->whereLeaveTypeId(7)
             ->when(
                 !$isAdmin,
-                fn ($q) => $q->withWhereHas('user', fn ($qr) => $qr->where('department_id', Auth::user()->department_id))
+                fn($q) => $q->withWhereHas('user', fn($qr) => $qr->where('department_id', Auth::user()->department_id))
             )
             ->where('is_approved', '0')
             ->latest()->get();
@@ -218,7 +218,7 @@ class LeaveRequestController extends Controller
             ->whereLeaveTypeId(7)
             ->when(
                 !$isAdmin,
-                fn ($q) => $q->withWhereHas('user', fn ($qr) => $qr->where('department_id', Auth::user()->department_id))
+                fn($q) => $q->withWhereHas('user', fn($qr) => $qr->where('department_id', Auth::user()->department_id))
             )
             ->whereNot('is_approved', '0')
             ->latest()->get();

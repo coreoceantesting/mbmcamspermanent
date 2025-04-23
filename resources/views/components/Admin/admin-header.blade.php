@@ -29,18 +29,18 @@
                     </div>
                 </li>
 
-                {{-- @if(request()->routeIs('dashboard'))
+                {{-- @if(request()->routeIs('dashboard')) --}}
                     @if(auth()->user()->roles[0]->name == 'Admin' || auth()->user()->roles[0]->name == 'Super Admin')
                         <li>
-                            <a class="btn header-btn btn-outline-primary {{ session()->get('EMPLOYEE_TYPE') == 2 ? 'active' : '' }}" href="{{ route('change-employee-type', 2) }}" >
+                            <a class="btn header-btn btn-outline-primary" href="{{ route('change-employee-type', 2) }}" >
                                 Permanent
                             </a>
-                            <a class="btn header-btn btn-outline-primary {{ session()->get('EMPLOYEE_TYPE') == 1 ? 'active' : '' }}" href="{{ route('change-employee-type', 1) }}" >
+                            {{-- <a class="btn header-btn btn-outline-primary {{ session()->get('EMPLOYEE_TYPE') == 1 ? 'active' : '' }}" href="{{ route('change-employee-type', 1) }}" >
                                 Contractual
-                            </a>
+                            </a> --}}
                         </li>
                     @endif
-                @endif --}}
+                {{-- @endif --}}
 
                 {{-- <li>
                     <div class="mode"><i class="fa-regular fa-moon"></i></div>

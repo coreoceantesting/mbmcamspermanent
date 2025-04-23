@@ -61,9 +61,9 @@
                                     </div>
 
                                     <div class="mb-3 row align-items-start">
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <div class="text-success error-text px-4 py-1 mt-3 mb-2" style="font-size:11px; background-color: #19875436; font-weight: 700; border-radius: 5px;">If requesting leave for 1 day, then select FROM DATE & TO DATE same</div>
-                                        </div>
+                                        </div> --}}
 
 
                                         @if ( $pageType == 'half_day' )
@@ -113,6 +113,17 @@
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
                                         </div>
+
+                                        @if ( $pageType == 'half_day' )
+                                        <div class="col-md-3 mt-3">
+                                            <label class="col-form-label" for="file">Select Half Day Type<span class="text-danger">*</span> </label>
+                                            <select name="half_day_type" id="half_day_type" class="form-select">
+                                                <option value="">Select Type</option>
+                                                <option value="1">1st Half</option>
+                                                <option value="2">2nd Half</option>
+                                            </select>
+                                        </div>
+                                        @endif
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
@@ -189,9 +200,9 @@
                                     </div>
 
                                     <div class="mb-3 row align-items-start">
-                                        <div class="col-12">
+                                        {{-- <div class="col-12">
                                             <div class="text-success error-text px-4 py-1 mt-3 mb-2" style="font-size:11px; background-color: #19875436; font-weight: 700; border-radius: 5px;">If requesting leave for 1 day, then select FROM DATE & TO DATE same</div>
-                                        </div>
+                                        </div> --}}
 
                                         @if ( $pageType == 'half_day' )
                                             <div class="col-md-3 mt-3">
@@ -240,6 +251,17 @@
                                             <span class="text-danger error-text file_err"></span>
                                             <span class="text-danger error-text" style="font-size:11px">Choose if want to replace existing file</span>
                                         </div>
+
+                                        @if ( $pageType == 'half_day' )
+                                        <div class="col-md-3 mt-3">
+                                            <label class="col-form-label" for="file">Select Half Day Type<span class="text-danger">*</span> </label>
+                                            <select name="half_day_type" id="half_day_type" class="form-select">
+                                                <option value="">Select Type</option>
+                                                <option value="1">1st Half</option>
+                                                <option value="2">2nd Half</option>
+                                            </select>
+                                        </div>
+                                        @endif
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
@@ -302,6 +324,9 @@
                                                 <th style="min-width: 80px">To Date</th>
                                                 <th>No. Of Days</th>
                                             @endif
+                                            @if( $pageType == 'half_day' )
+                                                <th>Half Day Type</th>
+                                            @endif
                                             <th style="min-width: 150px">Remark</th>
                                             <th>View Documents</th>
                                             <th style="min-width: 100px">Action</th>
@@ -323,6 +348,9 @@
                                                 @if( $pageType != 'half_day' )
                                                     <td>{{ $request->to_date }}</td>
                                                     <td>{{ $request->no_of_days }}</td>
+                                                @endif
+                                                @if( $pageType == 'half_day' )
+                                                    <td>{{ ['1' => 'First Half', '2' => 'Second Half'][$request->half_day_type] ?? '-' }}</td>
                                                 @endif
                                                 <td>{{ $request->remark }}</td>
                                                 <td>
@@ -528,6 +556,7 @@
                         }
                         $("#editForm input[name='from_date']").val(data.leave_request.from_date);
                         $("#editForm input[name='to_date']").val(data.leave_request.to_date);
+                        $("#editForm select[name='half_day_type']").val(data.leave_request.half_day_type);
                     }
                     else
                     {

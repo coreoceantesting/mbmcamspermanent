@@ -50,7 +50,7 @@ class ReportController extends Controller
         $settings = Setting::getValues($authUser->tenant_id)->pluck('value', 'key');
         $fromDate = Carbon::parse($request->from_date)->toDateString();
         $toDate = Carbon::parse($request->to_date)->toDateString();
-        $leavesArray = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'OUT', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI'];
+        $leavesArray = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'OUT', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI', '8' => 'BREAK'];
         $otherLeavesArray = ['no' => 'NIGHTOFF', 'co' => 'COMPENS', 'ph' => 'PUBLIC', 'so' => 'SATOFF', 'do' => 'DAYOFF'];
 
         if ($request->month) {
@@ -158,7 +158,7 @@ class ReportController extends Controller
                 $data['totalDays'] = $totalDays;
                 $data['dateRanges'] = $dateRanges;
                 $data['defaultShift'] = $defaultShift;
-                $data['leavesArray'] = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'OUTPOST', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI'];
+                $data['leavesArray'] = ['0' => 'HALFDAY', '1' => 'TECH', '2' => 'OUTPOST', '3' => 'COMP', '4' => 'OL', '5' => 'EL', '6' => 'CL', '7' => 'MEDI', '8' => 'BREAK'];
                 $data['otherLeavesArray'] = ['no' => 'NIGHTOFF', 'co' => 'COMPENS', 'ph' => 'PUBLIC', 'so' => 'SATOFF', 'do' => 'DAYOFF'];
 
                 $filename = str_replace('/', '_', 'MUSTER_' . $fromDate . '_' . $toDate);
