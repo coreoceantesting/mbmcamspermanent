@@ -105,7 +105,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
 
 
     // Leave Balances
-    Route::get('leave-balance', [App\Http\Controllers\Admin\LeaveBalanceController::class, 'index'])->name('leave-requests.application');
+    Route::get('leave-balance', [App\Http\Controllers\Admin\LeaveBalanceController::class, 'index'])->name('leave-balance.index');
 
 
     // Employee Shifts

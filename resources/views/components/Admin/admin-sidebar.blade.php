@@ -164,7 +164,7 @@
                     @endcan
 
 
-                    @can('leave-balance.view')
+                    @can('leave-balance.index')
                         <li class="dropdown">
                             <a class="nav-link menu-title link-nav {{ request()->routeIs('leave-balance.index') ? 'active-bg' : '' }}" href="{{ route('leave-balance.index') }}">
                                 <i data-feather="bold"></i><span>Balance Leaves</span>

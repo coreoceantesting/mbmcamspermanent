@@ -411,21 +411,56 @@ class PermissionTableSeeder extends Seeder
             ],
             [
                 'id' => 80,
+                'name' => 'reports.leave-report',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 81,
+                'name' => 'reports.daily-attendance',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 82,
+                'name' => 'reports.today-present-report',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 83,
+                'name' => 'reports.today-absent-report',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 84,
+                'name' => 'reports.department-wise',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 85,
+                'name' => 'reports.emp-wise-report',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 86,
+                'name' => 'reports.leave-bifurcation',
+                'group' => 'reports',
+            ],
+            [
+                'id' => 87,
                 'name' => 'leave-balance.index',
                 'group' => 'leave-balance',
             ],
             [
-                'id' => 81,
+                'id' => 88,
                 'name' => 'leave-balance.create',
                 'group' => 'leave-balance',
             ],
             [
-                'id' => 82,
+                'id' => 89,
                 'name' => 'leave-balance.edit',
                 'group' => 'leave-balance',
             ],
             [
-                'id' => 83,
+                'id' => 90,
                 'name' => 'leave-balance.delete',
                 'group' => 'leave-balance',
             ],
