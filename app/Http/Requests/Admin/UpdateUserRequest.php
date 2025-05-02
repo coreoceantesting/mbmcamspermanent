@@ -33,6 +33,17 @@ class UpdateUserRequest extends FormRequest
             // 'ward_id' => 'required',
             'email' => 'required',
             'mobile' => 'nullable|digits:10',
+            'clas_id' => 'required',
+            'designation_id' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'clas_id.required' => 'The class field is required.',
+            'designation_id.required' => 'The designation field is required.',
+            'department_id'=>'The department field is required.',
         ];
     }
 }

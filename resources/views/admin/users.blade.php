@@ -26,8 +26,30 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="department_id">Select Department <span class="text-danger">*</span></label>
-                                            <select class="js-example-basic-single col-sm-12" id="department_id" name="department_id">
+                                            <label class="col-form-label" for="clas_id">Select Clas <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="clas_id" name="clas_id">
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($class as $clas)
+                                                    <option value="{{ $clas->id }}">{{ $clas->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text clas_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="designation_id">Select Designation <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="designation_id" name="designation_id">
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text designation_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="department_id[]">Select Department <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="department_id" name="department_id[]" multiple>
                                                 <option value="">--Select Department--</option>
                                                 @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -151,8 +173,30 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="department_id">Select Department <span class="text-danger">*</span></label>
-                                            <select class="js-example-basic-single col-sm-12" name="department_id">
+                                            <label class="col-form-label" for="clas_id_edit">Select Clas <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="clas_id_edit" name="clas_id">
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($class as $clas)
+                                                    <option value="{{ $clas->id }}">{{ $clas->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text clas_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="designation_id_edit">Select Designation <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="designation_id_edit" name="designation_id">
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($designations as $designation)
+                                                    <option value="{{ $designation->id }}">{{ $designation->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text designation_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="department_id_edit">Select Department <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="department_id_edit" name="department_id[]" multiple>
                                                 <option value="">--Select Department--</option>
                                                 @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
@@ -593,7 +637,10 @@
                 if (!data.error) {
                     $("#editForm input[name='edit_model_id']").val(data.user.id);
                     $("#editForm input[name='emp_code']").val(data.user.emp_code);
-                    $("#editForm select[name='department_id']").html(data.departmentHtml);
+                    $("#department_id_edit").html(data.departmentHtml);
+                    $("#department_id_edit").trigger('change');;
+                    $("#editForm select[name='clas_id']").html(data.clasHtml).change();
+                    $("#editForm select[name='designation_id']").html(data.designationHtml).change();
                     //$("#editForm select[name='sub_department_id']").html(data.subDepartmentHtml);
                     // $("#editForm input[name='dob']").val(data.user.dob);
                     data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true) ;
@@ -601,6 +648,7 @@
                     $("#editForm input[name='name']").val(data.user.name);
                     $("#editForm input[name='email']").val(data.user.email);
                     $("#editForm input[name='mobile']").val(data.user.mobile);
+                    $("#editForm input[name='emp_code']").val(data.user.emp_code);
                     // $("#editForm select[name='ward_id']").html(data.wardHtml);
                 } else {
                     swal("Error!", data.error, "error");

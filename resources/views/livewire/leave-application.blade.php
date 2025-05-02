@@ -42,6 +42,12 @@
                         <th style="min-width: 120px" >From Date</th>
                         <th style="min-width: 120px" >To Date</th>
                         <th>Days</th>
+                        <th>EL Available</th>
+                        <th>EL Taken</th>
+                        <th>CL Available</th>
+                        <th>CL Taken</th>
+                        <th>MEL Available</th>
+                        <th>MEL Taken</th>
                         <th style="min-width: 150px">Remark</th>
                         <th>View Document</th>
                         <th style="min-width: 150px" >Action</th>
@@ -63,6 +69,13 @@
                             <td>{{ $request->from_date }}</td>
                             <td>{{ $request->to_date }}</td>
                             <td>{{ $request->no_of_days }}</td>
+                            <td>{{ 30 - $request->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ $request->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ 20 - $request->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ $request->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ 8 - $request->where('leave_type_id', 7)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ $request->where('leave_type_id', 7)->where('is_approved', 1)->sum('no_of_days') }}</td>
+
                             <td>{{ Str::limit($request->remark, 60) }}</td>
                             <td>
                                 <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View </a>

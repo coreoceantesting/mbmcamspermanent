@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\AssignUserRoleRequest;
-use App\Http\Requests\Admin\ChangeUserPasswordRequest;
-use App\Http\Requests\Admin\StoreUserRequest;
-use App\Http\Requests\Admin\UpdateUserRequest;
-use App\Models\Department;
+use App\Models\Clas;
 use App\Models\Role;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Ward;
+use App\Models\Department;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Admin\Controller;
+use App\Http\Requests\Admin\StoreUserRequest;
+use App\Http\Requests\Admin\UpdateUserRequest;
+use App\Http\Requests\Admin\AssignUserRoleRequest;
+use App\Http\Requests\Admin\ChangeUserPasswordRequest;
+use App\Models\Designation;
+use App\Models\UserDepartment;
 
 class UserController extends Controller
 {
@@ -28,7 +31,9 @@ class UserController extends Controller
         $departments = Department::whereDepartmentId(null)->latest()->get();
         $roles = Role::orderBy('id', 'DESC')->where('tenant_id', Auth::user()->tenant_id)->whereNot('name', 'like', '%super%')->get();
         $wards = Ward::whereNull('deleted_at')->select('id', 'name', 'initial')->get();
-        return view('admin.users')->with(['users' => $users, 'roles' => $roles, 'departments' => $departments, 'wards' => $wards]);
+        $class = Clas::select('id', 'name', 'initial')->get();
+        $designations = Designation::select('id', 'name', 'initial')->get();
+        return view('admin.users')->with(['users' => $users, 'roles' => $roles, 'departments' => $departments, 'wards' => $wards,'class'=>$class,'designations'=>$designations]);
     }
 
     /**
@@ -50,7 +55,20 @@ class UserController extends Controller
             $input['tenant_id'] = Auth::user()->tenant_id;
             $input['password'] = Hash::make($input['password']);
             $input['is_employee'] = '0';
+            $departments = $input['department_id'];
+            unset($input['department_id']);
             $user = User::create(Arr::only($input, Auth::user()->getFillable()));
+            $bulkData = [];
+            foreach ($departments as $deptId) {
+                $bulkData[] = [
+                    'user_id' => $user->id,
+                    'department_id' => $deptId,
+                    'created_at' => now(),
+                ];
+            }
+            if(!empty($bulkData)){
+                UserDepartment::insert($bulkData);
+            }
             DB::table('model_has_roles')->insert(['role_id' => $input['role'], 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
             DB::commit();
             return response()->json(['success' => 'User created successfully!']);
@@ -72,19 +90,25 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+
         $departments = Department::whereNull('department_id')->get();
         $subDepartments = Department::whereNotNull('department_id')->get();
         $wards = Ward::whereNull('deleted_at')->select('id', 'name')->get();
         $roles = Role::whereNot('name', 'like', '%super%')->get();
+        $class = Clas::select('id', 'name', 'initial')->get();
+        $designations = Designation::select('id', 'name', 'initial')->get();
         $user->loadMissing('roles');
 
         if ($user) {
             $departmentHtml = '
-                <option value="">--Select Sub Department--</option>';
-            foreach ($departments as $dep):
-                $is_select = $dep->id == $user->department_id ? "selected" : "";
+            <option value="">--Select Department--</option>';
+
+            foreach ($departments as $dep) {
+                // Check if the department is assigned to the user
+                $is_select = $user->departments->contains('id', $dep->id) ? "selected" : "";
                 $departmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
-            endforeach;
+            }
+
 
             $subDepartmentHtml = '
                 <option value="">--Select Sub Department--</option>';
@@ -107,6 +131,22 @@ class UserController extends Controller
                 $wardHtml .= '<option value="' . $ward->id . '" ' . $is_select . '>' . $ward->name . '</option>';
             endforeach;
 
+
+            $clasHtml = '
+            <option value="">--Select Clas --</option>';
+            foreach ($class as $clas):
+                $is_select = $user->clas_id == $clas->id ? "selected" : "";
+                $clasHtml .= '<option value="' . $clas->id . '" ' . $is_select . '>' . $clas->name . '</option>';
+            endforeach;
+
+            $designationHtml = '
+            <option value="">--Select Designation --</option>';
+            foreach ($designations as $designation):
+                $is_select = $user->designation_id == $designation->id ? "selected" : "";
+                $designationHtml .= '<option value="' . $designation->id . '" ' . $is_select . '>' . $designation->name . '</option>';
+            endforeach;
+
+
             $response = [
                 'result' => 1,
                 'user' => $user,
@@ -114,6 +154,8 @@ class UserController extends Controller
                 'departmentHtml' => $departmentHtml,
                 'subDepartmentHtml' => $subDepartmentHtml,
                 'wardHtml' => $wardHtml,
+                'clasHtml' => $clasHtml,
+                'designationHtml'=>$designationHtml,
             ];
         } else {
             $response = ['result' => 0];
@@ -129,7 +171,12 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->validated();
+            $departments = $input['department_id'];
+            unset($input['department_id']);
             $user->update(Arr::only($input, Auth::user()->getFillable()));
+            if (isset($departments) && is_array($departments)) {
+                $user->departments()->sync($departments);
+            }
             $user->roles()->detach();
             DB::table('model_has_roles')->insert(['role_id' => $input['role'], 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
             DB::commit();

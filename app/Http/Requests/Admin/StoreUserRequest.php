@@ -31,10 +31,21 @@ class StoreUserRequest extends FormRequest
             'role' => 'required',
             'name' => 'required',
             // 'ward_id' => 'required',
+            'clas_id' => 'required',
+            'designation_id' => 'required',
             'email' => 'required|unique:app_users,email',
             'mobile' => 'nullable|unique:app_users,mobile|digits:10',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'clas_id.required' => 'The class field is required.',
+            'designation_id.required' => 'The designation field is required.',
+            'department_id'=>'The department field is required.',
         ];
     }
 }
