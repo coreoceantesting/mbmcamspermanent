@@ -48,6 +48,7 @@ class LeaveRequestController extends Controller
                                     ->whereRequestForType(constant("App\Models\LeaveRequest::$type_const"))
                                     ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
                                     ->whereIsApproved('0')
+                                    ->where('user_id', Auth::user()->id)
                                     ->latest()->get();
 
 
