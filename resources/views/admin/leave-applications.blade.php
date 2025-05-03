@@ -35,6 +35,25 @@
 
             </div>
         </div>
+
+        <div class="container-fluid support-ticket">
+            <div class="row">
+
+                <div class="col-sm-12">
+                    <div class="card">
+
+                        <div class="card-body">
+
+                            <div>
+                                <livewire:leave-application-department />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!-- Container-fluid Ends-->
     </div>
 

@@ -40,10 +40,10 @@ class LeaveRepository
         }
         if($hierarchy->{'1_approver_designation_id'})
         {
-            $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'}, 'clas_id' => $user->clas_id])
-            ->whereHas('departments', function ($query) use ($hierarchy) {
-                $query->where('departments.id', $hierarchy->{'1_approver_department_id'});
-            })->first();
+            $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'}, 'clas_id' => $user->clas_id,'department_id'=> $hierarchy->{'1_approver_department_id'}])->first();
+            // ->whereHas('departments', function ($query) use ($hierarchy) {
+            //     $query->where('department_id', $hierarchy->{'1_approver_department_id'});
+            // })
 
 
             if($approver)
@@ -64,9 +64,12 @@ class LeaveRepository
 
         if($hierarchy->{'2_approver_designation_id'})
         {
-            $approver = User::where(['designation_id'=> $hierarchy->{'2_approver_designation_id'}, 'clas_id' => $user->clas_id]) ->whereHas('departments', function ($query) use ($hierarchy) {
-                $query->where('departments.id', $hierarchy->{'2_approver_department_id'});
-            })->first();
+            $approver = User::where(['designation_id'=> $hierarchy->{'2_approver_designation_id'}, 'clas_id' => $user->clas_id,'department_id'=> $hierarchy->{'2_approver_department_id'}])->first();
+            // ->whereHas('departments', function ($query) use ($hierarchy) {
+            //     $query->where('department_id', $hierarchy->{'2_approver_department_id'});
+            // })
+
+
             if($approver)
             {
                 LeaveApprovalHierarchy::create([
@@ -85,9 +88,12 @@ class LeaveRepository
 
         if($hierarchy->{'3_approver_designation_id'})
         {
-            $approver = User::where(['designation_id'=> $hierarchy->{'3_approver_designation_id'}, 'clas_id' => $user->clas_id]) ->whereHas('departments', function ($query) use ($hierarchy) {
-                $query->where('departments.id', $hierarchy->{'3_approver_department_id'});
-            })->first();
+            $approver = User::where(['designation_id'=> $hierarchy->{'3_approver_designation_id'}, 'clas_id' => $user->clas_id,'department_id'=> $hierarchy->{'3_approver_department_id'}])->first();
+            // ->whereHas('departments', function ($query) use ($hierarchy) {
+            //     $query->where('department_id', $hierarchy->{'3_approver_department_id'});
+            // })
+
+
 
             if($approver)
             {

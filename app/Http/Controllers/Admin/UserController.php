@@ -55,8 +55,8 @@ class UserController extends Controller
             $input['tenant_id'] = Auth::user()->tenant_id;
             $input['password'] = Hash::make($input['password']);
             $input['is_employee'] = '0';
-            $departments = $input['department_id'];
-            unset($input['department_id']);
+            $departments = $input['departments_id'];
+            unset($input['departments_id']);
             $user = User::create(Arr::only($input, Auth::user()->getFillable()));
             $bulkData = [];
             foreach ($departments as $deptId) {
@@ -147,6 +147,16 @@ class UserController extends Controller
             endforeach;
 
 
+
+            $maindepartmentHtml = '
+            <option value="">--Select Department--</option>';
+
+            foreach ($departments as $dep) {
+                // Check if the department is assigned to the user
+                $is_select = $user->department_id == $dep->id ? "selected" : "";
+                $maindepartmentHtml .= '<option value="' . $dep->id . '" ' . $is_select . '>' . $dep->name . '</option>';
+            }
+
             $response = [
                 'result' => 1,
                 'user' => $user,
@@ -156,6 +166,7 @@ class UserController extends Controller
                 'wardHtml' => $wardHtml,
                 'clasHtml' => $clasHtml,
                 'designationHtml'=>$designationHtml,
+                'maindepartmentHtml'=>$maindepartmentHtml
             ];
         } else {
             $response = ['result' => 0];

@@ -46,16 +46,26 @@
                                             </select>
                                             <span class="text-danger error-text designation_id_err"></span>
                                         </div>
-
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="department_id[]">Select Department <span class="text-danger">*</span></label>
-                                            <select class="js-example-basic-single col-sm-12" id="department_id" name="department_id[]" multiple>
+                                            <label class="col-form-label" for="department_id">Select Department <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="department_id" name="department_id" >
                                                 <option value="">--Select Department--</option>
                                                 @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
                                             <span class="text-danger error-text department_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="departments_id[]">Select Extra Department <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="departments_id" name="departments_id[]" multiple>
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text departments_id_err"></span>
                                         </div>
 
                                         {{-- <div class="col-md-4 mt-3">
@@ -175,7 +185,7 @@
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="clas_id_edit">Select Clas <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" id="clas_id_edit" name="clas_id">
-                                                <option value="">--Select Department--</option>
+                                                <option value="">--Select Class--</option>
                                                 @foreach ($class as $clas)
                                                     <option value="{{ $clas->id }}">{{ $clas->name }}</option>
                                                 @endforeach
@@ -196,13 +206,24 @@
 
                                         <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="department_id_edit">Select Department <span class="text-danger">*</span></label>
-                                            <select class="js-example-basic-single col-sm-12" id="department_id_edit" name="department_id[]" multiple>
+                                            <select class="js-example-basic-single col-sm-12" id="department_id_edit" name="department_id" multiple>
                                                 <option value="">--Select Department--</option>
                                                 @foreach ($departments as $department)
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
                                             <span class="text-danger error-text department_id_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="department_id_edit">Select Other Department <span class="text-danger">*</span></label>
+                                            <select class="js-example-basic-single col-sm-12" id="departments_id_edit" name="departments_id[]" multiple>
+                                                <option value="">--Select Department--</option>
+                                                @foreach ($departments as $department)
+                                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span class="text-danger error-text departments_id_err"></span>
                                         </div>
 
                                         {{-- <div class="col-md-4 mt-3">
@@ -637,8 +658,10 @@
                 if (!data.error) {
                     $("#editForm input[name='edit_model_id']").val(data.user.id);
                     $("#editForm input[name='emp_code']").val(data.user.emp_code);
-                    $("#department_id_edit").html(data.departmentHtml);
-                    $("#department_id_edit").trigger('change');;
+                    $("#departments_id_edit").html(data.departmentHtml);
+                    $("#departments_id_edit").trigger('change');
+                    $("#department_id_edit").html(data.maindepartmentHtml);
+                    $("#department_id_edit").trigger('change');
                     $("#editForm select[name='clas_id']").html(data.clasHtml).change();
                     $("#editForm select[name='designation_id']").html(data.designationHtml).change();
                     //$("#editForm select[name='sub_department_id']").html(data.subDepartmentHtml);

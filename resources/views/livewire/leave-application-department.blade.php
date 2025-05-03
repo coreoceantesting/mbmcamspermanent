@@ -26,7 +26,7 @@
             <input type="text" name="search" wire:model.debounce.500="search" class="form-control" placeholder="search..">
         </div>
     </div>
-
+    <h3>Deparment wise leaves</h3>
     <div class="row" style="overflow-x: scroll">
         <div class="col-12">
             <table class="table table-hover" id="list_table">
@@ -51,7 +51,6 @@
                         <th>Approval Status</th>
                         <th style="min-width: 150px">Remark</th>
                         <th>View Document</th>
-                        <th style="min-width: 150px" >Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -101,22 +100,7 @@
                                 <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View </a>
                             </td>
 
-                            <td>
-                                {{-- @if($type_const == 'pending') --}}
 
-                                    @if ($request->is_approved == 0)
-                                        <button class="approve-request btn btn-success px-2 py-1" title="Approve Request" data-id="{{ $request->id }}" data-status="1">Approve <i data-feather="check-circle"></i></button>
-                                        <button class="change-request btn btn-warning px-2 py-1" title="Reject Request" data-id="{{ $request->id }}" data-status="2">Reject <i data-feather="x-circle"></i></button>
-                                    @elseif ($request->is_approved == 1)
-                                        <button class="btn btn-success px-2 py-1">Approved</button>
-                                    @else
-                                        <button class="btn btn-danger px-2 py-1">Rejected</button>
-                                    @endif
-                                {{-- @endif --}}
-                                @if($isAdmin)
-                                    <button class="btn btn-danger rem-element px-2 py-1" title="Delete Leave" data-id="{{ $request->id }}"><i class="fa fa-trash"></i></button>
-                                @endif
-                            </td>
                         </tr>
                     @endforeach
                 </tbody>

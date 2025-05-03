@@ -24,6 +24,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'department_id' => 'required|exists:departments,id',
+            'departments_id'=> 'nullable',
             // 'sub_department_id' => 'required|exists:departments,id',
             'emp_code' => 'nullable|max:15|unique:app_users,emp_code|regex:/^[A-Z0-9]+$/',
             // 'dob' => 'required',
@@ -37,6 +38,7 @@ class StoreUserRequest extends FormRequest
             'mobile' => 'nullable|unique:app_users,mobile|digits:10',
             'password' => 'required|min:8',
             'confirm_password' => 'required|same:password',
+
         ];
     }
 
@@ -45,7 +47,8 @@ class StoreUserRequest extends FormRequest
         return [
             'clas_id.required' => 'The class field is required.',
             'designation_id.required' => 'The designation field is required.',
-            'department_id'=>'The department field is required.',
+            'departments_id'=>'The department field is required.',
+            'department_id'=>'The departments field is required.',
         ];
     }
 }

@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'department_id' => 'required|exists:departments,id',
+            'departments_id' => 'nullable',
             // 'sub_department_id' => 'required|exists:departments,id',
             'emp_code' => 'nullable',
             // 'dob' => 'required',
@@ -44,6 +45,7 @@ class UpdateUserRequest extends FormRequest
             'clas_id.required' => 'The class field is required.',
             'designation_id.required' => 'The designation field is required.',
             'department_id'=>'The department field is required.',
+            'departments_id' => 'The department field is required.',
         ];
     }
 }
