@@ -31,14 +31,15 @@ class LeaveApplicationDepartment extends Component
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
 
         $leaveRequests = Search::add(
-                                ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves')
+                                ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves','approvalHierarchy')
                                     ->withWhereHas('user', fn($qr)=> $qr
                                         ->where('department_id', $authUser->department_id)
                                         ->with('ward', 'clas', 'department')
                                     )
-                                    ->withWhereHas('approvalHierarchy', fn($q) => $q
-                                        // ->where('status', constant("App\Models\LeaveRequest::$this->type_const"))
-                                    )
+                                    // ->with()
+                                    // ->withWhereHas('approvalHierarchy', fn($q) => $q
+                                    //     // ->where('status', constant("App\Models\LeaveRequest::$this->type_const"))
+                                    // )
                                     // ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
                                     // ->whereNot('leave_type_id', '7')
                                     // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
