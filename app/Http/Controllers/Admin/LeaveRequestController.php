@@ -52,8 +52,9 @@ class LeaveRequestController extends Controller
                                     ->latest()->get();
 
 
+                                    // ['2', '7']
         $leaveTypes = LeaveType::with('leave')
-                                ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2', '7']))
+                                ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2']))
                                 ->get();
 
         return view('admin.leave-requests')->with(['leaveRequests' => $leaveRequests, 'pageType' => $pageType, 'leaveTypes' => $leaveTypes]);
