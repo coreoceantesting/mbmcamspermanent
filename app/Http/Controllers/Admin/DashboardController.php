@@ -22,18 +22,22 @@ class DashboardController extends Controller
         // 1 => Permanent  0 =>  Contractual 
         $employeeType = 1;
 
-        $authUser = auth()->user();
+        $authUser = auth()->user()->load('designation');
         $is_admin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? true : false;
-        $department = $request->ward;
+        $department = $request->ward; 
+        $is_higher_authority = $authUser->designation->name === "Commissioner";
 
-        $totalEmployees = User::when(!$is_admin && !$department, fn($qr) => $qr->where('department_id', $authUser->department_id))
-            ->when($department, fn($qr) => $qr->where('department_id', $department))
-            ->where('employee_type', $employeeType)
-            ->whereIsEmployee('1')
-            ->count();
+        $totalEmployees = User::when(!$is_higher_authority, function ($query) use ($department, $authUser) {
+            // Only apply department filter if not Commissioner
+            $query->when($department, function ($q) use ($department) {
+                return $q->where('department_id', $department);
+            }, function ($q) use ($authUser) {
+                return $q->where('department_id', $authUser->department_id);
+            });
+        })->count();
 
         $departments = '';
-        if ($is_admin) {
+        if ($is_admin || $is_higher_authority) {
             $departments = Department::query()
                 ->withCount([
                     'users' => fn($q) => $q
