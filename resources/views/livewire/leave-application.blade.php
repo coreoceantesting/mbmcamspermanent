@@ -89,7 +89,7 @@
 
                             <td>{{ $melAvailable - $melTaken }}</td>
                             <td>{{ $melTaken }}</td>
-                            <td>
+                            <td style="font-size: 11px;">
                                 @foreach ($request->approvalHierarchy as $hierarchy)
                                     <strong>{{ $loop->iteration }} Approver </strong> - {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
                                 @endforeach
