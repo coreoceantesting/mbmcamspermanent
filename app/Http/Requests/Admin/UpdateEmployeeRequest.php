@@ -50,6 +50,7 @@ class UpdateEmployeeRequest extends FormRequest
             'ward_id' => 'required',
             'clas_id' => 'nullable',
             'designation_id' => 'nullable',
+            'leave_durations'=>'nullable'
         ];
     }
 }

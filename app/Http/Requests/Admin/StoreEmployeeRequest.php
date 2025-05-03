@@ -50,6 +50,7 @@ class StoreEmployeeRequest extends FormRequest
             'designation_id' => 'nullable',
             'is_ot' => ['required', Rule::in(['y', 'n'])],
             'is_divyang' => ['required', Rule::in(['y', 'n'])],
+            'leave_durations' => 'nullable',
         ];
     }
 }

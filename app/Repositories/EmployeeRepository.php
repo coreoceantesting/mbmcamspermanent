@@ -2,19 +2,20 @@
 
 namespace App\Repositories;
 
+use Carbon\Carbon;
 use App\Models\Clas;
+use App\Models\User;
+use App\Models\Ward;
+use App\Models\Shift;
+use App\Models\Device;
+use App\Models\Employee;
+use App\Models\UserLeave;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\Designation;
-use App\Models\Device;
-use App\Models\Employee;
-use App\Models\Shift;
-use App\Models\User;
-use App\Models\Ward;
-use Carbon\Carbon;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class EmployeeRepository
@@ -30,8 +31,17 @@ class EmployeeRepository
         $input['shift_id'] = $input['shift_id'] ?? '1';
         $input['work_duration'] = $input['work_duration'] ? (($input['work_duration'] * 60) * 60) : null;
         $input['sa_duration'] = $input['sa_duration'] ? (($input['sa_duration'] * 60) * 60) : null;
-        User::create(Arr::only($input, Auth::user()->getFillable()));
-
+        $user = User::create(Arr::only($input, Auth::user()->getFillable()));
+        if (!empty($input['leave_durations']) && is_array($input['leave_durations'])) {
+            foreach ($input['leave_durations'] as $leaveTypeId => $leaveDays) {
+            UserLeave::create([
+                'user_id' => $user->id,
+                'leave_type_id' => $leaveTypeId,
+                'leave_days' => $leaveDays,
+            ]);
+            }
+        }
+        // if()
         DB::commit();
     }
 
@@ -120,6 +130,7 @@ class EmployeeRepository
                 'designationHtml' => $designationHtml,
                 'shiftHtml' => $shiftHtml,
                 'contractorHtml' => $contractorHtml,
+                'user_leaves' => $user->userLeaves,
             ];
         } else {
             $response = ['result' => 0];
@@ -137,6 +148,12 @@ class EmployeeRepository
         $input['work_duration'] = $input['work_duration'] ? (($input['work_duration'] * 60) * 60) : $emp->work_duration;
         $input['sa_duration'] = $input['sa_duration'] ? (($input['sa_duration'] * 60) * 60) : $emp->sa_duration;
         $emp->update(Arr::only($input, Auth::user()->getFillable()));
+        foreach ($input['leave_durations'] as $leaveTypeId => $leaveDays) {
+            UserLeave::updateOrCreate(
+                ['user_id' => $emp->id, 'leave_type_id' => $leaveTypeId],
+                ['leave_days' => $leaveDays]
+            );
+        }
         DB::commit();
     }
 

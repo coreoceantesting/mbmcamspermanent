@@ -248,6 +248,30 @@
                                             <span class="text-danger error-text sa_duration_err"></span>
                                         </div>
 
+                                        <h5 class="mt-4">Leave  Durations</h5>
+
+                                        <div class="row">
+                                            @foreach ($leave_types as $leave_type)
+                                                <div class="col-md-4 mt-3">
+                                                    <label class="col-form-label" for="leave_duration_{{ $leave_type->id }}">
+                                                        {{ $leave_type->name }} Duration ({{ $leave_type->is_paid == 'yes' ? 'Paid' : 'Not Paid' }})
+                                                    </label>
+                                                    <input
+                                                        class="form-control"
+                                                        id="leave_duration_{{ $leave_type->id }}"
+                                                        name="leave_durations[{{ $leave_type->id }}]"
+                                                        type="number"
+                                                        value="0"
+                                                        placeholder="Enter {{ $leave_type->name }} Duration"
+                                                        step="any">
+                                                    <span class="text-danger error-text leave_duration_{{ $leave_type->id }}_err"></span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
+
+
+
                                     </div>
 
                                 </div>

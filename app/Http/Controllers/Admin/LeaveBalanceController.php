@@ -22,7 +22,7 @@ class LeaveBalanceController extends Controller
                     ->whereIsEmployee('1')
                     ->where('employee_type', '1')
                     // ->whereHas('leaveRequests')
-                    ->with(['subDepartment', 'department', 'designation', 'clas', 'leaveRequests.leaveType'])
+                    ->with(['subDepartment', 'department', 'designation', 'clas', 'leaveRequests.leaveType','userLeaves'])
                     ->when(!$authUser->hasRole(['Admin', 'Super Admin']), fn ($q) => $q->where('app_users.sub_department_id', $authUser->sub_department_id))
                     ->orderBy('created_at', 'DESC')
                     ->get();

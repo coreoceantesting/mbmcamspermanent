@@ -275,6 +275,11 @@
                                     </thead>
                                     <tbody>
                                         @foreach ($leaveRequests as $request)
+                                        @php
+
+                                        $elAvailable = $request->userLeaves->where('leave_type_id', 5)->first()?->leave_days ?? 0;
+                                        $clAvailable = $request->userLeaves->where('leave_type_id', 6)->first()?->leave_days ?? 0;
+                                        @endphp
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $request->emp_code }}</td>
@@ -282,9 +287,9 @@
                                                 <td>{{ $request->department?->name }}</td>
                                                 <td>{{ $request->designation?->name }}</td>
                                                 <td>{{ $request->clas?->name }}</td>
-                                                <td>{{ 30 - $request->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                                                <td>{{ $elAvailable - $request->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>{{ $request->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                                                <td>{{ 20 - $request->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                                                <td>{{ $clAvailable - $request->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>{{ $request->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
                                                 <td>
                                                     {{-- @if ($isAdmin)

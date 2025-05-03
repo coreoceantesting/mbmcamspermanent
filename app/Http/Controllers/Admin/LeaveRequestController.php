@@ -50,7 +50,6 @@ class LeaveRequestController extends Controller
                                     ->whereIsApproved('0')
                                     ->latest()->get();
 
-        // dd($leaveRequests);
 
         $leaveTypes = LeaveType::with('leave')
                                 ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('id', ['2', '7']))
@@ -84,7 +83,12 @@ class LeaveRequestController extends Controller
         //     return response()->json(['error2'=> $canApplyLeave['message']]);
 
         try {
-            $this->leaveRepository->storeLeaveRequest($input, $user);
+            $response = $this->leaveRepository->storeLeaveRequest($input, $user);
+
+            if ($response instanceof \Illuminate\Http\JsonResponse && $response->status() === 500) {
+                return $response; // Forward the error JSON response from the repository
+            }
+
             return response()->json(['success' => 'Leave request added successfully!']);
         } catch (\Exception $e) {
             return $this->respondWithAjax($e, 'adding', 'Leave request');

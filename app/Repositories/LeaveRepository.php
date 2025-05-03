@@ -35,9 +35,13 @@ class LeaveRepository
 
 
         $hierarchy = LeaveRequestHierarchy::where(['clas_id'=> $user->clas_id,'requester_department_id'=> $user->department_id, 'requester_designation_id' => $user->designation_id])->first();
+        if (!$hierarchy) {
+            return response()->json(['error' => 'No hierarchy available'], 500);
+        }
         if($hierarchy->{'1_approver_designation_id'})
         {
             $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'}, 'clas_id' => $user->clas_id, 'department_id' => $hierarchy->{'1_approver_department_id'}])->first();
+
             if($approver)
             {
                 LeaveApprovalHierarchy::create([

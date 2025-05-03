@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\StoreEmployeeRequest;
-use App\Http\Requests\Admin\UpdateEmployeeRequest;
+use Exception;
+use Carbon\Carbon;
 use App\Models\Clas;
+use App\Models\User;
+use App\Models\Ward;
+use App\Models\Punch;
+use App\Models\Shift;
+use App\Models\Device;
+use App\Models\LeaveType;
 use App\Models\Contractor;
 use App\Models\Department;
 use App\Models\Designation;
-use App\Models\Device;
-use App\Models\Punch;
-use App\Models\Shift;
-use App\Models\User;
-use App\Models\Ward;
-use App\Repositories\EmployeeRepository;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\EmployeeRepository;
+use App\Http\Controllers\Admin\Controller;
+use App\Http\Requests\Admin\StoreEmployeeRequest;
+use App\Http\Requests\Admin\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -33,7 +34,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        return view('admin.employees');
+        $leave_types = LeaveType::get();
+        return view('admin.employees')->with(['leave_types' => $leave_types]);
     }
 
     /**
@@ -48,9 +50,10 @@ class EmployeeController extends Controller
         $shifts = Shift::latest()->get();
         $devices = Device::orderByDesc('DeviceId')->get();
         $contractors = Contractor::get();
+        $leave_types = LeaveType::get();
 
 
-        return view('admin.add-employees')->with(['wards' => $wards, 'contractors' => $contractors, 'departments' => $departments, 'designations' => $designations, 'clas' => $clas, 'shifts' => $shifts, 'devices' => $devices]);
+        return view('admin.add-employees')->with(['wards' => $wards, 'contractors' => $contractors, 'departments' => $departments, 'designations' => $designations, 'clas' => $clas, 'shifts' => $shifts, 'devices' => $devices, 'leave_types'=>$leave_types]);
     }
 
     /**

@@ -56,8 +56,19 @@
                 <tbody>
                     @php
                         $i = $leaveRequests->perPage() * ($leaveRequests->currentPage() -1 );
+
+
                     @endphp
                     @foreach ($leaveRequests as $request)
+                    @php
+                    $user = $request->user;
+                    $elAvailable = $user->userLeaves->where('leave_type_id', 5)->first()?->leave_days ?? 0;
+                    $clAvailable = $user->userLeaves->where('leave_type_id', 6)->first()?->leave_days ?? 0;
+                    $melAvailable = $user->userLeaves->where('leave_type_id', 7)->first()?->leave_days ?? 0;
+                    $elTaken =   $user->leaveRequests->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days');
+                    $clTaken = $user->leaveRequests->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days');
+                    $melTaken = $user->leaveRequests->where('leave_type_id', 7)->where('is_approved', 1)->sum('no_of_days');
+                    @endphp
                         <tr>
                             <td>{{ ++$i }}</td>
                             <td>{{ $request->user?->emp_code }}</td>
@@ -69,12 +80,14 @@
                             <td>{{ $request->from_date }}</td>
                             <td>{{ $request->to_date }}</td>
                             <td>{{ $request->no_of_days }}</td>
-                            <td>{{ 30 - $request->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                            <td>{{ $request->where('leave_type_id', 5)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                            <td>{{ 20 - $request->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                            <td>{{ $request->where('leave_type_id', 6)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                            <td>{{ 8 - $request->where('leave_type_id', 7)->where('is_approved', 1)->sum('no_of_days') }}</td>
-                            <td>{{ $request->where('leave_type_id', 7)->where('is_approved', 1)->sum('no_of_days') }}</td>
+                            <td>{{ $elAvailable - $elTaken }}</td>
+                            <td>{{ $elTaken }}</td>
+
+                            <td>{{ $clAvailable - $clTaken }}</td>
+                            <td>{{ $clTaken }}</td>
+
+                            <td>{{ $melAvailable - $melTaken }}</td>
+                            <td>{{ $melTaken }}</td>
 
                             <td>{{ Str::limit($request->remark, 60) }}</td>
                             <td>

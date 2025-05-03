@@ -30,7 +30,7 @@ class LeaveApplication extends Component
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
 
         $leaveRequests = Search::add(
-                                ModelsLeaveRequest::with('leaveType', 'document')
+                                ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves')
                                     ->withWhereHas('user', fn($qr)=> $qr
                                         ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
                                         ->with('ward', 'clas', 'department')

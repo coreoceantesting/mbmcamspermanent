@@ -503,7 +503,13 @@
                 },
                 500: function(responseObject, textStatus, errorThrown) {
                     $("#addSubmit").prop('disabled', false);
-                    swal("Error occured!", "Something went wrong please try again", "error");
+
+                    let errorMessage = "Something went wrong, please try again";
+                    if (responseObject.responseJSON && responseObject.responseJSON.error) {
+                        errorMessage = responseObject.responseJSON.error;
+                    }
+
+                    swal("Error occurred!", errorMessage, "error");
                 }
             }
         });
