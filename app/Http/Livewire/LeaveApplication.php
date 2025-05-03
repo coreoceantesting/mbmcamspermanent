@@ -35,11 +35,11 @@ class LeaveApplication extends Component
                                         ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
                                         ->with('ward', 'clas', 'department')
                                     )
-                                    ->when(!$isAdmin, fn($qr) => $qr
-                                        ->withWhereHas('approvalHierarchy', fn($q) => $q
-                                            ->where('approver_user_id', $authUser->id)->where('status', constant("App\Models\LeaveRequest::$this->type_const"))
-                                        )
-                                    )
+                                    // ->when(!$isAdmin, fn($qr) => $qr
+                                    //     ->withWhereHas('approvalHierarchy', fn($q) => $q
+                                    //         ->where('approver_user_id', $authUser->id)->where('status', constant("App\Models\LeaveRequest::$this->type_const"))
+                                    //     )
+                                    // )
                                     ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
                                     // ->whereNot('leave_type_id', '7')
                                     // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
