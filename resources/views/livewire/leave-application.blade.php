@@ -48,6 +48,7 @@
                         <th>CL Taken</th>
                         <th>MEL Available</th>
                         <th>MEL Taken</th>
+                        <th>Approval Status</th>
                         <th style="min-width: 150px">Remark</th>
                         <th>View Document</th>
                         <th style="min-width: 150px" >Action</th>
@@ -88,11 +89,16 @@
 
                             <td>{{ $melAvailable - $melTaken }}</td>
                             <td>{{ $melTaken }}</td>
-
+                            <td>
+                                @foreach ($request->approvalHierarchy as $hierarchy)
+                                    <strong>{{ $loop->iteration }} Approver</strong> - {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
+                                @endforeach
+                            </td>
                             <td>{{ Str::limit($request->remark, 60) }}</td>
                             <td>
                                 <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View </a>
                             </td>
+
                             <td>
                                 {{-- @if($type_const == 'pending') --}}
                                     @if ($request->is_approved == 0)
