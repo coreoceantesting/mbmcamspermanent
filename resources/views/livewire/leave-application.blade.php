@@ -91,7 +91,7 @@
                             <td>{{ $melTaken }}</td>
                             <td style="font-size: 11px;">
                                 @foreach ($request->approvalHierarchy as $hierarchy)
-                                    <strong>{{ $loop->iteration }} Approver </strong> - {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
+                                    <strong> @if($isAdmin) {{ $loop->iteration  }} Approver </strong> - @endif  {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
                                 @endforeach
                             </td>
                             <td>{{ Str::limit($request->remark, 60) }}</td>
