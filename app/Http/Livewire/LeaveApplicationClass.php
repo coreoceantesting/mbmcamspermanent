@@ -3,12 +3,10 @@
 namespace App\Http\Livewire;
 
 use App\Models\LeaveRequest as ModelsLeaveRequest;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use ProtoneMedia\LaravelCrossEloquentSearch\Search;
-
 
 class LeaveApplicationClass extends Component
 {
@@ -17,7 +15,6 @@ class LeaveApplicationClass extends Component
     protected $paginationTheme = 'bootstrap';
     protected $listeners = ['$refresh'];
 
-    // TABLE FUNCTIONALITY
     public $records_per_page = 10;
     public $search = '';
     public $column = 'user.created_at';
@@ -28,48 +25,53 @@ class LeaveApplicationClass extends Component
     {
         $authUser = Auth::user();
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
-        $employeeType = 1;
-        $leaveRequests = Search::add(
-                                ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves')
-                                    ->withWhereHas('user', fn($qr)=> $qr
-                                        ->whereIn('clas_id',[1,2])
-                                        ->where('employee_type', 1)
-                                        // ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
-                                        ->with('ward', 'clas', 'department')
-                                    )
-                                    ->when(!$isAdmin, fn($qr) => $qr
-                                        ->withWhereHas('approvalHierarchy', fn($q) => $q 
-                                        )
-                                    )
-                                    // ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
-                                    // ->whereNot('leave_type_id', '7')
-                                    // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
-                                    ->latest(),
-                                [ 'id', 'from_date', 'to_date', 'no_of_days', 'remark', 'user.name', 'user.emp_code' ]
-                            )
-                            ->paginate((int)$this->records_per_page)
-                            ->beginWithWildcard()
-                            ->search($this->search);
-                            
 
-        return view('livewire.leave-application-class')->with(['leaveRequests'=> $leaveRequests, 'isAdmin' => $isAdmin]);
+        $leaveRequests = Search::add(
+                ModelsLeaveRequest::with('leaveType', 'document', 'user.userLeaves')
+                    ->withWhereHas('user', fn($qr) => $qr
+                        ->whereIn('clas_id', [1, 2])
+                        ->where('employee_type', 1)
+                        ->with('ward', 'clas', 'department')
+                    )
+                    ->when(!$isAdmin, fn($qr) => $qr
+                        ->withWhereHas('approvalHierarchy')
+                    )
+                    ->orderBy($this->column, $this->order), // Use ordering
+                ['id', 'from_date', 'to_date', 'no_of_days', 'remark', 'user.name', 'user.emp_code']
+            )
+            ->beginWithWildcard()
+            ->search($this->search)
+            ->paginate((int) $this->records_per_page);
+
+        return view('livewire.leave-application-class', [
+            'leaveRequests' => $leaveRequests,
+            'isAdmin' => $isAdmin,
+        ]);
     }
 
     public function boot()
     {
-        // $this->type_const = strtoupper( 'LEAVE_STATUS_IS_'.request()->page_type ?? 'pending');
+        // Optional: set default status
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage(); // Reset to page 1 when search changes
+    }
+
+    public function updatingRecordsPerPage()
+    {
+        $this->resetPage(); // Reset to page 1 when per-page changes
     }
 
     public function sorting($column, $order)
     {
-        if($this->column == $column)
-        {
-            $this->order = $order == 'ASC' ? 'DESC' : 'ASC';
-        }
-        else
-        {
+        if ($this->column == $column) {
+            $this->order = $this->order === 'ASC' ? 'DESC' : 'ASC';
+        } else {
             $this->column = $column;
             $this->order = $order;
         }
+        $this->resetPage(); // Reset page to avoid out-of-range pagination
     }
 }
