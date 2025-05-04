@@ -274,6 +274,39 @@
                             </div>
                             </div>
                 </div>
+                 <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-title">Balance Leaves</div>
+                                <div class="card">
+
+                                    <div class="card-body">
+                <table class="table">
+    <thead>
+        <tr>
+            <th>Leave Type</th>
+            <th>Available</th>
+            <th>Taken</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($leaveTypes as $leaveType)
+            @php
+                $total = $leaveType->user_leaves_sum_leave_days ?? 0;
+                $taken = $leaveType->leave_requests_sum_no_of_days ?? 0;
+                $available = $total - $taken;
+            @endphp
+            <tr>
+                <td>{{ $leaveType->name }}</td>
+                <td>{{ $available }}</td>
+                <td>{{ $taken }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
 
 
                 {{-- Contractor wise details --}}

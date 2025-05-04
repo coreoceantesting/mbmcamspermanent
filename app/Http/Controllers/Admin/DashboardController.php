@@ -90,21 +90,22 @@ class DashboardController extends Controller
         $todayPunchData = $punchData->where('punch_date', '>=', Carbon::parse($todaysDate)->toDateString());
         $designations = Designation::select('id', 'name')->get();
 
-        $leaveTypes = LeaveType::withSum([
-            'userLeaves' => function ($query) {
-                $query->whereHas('user', function ($q) {
-                    $q->whereIn('clas_id', [1, 2]);
-                });
-            },
-            'leaveRequests' => function ($query) {
-                $query->where('is_approved', 1)
-                      ->whereHas('user', function ($q) {
-                          $q->whereIn('clas_id', [1, 2]);
-                      });
-            }
-        ], ['leave_days', 'no_of_days'])->get();
-
-dd($leaveTypes);
+       $leaveTypes = LeaveType::withSum([
+    'userLeaves' => function ($query) {
+        $query->whereHas('user', function ($q) {
+            $q->whereIn('clas_id', [1, 2]);
+        });
+    }
+], 'leave_days')
+->withSum([
+    'leaveRequests' => function ($query) {
+        $query->where('is_approved', 1)
+              ->whereHas('user', function ($q) {
+                  $q->whereIn('clas_id', [1, 2]);
+              });
+    }
+], 'no_of_days')
+->get(); 
         return view('admin.dashboard.index')->with([
             'is_admin' => $is_admin,
             'totalEmployees' => $totalEmployees,
@@ -119,6 +120,7 @@ dd($leaveTypes);
             'employeeType' => $employeeType,
             'totalContractors'  => $totalContractors,
             'designations'  => $designations,
+            'leaveTypes'=>$leaveTypes
             // 'shiftWiseData'=> $shiftWiseData,
         ]);
     }
