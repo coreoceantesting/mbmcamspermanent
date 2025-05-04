@@ -612,6 +612,6 @@
             }, 300000);
         </script>
     @endpush
-
+    <livewire:scripts />
 </x-admin.admin-layout>
 
