@@ -25,6 +25,12 @@ class LeaveType extends BaseModel
         return $this->hasMany(UserLeave::class, 'leave_type_id');
     }
 
+    public function leaveRequests()
+    {
+        return $this->hasMany(LeaveRequest::class, 'leave_type_id', 'id');
+    }
+
+
     public static function booted()
     {
         static::created(function (LeaveType $leaveType)
