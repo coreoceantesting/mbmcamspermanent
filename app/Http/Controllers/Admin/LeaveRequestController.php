@@ -10,6 +10,7 @@ use App\Models\LeaveRequest;
 use App\Models\LeaveType;
 use App\Models\Punch;
 use App\Models\User;
+use App\Models\UserLeave;
 use App\Repositories\LeaveRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
