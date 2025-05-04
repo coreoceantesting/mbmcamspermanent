@@ -173,9 +173,9 @@
             <div>
                 <strong>Total Employee:</strong> {{ $users->total() }}
             </div>
-            <div>
+            <!-- <div>
                 {{ $users->links() }}
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
