@@ -20,7 +20,7 @@ class LeaveApplicationClass extends Component
     // TABLE FUNCTIONALITY
     public $records_per_page = 10;
     public $search = '';
-    public $column = 'user.created_at';
+    public $column = 'app_users.created_at';
     public $order = 'DESC';
     public $type_const = 'pending';
 

@@ -18,7 +18,7 @@ class LeaveApplicationClassBalance extends Component
     // TABLE FUNCTIONALITY
     public $records_per_page = 10; // Set the default records per page
     public $search = ''; // Search query
-    public $column = 'user.created_at'; // Default column for sorting
+    public $column = 'app_users.created_at'; // Default column for sorting
     public $order = 'DESC'; // Default sorting order
 
     public function render()
