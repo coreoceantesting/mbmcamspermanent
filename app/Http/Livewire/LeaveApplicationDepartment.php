@@ -25,7 +25,7 @@ class LeaveApplicationDepartment extends Component
     {
         // Get the authenticated user
         $authUser = Auth::user();
-
+        $employeeType =1;
         // Check if the authenticated user has an admin role
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
 
@@ -36,7 +36,8 @@ class LeaveApplicationDepartment extends Component
                 // Apply the search query to the employee code and name
                 $query->where('emp_code', 'like', '%' . $this->search . '%')
                     ->orWhere('name', 'like', '%' . $this->search . '%');
-            });
+            })
+            ->where('employee_type', $employeeType);
 
         // Paginate users
         $users = $usersQuery->paginate($this->records_per_page);
