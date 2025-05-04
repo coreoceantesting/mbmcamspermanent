@@ -20,6 +20,10 @@ class LeaveType extends BaseModel
         return $this->hasOne(Leave::class);
     }
 
+     public function userLeaves()
+    {
+        return $this->hasMany(UserLeave::class, 'leave_type_id');
+    }
 
     public static function booted()
     {
@@ -43,5 +47,5 @@ class LeaveType extends BaseModel
                 'deleted_by'=> Auth::user()->id,
             ]);
         });
-    }
+    } 
 }

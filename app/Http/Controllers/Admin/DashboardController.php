@@ -12,6 +12,7 @@ use App\Models\Shift;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Ward;
+use App\Models\LeaveType;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -55,6 +56,7 @@ class DashboardController extends Controller
         } else {
             $totalDepartments = 1;
         }
+    
 
 
         $totalHolidays = Holiday::where('year', date('Y'))->count();
@@ -88,6 +90,8 @@ class DashboardController extends Controller
         $todayPunchData = $punchData->where('punch_date', '>=', Carbon::parse($todaysDate)->toDateString());
         $designations = Designation::select('id', 'name')->get();
 
+        $total_balance = LeaveType::get();
+        dd($total_balance);
         return view('admin.dashboard.index')->with([
             'is_admin' => $is_admin,
             'totalEmployees' => $totalEmployees,
