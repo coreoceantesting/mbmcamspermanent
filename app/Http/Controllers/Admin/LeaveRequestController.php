@@ -77,9 +77,15 @@ class LeaveRequestController extends Controller
         $input = $request->validated();
         $input['from_date'] = $input['from_date'] ?? $input['date'];
 
+        if ($this->isLeaveApplicable($input, $user))
+            return response()->json([
+                'error2' => 'You do not have enough available leave balance for this leave type.'
+            ]);
+        
         if ($this->isLeaveAlreadyAppliedForThisDay($input, $user))
             return response()->json(['error2' => 'Leave request is already applied for this day, revoke existing leave and apply again!']);
 
+            
         // $canApplyLeave = $this->leaveRepository->hasLeaveCountsAvailable($input);
         // if(!$canApplyLeave['status'])
         //     return response()->json(['error2'=> $canApplyLeave['message']]);
@@ -111,6 +117,34 @@ class LeaveRequestController extends Controller
 
         return false;
     }
+
+
+    protected function isLeaveApplicable($input, $user)
+    {
+        $leave_type_id = $input['leave_type_id'];
+        $requested_days = $input['no_of_days'];
+
+        // Get available leave record for the user
+        $user_leave = UserLeave::where('leave_type_id', $leave_type_id)
+            ->where('user_id', $user->id)
+            ->first();
+
+        // Fallback to 0 if not found
+        $total_leave_days = $user_leave?->leave_days ?? 0;
+
+        // Calculate total used leave for this type
+        $used_leave_days = $user->leaveRequests()
+            ->where('leave_type_id', $leave_type_id)
+            ->where('is_approved', 1)
+            ->sum('no_of_days');
+
+        // Available leave = total - used
+        $available_leave_days = $total_leave_days - $used_leave_days;
+
+        // Check if requested days are within available balance
+        return $requested_days <= $available_leave_days;
+    }
+
 
 
     /**
