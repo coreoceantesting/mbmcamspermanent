@@ -49,7 +49,7 @@ class LeaveApplicationClass extends Component
                             )
                             ->search($this->search)
                             ->paginate((int)$this->records_per_page)
-                            ->beginWithWildcard()
+                            ->beginWithWildcard();
                             
                             
 
