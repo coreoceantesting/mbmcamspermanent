@@ -168,6 +168,21 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card">
+
+                                    <div class="card-body">
+
+                                        <div>
+                                            <livewire:leave-application />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
                             {{-- Repeatedly latemark / absent --}}
                             {{-- <div class="row">
                                 @php
