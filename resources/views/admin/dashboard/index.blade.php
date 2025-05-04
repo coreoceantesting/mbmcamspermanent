@@ -259,37 +259,30 @@
                         </div>
                     </div>
                     @if($isHigherAuthority)
- <div class="row">
-                            <div class="col-sm-12">
-                                 
-                                <div class="card">
-                                <div class="card-header px-2 py-3">
-                                    <h6>Applied Leaves</h6>
-                                </div>
-
-                                    <div class="card-body">
-
-                                        <div>
-                                            <livewire:leave-application-class />
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header px-2 py-3">
+                    <h6>Applied Leaves</h6>
                 </div>
-                 <div class="row">
-                            <div class="col-sm-12">
-                                
-                                <div class="card"> 
-                                
-                                    <div class="card-body"> 
-                <livewire:leave-application-class-balance />
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    @endif
+                <div class="card-body">
+                    <livewire:leave-application-class />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <livewire:leave-application-class-balance />
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 
                 {{-- Contractor wise details --}}
 
