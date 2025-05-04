@@ -30,8 +30,9 @@ class LeaveApplicationClassBalance extends Component
         $isAdmin = $authUser->hasRole(['Admin', 'Super Admin']);
 
         // Fetch users from the same department and eager load their leave data
-        $usersQuery = User::where('department_id', $authUser->department_id)
-            ->with(['userLeaves', 'leaveRequests']) // Eager load leave data
+        $usersQuery = User::
+            // where('department_id', $authUser->department_id)
+            with(['userLeaves', 'leaveRequests']) // Eager load leave data
             ->where(function ($query) {
                 // Apply the search query to the employee code and name
                 $query->where('emp_code', 'like', '%' . $this->search . '%')
