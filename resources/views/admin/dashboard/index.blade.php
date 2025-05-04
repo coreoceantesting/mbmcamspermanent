@@ -260,8 +260,11 @@
                     </div>
  <div class="row">
                             <div class="col-sm-12">
-                                <div class="card-title">Applied Leaves</div>
+                                 
                                 <div class="card">
+                                <div class="card-header px-2 py-3">
+                                    <h6>Applied Leaves</h6>
+                                </div>
 
                                     <div class="card-body">
 
@@ -276,9 +279,11 @@
                 </div>
                  <div class="row">
                             <div class="col-sm-12">
-                                <div class="card-title">Balance Leaves</div>
-                                <div class="card">
-
+                                
+                                <div class="card"> 
+                                <div class="card-header px-2 py-3">
+                                    <h6>Balance Leaves</h6>
+                                </div>
                                     <div class="card-body">
                 <table class="table">
     <thead>
