@@ -40,7 +40,7 @@ class LeaveApplicationClass extends Component
                                         ->withWhereHas('approvalHierarchy', fn($q) => $q 
                                         )
                                     )
-                                    ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
+                                    // ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
                                     // ->whereNot('leave_type_id', '7')
                                     // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
                                     ->latest(),
@@ -49,13 +49,14 @@ class LeaveApplicationClass extends Component
                             ->paginate((int)$this->records_per_page)
                             ->beginWithWildcard()
                             ->search($this->search);
+                            
 
-        return view('livewire.leave-application')->with(['leaveRequests'=> $leaveRequests, 'isAdmin' => $isAdmin]);
+        return view('livewire.leave-application-class')->with(['leaveRequests'=> $leaveRequests, 'isAdmin' => $isAdmin]);
     }
 
     public function boot()
     {
-        $this->type_const = strtoupper( 'LEAVE_STATUS_IS_'.request()->page_type ?? 'pending');
+        // $this->type_const = strtoupper( 'LEAVE_STATUS_IS_'.request()->page_type ?? 'pending');
     }
 
     public function sorting($column, $order)

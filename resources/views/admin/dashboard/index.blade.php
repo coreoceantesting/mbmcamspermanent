@@ -1,5 +1,6 @@
 <x-admin.admin-layout>
     <x-slot name="title">{{ auth()->user()->tenant_name }} - Dashboard</x-slot>
+    <livewire:styles />
 
     <div class="page-body">
         <!-- Container-fluid starts-->
@@ -168,20 +169,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                            <div class="col-sm-12">
-                                <div class="card">
-
-                                    <div class="card-body">
-
-                                        <div>
-                                            <livewire:leave-application />
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
+                           
 
                             {{-- Repeatedly latemark / absent --}}
                             {{-- <div class="row">
@@ -270,7 +258,21 @@
 
                         </div>
                     </div>
+ <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-title">Applied Leaves</div>
+                                <div class="card">
 
+                                    <div class="card-body">
+
+                                        <div>
+                                            <livewire:leave-application-class />
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                 </div>
 
 
