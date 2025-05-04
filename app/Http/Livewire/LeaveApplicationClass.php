@@ -33,7 +33,7 @@ class LeaveApplicationClass extends Component
                                 ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves')
                                     ->withWhereHas('user', fn($qr)=> $qr
                                         ->whereIn('clas_id',[1,2])
-                                        ->where('employee_type', 1);
+                                        ->where('employee_type', 1)
                                         // ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
                                         ->with('ward', 'clas', 'department')
                                     )
