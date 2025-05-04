@@ -258,6 +258,7 @@
 
                         </div>
                     </div>
+                    @if($isHigherAuthority)
  <div class="row">
                             <div class="col-sm-12">
                                  
@@ -288,7 +289,7 @@
                     </div>
                     </div>
                     </div>
-
+                    @endif
 
                 {{-- Contractor wise details --}}
 
