@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $authUser = auth()->user()->load('designation');
         $is_admin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? true : false;
         $department = $request->ward; 
-        $is_higher_authority = $authUser->designation->name === "Commissioner";
+$is_higher_authority = $authUser->designation?->name === "Commissioner";
 
         $totalEmployees = User::when(!$is_higher_authority, function ($query) use ($department, $authUser) {
             // Only apply department filter if not Commissioner
@@ -35,7 +35,10 @@ class DashboardController extends Controller
             }, function ($q) use ($authUser) {
                 return $q->where('department_id', $authUser->department_id);
             });
-        })->count();
+        })
+       ->where('employee_type', $employeeType)
+        
+        ->count();
 
         $departments = '';
         if ($is_admin || $is_higher_authority) {

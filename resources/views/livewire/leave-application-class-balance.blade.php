@@ -19,7 +19,7 @@
         </div>
     </div>
 
-    <h3 class="mt-3">Department-wise Leave Balance</h3>
+    <h3 class="mt-3">Balance Leave of Class 1 & Class 2</h3>
 
     <!-- Table with users' leave requests -->
     <div class="row" style="overflow-x: scroll">
