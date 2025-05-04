@@ -234,7 +234,7 @@
                                             @foreach ($leave_types as $leave_type)
                                                 <div class="col-md-4 mt-3">
                                                     <label class="col-form-label" for="leave_duration_{{ $leave_type->id }}">
-                                                        {{ $leave_type->name }} Duration ({{ $leave_type->is_paid == 'yes' ? 'Paid' : 'Not Paid' }})
+                                                        {{ $leave_type->name }} Duration  
                                                     </label>
                                                     <input
                                                         class="form-control"
