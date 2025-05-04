@@ -170,12 +170,12 @@
     <!-- Pagination -->
     <div class="row">
         <div class="d-flex justify-content-between">
-            <div>
-                <strong>Total Employee:</strong> {{ $users->total() }}
-            </div>
             <!-- <div>
-                {{ $users->links() }}
+                <strong>Total Employee:</strong> {{ $users->total() }}
             </div> -->
+            <div>
+                {{ $users->links() }}
+            </div>
         </div>
     </div>
 </div>
