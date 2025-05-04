@@ -76,16 +76,30 @@ class DashboardController extends Controller
         $todaysDate = Carbon::today()->toDateString();
         $backDate = Carbon::today()->subDay()->toDateString();
 
+        // $punchData = Punch::whereIn('punch_date', [$todaysDate, $backDate])
+        //     ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
+        //     ->withWhereHas(
+        //         'user',
+        //         fn($q) => $q->with('department')
+        //             ->when(!$is_admin, fn($qr) => $qr->where('department_id', $authUser->department_id))
+        //             ->when($is_admin && $department, fn($qr) => $qr->where('department_id', $department))
+        //             ->where('employee_type', $employeeType)
+        //     )
+        //     ->latest()->get();
+        
         $punchData = Punch::whereIn('punch_date', [$todaysDate, $backDate])
-            ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
-            ->withWhereHas(
-                'user',
-                fn($q) => $q->with('department')
-                    ->when(!$is_admin, fn($qr) => $qr->where('department_id', $authUser->department_id))
-                    ->when($is_admin && $department, fn($qr) => $qr->where('department_id', $department))
-                    ->where('employee_type', $employeeType)
-            )
-            ->latest()->get();
+    ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
+    ->withWhereHas('user', function ($query) use ($is_admin, $is_higher_authority, $department, $authUser, $employeeType) {
+        $query->with('department')
+            ->when(!$is_higher_authority, function ($q) use ($is_admin, $department, $authUser) {
+                $q->when(!$is_admin, fn($qr) => $qr->where('department_id', $authUser->department_id))
+                  ->when($is_admin && $department, fn($qr) => $qr->where('department_id', $department));
+            })
+            ->where('employee_type', $employeeType);
+    })
+    ->latest()
+    ->get();
+
 
         $todayPunchData = $punchData->where('punch_date', '>=', Carbon::parse($todaysDate)->toDateString());
         $designations = Designation::select('id', 'name')->get();
