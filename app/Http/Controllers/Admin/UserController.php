@@ -182,8 +182,8 @@ class UserController extends Controller
         try {
             DB::beginTransaction();
             $input = $request->validated();
-            $departments = $input['department_id'];
-            unset($input['department_id']);
+            $departments = $input['departments_id'];
+            unset($input['departments_id']);
             $user->update(Arr::only($input, Auth::user()->getFillable()));
             if (isset($departments) && is_array($departments)) {
                 $user->departments()->sync($departments);
