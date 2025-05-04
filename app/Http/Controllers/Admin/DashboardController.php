@@ -137,7 +137,7 @@ $is_higher_authority = $authUser->designation?->name === "Commissioner";
             'employeeType' => $employeeType,
             'totalContractors'  => $totalContractors,
             'designations'  => $designations,
-            'leaveTypes'=>$leaveTypes
+            'leaveTypes'=>$leaveTypes,
             'isHigherAuthority '=>$is_higher_authority ,
             // 'shiftWiseData'=> $shiftWiseData,
         ]);
