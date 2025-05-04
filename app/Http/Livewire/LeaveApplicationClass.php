@@ -38,7 +38,7 @@ class LeaveApplicationClass extends Component
                                     )
                                     // ->when(!$isAdmin, fn($qr) => $qr
                                         ->withWhereHas('approvalHierarchy', fn($q) => $q 
-                                    //     )
+                                        )
                                     // )
                                     // ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
                                     // ->whereNot('leave_type_id', '7')
