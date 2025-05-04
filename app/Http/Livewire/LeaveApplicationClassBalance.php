@@ -42,7 +42,7 @@ class LeaveApplicationClassBalance extends Component
         // Paginate users
         $users = $usersQuery->paginate($this->records_per_page);
 
-        return view('leave-application-class-balance', [
+        return view('livewire.leave-application-class-balance', [
             'users' => $users,
             'isAdmin' => $isAdmin, // Pass the admin status to the view
         ]);
