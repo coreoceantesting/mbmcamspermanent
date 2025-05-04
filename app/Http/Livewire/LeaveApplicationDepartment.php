@@ -37,7 +37,7 @@ class LeaveApplicationDepartment extends Component
                 $query->where('emp_code', 'like', '%' . $this->search . '%')
                     ->orWhere('name', 'like', '%' . $this->search . '%');
             })
-            // ->where('employee_type', $employeeType);
+            ->where('employee_type', $employeeType);
 
         // Paginate users
         $users = $usersQuery->paginate($this->records_per_page);
