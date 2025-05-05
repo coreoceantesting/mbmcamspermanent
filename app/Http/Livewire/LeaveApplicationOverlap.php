@@ -53,7 +53,7 @@ class LeaveApplicationOverlap extends Component
                                     ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
                                     // ->whereNot('leave_type_id', '7')
                                     // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
-                                    ->latest(),
+                                    ->orderBy($this->column, $this->order),
                                 [ 'id', 'from_date', 'to_date', 'no_of_days', 'remark', 'user.name', 'user.emp_code' ]
                             )
                             ->paginate((int)$this->records_per_page)
@@ -70,14 +70,12 @@ class LeaveApplicationOverlap extends Component
 
     public function sorting($column, $order)
     {
-        if($this->column == $column)
-        {
-            $this->order = $order == 'ASC' ? 'DESC' : 'ASC';
-        }
-        else
-        {
+        if ($this->column === $column) {
+            $this->order = $this->order === 'ASC' ? 'DESC' : 'ASC';
+        } else {
             $this->column = $column;
             $this->order = $order;
         }
     }
+
 }

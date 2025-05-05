@@ -560,23 +560,24 @@
 
 
             </div>
-            @if ($isHigherAuthority)
-                <div class="row">
-                    <div class="col-sm-12">
+            <div class="row">
+                <div class="col-sm-12">
 
-                        <div class="card">
+                    <div class="card">
 
 
-                            <div class="card-body">
+                        <div class="card-body">
 
-                                <div>
-                                    <livewire:leave-application-overlap />
-                                </div>
-
+                            <div>
+                                <livewire:leave-application-overlap />
                             </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
+            @if ($isHigherAuthority)
+
                 <div class="row">
                     <div class="col-sm-12">
 

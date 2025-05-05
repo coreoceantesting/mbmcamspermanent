@@ -26,6 +26,7 @@
             <input type="text" name="search" wire:model.debounce.500="search" class="form-control" placeholder="search..">
         </div>
     </div>
+    <h3 class="mt-3">Datewise Overlapping Leave</h3>
 
     <div class="row" style="overflow-x: scroll">
         <div class="col-12">
@@ -39,8 +40,19 @@
                         <th style="min-width: 120px" >Office</th>
                         <th style="min-width: 120px" >Class</th>
                         <th style="min-width: 120px" >Leave Type</th>
-                        <th style="min-width: 120px" >From Date</th>
-                        <th style="min-width: 120px" >To Date</th>
+                        <th style="min-width: 120px; cursor: pointer" wire:click="sorting('from_date', '{{ $order === 'ASC' && $column === 'from_date' ? 'DESC' : 'ASC' }}')">
+                            From Date
+                            @if($column === 'from_date')
+                                <i class="fa fa-sort-{{ $order === 'ASC' ? 'asc' : 'desc' }}"></i>
+                            @endif
+                        </th>
+                        <th style="min-width: 120px; cursor: pointer" wire:click="sorting('to_date', '{{ $order === 'ASC' && $column === 'to_date' ? 'DESC' : 'ASC' }}')">
+                            To Date
+                            @if($column === 'to_date')
+                                <i class="fa fa-sort-{{ $order === 'ASC' ? 'asc' : 'desc' }}"></i>
+                            @endif
+                        </th>
+
                         <th>Days</th>
                         <th>EL Available</th>
                         <th>EL Taken</th>
@@ -93,7 +105,7 @@
 
                                 @foreach ($request->approvalHierarchy as $hierarchy)
 
-                                    <strong> @if($isAdmin) {{ $loop->iteration  }} Approver </strong> - @endif  {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
+                                    <strong>   Approver </strong> -  {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
                                 @endforeach
                             </td>
                             <td>{{ Str::limit($request->remark, 60) }}</td>
