@@ -140,7 +140,7 @@
                                 </div>
 
                                 {{-- Leave bifurcation --}}
-                                <div class="col-md-12 col-lg-12 col-xl-12 box-col-12">
+                                {{-- <div class="col-md-12 col-lg-12 col-xl-12 box-col-12">
                                     <div class="card custom-card rounded">
                                         <h6 class="card-header rounded bg-primary py-2 px-3 text-center">Leave Bifurcation</h6>
                                         <div class="card-footer row">
@@ -166,7 +166,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
 
 
@@ -560,6 +560,8 @@
 
 
             </div>
+
+            @if ($isHigherAuthority)
             <div class="row">
                 <div class="col-sm-12">
 
@@ -576,8 +578,6 @@
                     </div>
                 </div>
             </div>
-            @if ($isHigherAuthority)
-
                 <div class="row">
                     <div class="col-sm-12">
 
