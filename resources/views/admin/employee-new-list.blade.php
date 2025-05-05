@@ -231,6 +231,27 @@
                                         </div>
 
                                     </div>
+                                    <h5 class="mt-4">Leave  Durations</h5>
+
+                                        <div class="row">
+                                            @foreach ($leave_types as $leave_type)
+                                                <div class="col-md-4 mt-3">
+                                                    <label class="col-form-label" for="leave_duration_{{ $leave_type->id }}">
+                                                        {{ $leave_type->name }} Duration
+                                                    </label>
+                                                    <input
+                                                        class="form-control"
+                                                        id="leave_duration_{{ $leave_type->id }}"
+                                                        name="leave_durations[{{ $leave_type->id }}]"
+                                                        type="number"
+                                                        value="0"
+                                                        placeholder="Enter {{ $leave_type->name }} Duration"
+                                                        step="any">
+                                                    <span class="text-danger error-text leave_duration_{{ $leave_type->id }}_err"></span>
+                                                </div>
+                                            @endforeach
+                                        </div>
+
 
                                 </div>
                                 <div class="card-footer">
@@ -371,6 +392,15 @@
                     data.user.is_divyang == 'y' ? $("#editForm input[name='is_divyang'][value='y']").prop("checked", true) : $("#editForm input[name='is_divyang'][value='n']").prop("checked", true) ;
                     $("#editForm input[name='work_duration']").val(data.user.work_duration);
                     $("#editForm input[name='sa_duration']").val(data.user.sa_duration);
+
+                    if (data.user_leaves && Array.isArray(data.user_leaves)) {
+                        data.user_leaves.forEach(function (leave) {
+                            const input = $("#editForm input[name='leave_durations[" + leave.leave_type_id + "]']");
+                            if (input.length) {
+                                input.val(leave.leave_days);
+                            }
+                        });
+                    }
                 } else {
                     swal("Error!", data.error, "error");
                 }

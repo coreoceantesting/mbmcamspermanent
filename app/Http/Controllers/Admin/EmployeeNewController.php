@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Punch;
-use App\Models\User;
 use Auth;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Punch;
+use App\Models\LeaveType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class EmployeeNewController extends Controller
 {
@@ -46,8 +47,8 @@ class EmployeeNewController extends Controller
             )
             ->orderBy($this->column, $this->order)
             ->get();
-
-        return view('admin.employee-new-list', compact('employees'));
+            $leave_types = LeaveType::get();
+        return view('admin.employee-new-list', compact('employees','leave_types'));
     }
 
     /**
