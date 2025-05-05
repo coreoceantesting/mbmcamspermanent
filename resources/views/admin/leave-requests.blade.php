@@ -786,32 +786,32 @@
 
     // Show n hide fields based on medical leave dropdown
     $("#addForm select[name='leave_type_id']").change(function() {
-        if($("#addForm select[name='leave_type_id']").val() == 7)
-        {
-            $("#addForm input[name='to_date']").closest(".col-md-3").addClass('d-none');
-            $("#addForm input[name='no_of_days']").closest(".col-md-3").addClass('d-none');
-            $("#addForm input[name='file']").closest(".col-md-3").addClass('d-none');
-        }
-        else
-        {
-            $("#addForm input[name='to_date']").closest(".col-md-3").removeClass('d-none');
-            $("#addForm input[name='no_of_days']").closest(".col-md-3").removeClass('d-none');
-            $("#addForm input[name='file']").closest(".col-md-3").removeClass('d-none');
-        }
+        // if($("#addForm select[name='leave_type_id']").val() == 7)
+        // {
+        //     // $("#addForm input[name='to_date']").closest(".col-md-3").addClass('d-none');
+        //     $("#addForm input[name='no_of_days']").closest(".col-md-3").addClass('d-none');
+        //     $("#addForm input[name='file']").closest(".col-md-3").addClass('d-none');
+        // }
+        // else
+        // {
+        //     $("#addForm input[name='to_date']").closest(".col-md-3").removeClass('d-none');
+        //     $("#addForm input[name='no_of_days']").closest(".col-md-3").removeClass('d-none');
+        //     $("#addForm input[name='file']").closest(".col-md-3").removeClass('d-none');
+        // }
     });
     $("#editForm select[name='leave_type_id']").change(function() {
-        if($("#editForm select[name='leave_type_id']").val() == 7)
-        {
-            $("#editForm input[name='to_date']").closest(".col-md-3").addClass('d-none');
-            $("#editForm input[name='no_of_days']").closest(".col-md-3").addClass('d-none');
-            $("#editForm input[name='file']").closest(".col-md-3").addClass('d-none');
-        }
-        else
-        {
-            $("#editForm input[name='to_date']").closest(".col-md-3").removeClass('d-none');
-            $("#editForm input[name='no_of_days']").closest(".col-md-3").removeClass('d-none');
-            $("#editForm input[name='file']").closest(".col-md-3").removeClass('d-none');
-        }
+        // if($("#editForm select[name='leave_type_id']").val() == 7)
+        // {
+        //     $("#editForm input[name='to_date']").closest(".col-md-3").addClass('d-none');
+        //     $("#editForm input[name='no_of_days']").closest(".col-md-3").addClass('d-none');
+        //     $("#editForm input[name='file']").closest(".col-md-3").addClass('d-none');
+        // }
+        // else
+        // {
+        //     $("#editForm input[name='to_date']").closest(".col-md-3").removeClass('d-none');
+        //     $("#editForm input[name='no_of_days']").closest(".col-md-3").removeClass('d-none');
+        //     $("#editForm input[name='file']").closest(".col-md-3").removeClass('d-none');
+        // }
     });
 </script>
 
