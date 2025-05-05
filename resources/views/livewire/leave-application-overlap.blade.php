@@ -27,8 +27,6 @@
         </div>
     </div>
 
-    <h3 class="mt-3">  Applied Leaves</h3>
-
     <div class="row" style="overflow-x: scroll">
         <div class="col-12">
             <table class="table table-hover" id="list_table">
@@ -52,8 +50,8 @@
                         <th>MEL Taken</th>
                         <th>Approval Status</th>
                         <th style="min-width: 150px">Remark</th>
-                        <!-- <th>View Document</th>
-                        <th style="min-width: 150px" >Action</th> -->
+                        <th>View Document</th>
+                        <th style="min-width: 150px" >Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,20 +93,18 @@
 
                                 @foreach ($request->approvalHierarchy as $hierarchy)
 
-                                    <strong> {{ $loop->iteration  }} Approver </strong> -  {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
+                                    <strong> @if($isAdmin) {{ $loop->iteration  }} Approver </strong> - @endif  {{ $hierarchy->status == 0 ? 'Pending' : 'Approved' }} <br>
                                 @endforeach
                             </td>
                             <td>{{ Str::limit($request->remark, 60) }}</td>
-                            <!-- <td>
+                            <td>
                                 <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View </a>
-                            </td> -->
+                            </td>
 
-                            <!-- <td>
+                            <td>
                                 {{-- @if($type_const == 'pending') --}}
-
                                     @if ($request->is_approved == 0)
-                                        <button class="approve-request btn btn-success px-2 py-1" title="Approve Request" data-id="{{ $request->id }}" data-status="1">Approve <i data-feather="check-circle"></i></button>
-                                        <button class="change-request btn btn-warning px-2 py-1" title="Reject Request" data-id="{{ $request->id }}" data-status="2">Reject <i data-feather="x-circle"></i></button>
+                                        <button class="btn btn-warning px-2 py-1">Pending</button>
                                     @elseif ($request->is_approved == 1)
                                         <button class="btn btn-success px-2 py-1">Approved</button>
                                     @else
@@ -118,7 +114,7 @@
                                 @if($isAdmin)
                                     <button class="btn btn-danger rem-element px-2 py-1" title="Delete Leave" data-id="{{ $request->id }}"><i class="fa fa-trash"></i></button>
                                 @endif
-                            </td> -->
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

@@ -73,33 +73,33 @@
                                                 <div class="col-6">
                                                     @php
                                                         $todaysPresentCount = $todayPunchData->where('check_in', '!=', '0000-00-00 00:00:00')->count();
-                                                        $todaysPresentPercent = $totalEmployees ? round(($todaysPresentCount/$totalEmployees)*100) : '0';
-                                                        $todaysAbsentCount = $totalEmployees-$todaysPresentCount;
+                                                        $todaysPresentPercent = $totalEmployees ? round(($todaysPresentCount / $totalEmployees) * 100) : '0';
+                                                        $todaysAbsentCount = $totalEmployees - $todaysPresentCount;
                                                     @endphp
                                                     <label for=""> <a href="{{ route('dashboard.todays-present-report') }}">{{ $todaysPresentPercent }}%</a> </label>
                                                     <div class="progress">
-                                                        <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: {{$todaysPresentPercent}}%" aria-valuenow="{{$todaysPresentPercent}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: {{ $todaysPresentPercent }}%" aria-valuenow="{{ $todaysPresentPercent }}" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="{{ route('dashboard.todays-present-report') }}"> <strong style="font-size:22px">{{$todaysPresentCount}} </strong>({{ $todaysPresentPercent }}%)  </a> <br>
+                                                    <a href="{{ route('dashboard.todays-present-report') }}"> <strong style="font-size:22px">{{ $todaysPresentCount }} </strong>({{ $todaysPresentPercent }}%) </a> <br>
                                                     <strong>Present Count</strong>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer row">
                                             @php
-                                                $till10AMCount = $todayPunchData->countBy( fn($item) => Carbon\Carbon::parse($item->check_in)->gte($todaysDate.' 10:00:00') );
+                                                $till10AMCount = $todayPunchData->countBy(fn($item) => Carbon\Carbon::parse($item->check_in)->gte($todaysDate . ' 10:00:00'));
                                                 $after10AMCount = array_key_exists('1', $till10AMCount->toArray()) ? $till10AMCount['1'] : 0;
                                                 $till10AMCount = array_key_exists('0', $till10AMCount->toArray()) ? $till10AMCount['0'] : 0;
                                             @endphp
                                             <div class="col-6 col-sm-6">
                                                 <h6>Till 10AM</h6>
-                                                <h3><span class="counter" style="font-size:22px">{{ $till10AMCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round(($till10AMCount/$totalEmployees)*100) : '0' }}%)</span></h3>
+                                                <h3><span class="counter" style="font-size:22px">{{ $till10AMCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round(($till10AMCount / $totalEmployees) * 100) : '0' }}%)</span></h3>
                                             </div>
                                             <div class="col-6 col-sm-6">
                                                 <h6>After 10AM</h6>
-                                                <h3><span class="counter" style="font-size:22px">{{ $after10AMCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round(($after10AMCount/$totalEmployees)*100) : '0' }}%)</span></h3>
+                                                <h3><span class="counter" style="font-size:22px">{{ $after10AMCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round(($after10AMCount / $totalEmployees) * 100) : '0' }}%)</span></h3>
                                             </div>
                                         </div>
                                     </div>
@@ -112,13 +112,13 @@
                                         <div class="card-body px-3">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <label for=""> <a href="{{ route('dashboard.todays-absent-report') }}">{{ $totalEmployees ? round(($todaysAbsentCount/$totalEmployees)*100) : '0' }}%</a> </label>
+                                                    <label for=""> <a href="{{ route('dashboard.todays-absent-report') }}">{{ $totalEmployees ? round(($todaysAbsentCount / $totalEmployees) * 100) : '0' }}%</a> </label>
                                                     <div class="progress">
-                                                        <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: {{ $totalEmployees ? round(($todaysAbsentCount/$totalEmployees)*100) : '0' }}%" aria-valuenow="{{ $totalEmployees ? round(($todaysAbsentCount/$totalEmployees)*100) : '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width: {{ $totalEmployees ? round(($todaysAbsentCount / $totalEmployees) * 100) : '0' }}%" aria-valuenow="{{ $totalEmployees ? round(($todaysAbsentCount / $totalEmployees) * 100) : '0' }}" aria-valuemin="0" aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-6">
-                                                    <a href="{{ route('dashboard.todays-absent-report') }}"> <strong style="font-size:22px">{{ max($todaysAbsentCount, 0) }} </strong>({{ $totalEmployees ? round(($todaysAbsentCount/$totalEmployees)*100) : '0' }}%)</a> <br>
+                                                    <a href="{{ route('dashboard.todays-absent-report') }}"> <strong style="font-size:22px">{{ max($todaysAbsentCount, 0) }} </strong>({{ $totalEmployees ? round(($todaysAbsentCount / $totalEmployees) * 100) : '0' }}%)</a> <br>
                                                     <strong>Absent Count</strong>
                                                 </div>
                                             </div>
@@ -129,11 +129,11 @@
                                             @endphp
                                             <div class="col-6 col-sm-6">
                                                 <h6>Permitted Leave</h6>
-                                                <h3><span class="counter" style="font-size:22px">{{ $permittedLeaveCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round( ($permittedLeaveCount/$totalEmployees)*100) : '0' }}%)</span></h3>
+                                                <h3><span class="counter" style="font-size:22px">{{ $permittedLeaveCount }}</span><span style="font-size:14px">({{ $totalEmployees ? round(($permittedLeaveCount / $totalEmployees) * 100) : '0' }}%)</span></h3>
                                             </div>
                                             <div class="col-6 col-sm-6">
                                                 <h6>Non Permitted Leave</h6>
-                                                <h3><span class="counter" style="font-size:22px">{{ max($todaysAbsentCount-$permittedLeaveCount, 0) }}</span><span style="font-size:14px">({{ $totalEmployees ? round((($todaysAbsentCount-$permittedLeaveCount)/$totalEmployees)*100) : '0' }}%)</span></h3>
+                                                <h3><span class="counter" style="font-size:22px">{{ max($todaysAbsentCount - $permittedLeaveCount, 0) }}</span><span style="font-size:14px">({{ $totalEmployees ? round((($todaysAbsentCount - $permittedLeaveCount) / $totalEmployees) * 100) : '0' }}%)</span></h3>
                                             </div>
                                         </div>
                                     </div>
@@ -146,30 +146,30 @@
                                         <div class="card-footer row">
                                             <div class="col-2 col-sm-2">
                                                 <h6>CL</h6>
-                                                <h3 class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id'=> '6' ]) }}"> {{ $todayPunchData->where('leave_type_id', '6')->count() }}</a></h3>
+                                                <h3 class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id' => '6']) }}"> {{ $todayPunchData->where('leave_type_id', '6')->count() }}</a></h3>
                                             </div>
                                             <div class="col-2 col-sm-2">
                                                 <h6>EL</h6>
-                                                <h3><span class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id'=> '5' ]) }}"> {{ $todayPunchData->where('leave_type_id', '5')->count() }}</a></span></h3>
+                                                <h3><span class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id' => '5']) }}"> {{ $todayPunchData->where('leave_type_id', '5')->count() }}</a></span></h3>
                                             </div>
                                             <div class="col-2 col-sm-2">
                                                 <h6>ML</h6>
-                                                <h3><span class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id'=> '7' ]) }}"> {{ $todayPunchData->where('leave_type_id', '7')->count() }}</a></span></h3>
+                                                <h3><span class="counter"> <a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id' => '7']) }}"> {{ $todayPunchData->where('leave_type_id', '7')->count() }}</a></span></h3>
                                             </div>
                                             <div class="col-3 col-sm-3">
                                                 <h6>Other Leave</h6>
-                                                <h3><span class="counter"><a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id'=> '4' ]) }}">{{ $todayPunchData->where('leave_type_id', '4')->count() }}</a></span></h3>
+                                                <h3><span class="counter"><a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id' => '4']) }}">{{ $todayPunchData->where('leave_type_id', '4')->count() }}</a></span></h3>
                                             </div>
                                             <div class="col-3 col-sm-3">
                                                 <h6>Half Day</h6>
-                                                <h3><span class="counter"><a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id'=> '0' ]) }}">{{ $todayPunchData->where('leave_type_id', '0')->count() }}</a></span></h3>
+                                                <h3><span class="counter"><a href="{{ route('dashboard.todays-leave-bifurcation', ['leave_type_id' => '0']) }}">{{ $todayPunchData->where('leave_type_id', '0')->count() }}</a></span></h3>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                           
+
 
                             {{-- Repeatedly latemark / absent --}}
                             {{-- <div class="row">
@@ -240,7 +240,7 @@
                                         <div class="col-12">
                                             <div class="media-body">
                                                 <span>{{ Str::limit(ucwords($latest->user?->name), 25) }}</span> <br>
-                                                <span>#{{ $latest->emp_code }}</span> &nbsp;&nbsp; <span class="text-danger"> {{  Carbon\Carbon::parse($latest->check_in)->format('d-m-Y h:i A') }} </span>
+                                                <span>#{{ $latest->emp_code }}</span> &nbsp;&nbsp; <span class="text-danger"> {{ Carbon\Carbon::parse($latest->check_in)->format('d-m-Y h:i A') }} </span>
                                                 <p style="font-size: 10px">{{ Str::limit(ucfirst($latest->user?->department?->name), 25) }}</p>
                                             </div>
                                         </div>
@@ -253,50 +253,19 @@
                             </div>
 
                             <div class="col-12">
-                                <a href="{{ route('dashboard.tabular-view-statistics') }}"><button class="btn btn-primary w-100 px-2 py-1 mt-3 mb-3" title="DepartmentWise Report">Tabular View  Statistics</button></a>
+                                <a href="{{ route('dashboard.tabular-view-statistics') }}"><button class="btn btn-primary w-100 px-2 py-1 mt-3 mb-3" title="DepartmentWise Report">Tabular View Statistics</button></a>
                             </div>
 
                         </div>
                     </div>
-                    @if($isHigherAuthority)
- <div class="row">
-                            <div class="col-sm-12">
-                                 
-                                <div class="card">
-                                <div class="card-header px-2 py-3">
-                                    <h6>Applied Leaves</h6>
-                                </div>
 
-                                    <div class="card-body">
 
-                                        <div>
-                                            <livewire:leave-application-class />
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
                 </div>
-                 <div class="row">
-                            <div class="col-sm-12">
-                                
-                                <div class="card"> 
-                                
-                                    <div class="card-body"> 
-                <livewire:leave-application-class-balance />
-                    </div>
-                    </div>
-                    </div>
-                    </div>
-                    @endif
 
-
-                    
                 {{-- Contractor wise details --}}
 
                 <div class="col-12 px-0">
-                    @if ( $is_admin && request()->department && !$totalContractors->isEmpty())
+                    @if ($is_admin && request()->department && !$totalContractors->isEmpty())
                         <div class="row">
                             <div class="card rounded">
                                 <div class="card-header px-2 py-3">
@@ -319,75 +288,65 @@
                                             </thead>
                                             <tbody>
                                                 @php
-                                                        $i = 1;
-                                                    @endphp
-                                                @foreach ($totalContractors as $key=> $totalContractor)
-
-                                                @foreach($designations as $val=> $designation)
-
-                                                    @php
-                                                        $usersWithDesignation = $totalContractor->users
-                                                                                ->where('designation_id', $designation->id)
-                                                                                ->where('department_id', request()->department);
-
-                                                        $usersCountWithDesignation = $usersWithDesignation->count();
-
-                                                        // Filter punch data for current contractor, department, and employee type
-                                                        $currentContractorData = $todayPunchData->filter(function ($item) use ($totalContractor, $designation, $employeeType) {
-                                                            return $item->user->contractor_id == $totalContractor->id
-                                                                && $item->user->department_id == request()->department
-                                                                && $item->user->employee_type == $employeeType
-                                                                && $item->user->designation_id == $designation->id;
-                                                        });
-                                                        $presentCount = $currentContractorData->count();
-                                                        $absentCount = $usersCountWithDesignation - $presentCount;
-                                                    @endphp
-
-                                                    @if($usersCountWithDesignation > 0)
-                                                        <tr>
-                                                            <td>{{ $i }}</td>
-                                                            {{-- <td>{{ $totalContractor?->users?->department?->name }}</td> <!-- Adjust as needed --> --}}
-                                                            <td>{{ Str::limit(ucwords($totalContractor->name), 25) }}</td>
-                                                            <td>{{ $designation->name }}</td>
-                                                            <td>
-                                                                <a href="{{ route('employees-new.list', ['status' => '','contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
-                                                                    {{ $usersCountWithDesignation }}
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route('employees-new.list', ['status' => 'present','contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
-                                                                {{ $presentCount }}
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route('employees-new.list', ['status' => 'absent','contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
-                                                                {{ $absentCount }}
-                                                                </a>
-                                                            </td>
-                                                            <td>
-                                                                <div class="progress">
-                                                                    <div class="progress-bar-animated bg-primary progress-bar-striped"
-                                                                    role="progressbar" style="width:
-                                                                    {{ $usersCountWithDesignation ? floor(($presentCount / $usersCountWithDesignation) * 100) : '0'
-                                                                     }}%" aria-valuenow="
-                                                                     {{ $usersCountWithDesignation ? floor(($presentCount / $usersCountWithDesignation)
-                                                                     * 100) : '0' }}" aria-valuemin="0" aria-valuemax="100">
-                                                                     &nbsp;&nbsp; {{ $usersCountWithDesignation ?
-                                                                     floor(($presentCount / $usersCountWithDesignation) * 100) : ' 0' }}% </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                    $i = 1;
+                                                @endphp
+                                                @foreach ($totalContractors as $key => $totalContractor)
+                                                    @foreach ($designations as $val => $designation)
                                                         @php
-                                                            ++$i;
+                                                            $usersWithDesignation = $totalContractor->users->where('designation_id', $designation->id)->where('department_id', request()->department);
+
+                                                            $usersCountWithDesignation = $usersWithDesignation->count();
+
+                                                            // Filter punch data for current contractor, department, and employee type
+                                                            $currentContractorData = $todayPunchData->filter(function ($item) use ($totalContractor, $designation, $employeeType) {
+                                                                return $item->user->contractor_id == $totalContractor->id && $item->user->department_id == request()->department && $item->user->employee_type == $employeeType && $item->user->designation_id == $designation->id;
+                                                            });
+                                                            $presentCount = $currentContractorData->count();
+                                                            $absentCount = $usersCountWithDesignation - $presentCount;
                                                         @endphp
-                                                    @endif
+
+                                                        @if ($usersCountWithDesignation > 0)
+                                                            <tr>
+                                                                <td>{{ $i }}</td>
+                                                                {{-- <td>{{ $totalContractor?->users?->department?->name }}</td> <!-- Adjust as needed --> --}}
+                                                                <td>{{ Str::limit(ucwords($totalContractor->name), 25) }}</td>
+                                                                <td>{{ $designation->name }}</td>
+                                                                <td>
+                                                                    <a href="{{ route('employees-new.list', ['status' => '', 'contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
+                                                                        {{ $usersCountWithDesignation }}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('employees-new.list', ['status' => 'present', 'contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
+                                                                        {{ $presentCount }}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route('employees-new.list', ['status' => 'absent', 'contractor_id' => $totalContractor->id, 'department_id' => request()->department, 'designation' => $designation->id, 'employeeType' => $employeeType]) }}">
+                                                                        {{ $absentCount }}
+                                                                    </a>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="progress">
+                                                                        <div class="progress-bar-animated bg-primary progress-bar-striped" role="progressbar" style="width:
+                                                                    {{ $usersCountWithDesignation ? floor(($presentCount / $usersCountWithDesignation) * 100) : '0' }}%"
+                                                                            aria-valuenow="
+                                                                     {{ $usersCountWithDesignation ? floor(($presentCount / $usersCountWithDesignation) * 100) : '0' }}" aria-valuemin="0" aria-valuemax="100">
+                                                                            &nbsp;&nbsp; {{ $usersCountWithDesignation ? floor(($presentCount / $usersCountWithDesignation) * 100) : ' 0' }}% </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            @php
+                                                                ++$i;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
                                                 @endforeach
-                                            @endforeach
 
                                             </tbody>
                                         </table>
                                     </div>
-{{--
+                                    {{--
                                     @foreach ($totalContractors as $totalContractor)
                                         @php
                                             $currentContractorData = $todayPunchData->where( fn($item) => $item->user->contractor_id  == $totalContractor->id );
@@ -429,7 +388,7 @@
                 </div>
 
                 {{-- <div class="col-12 px-0">
-                    @if ( $is_admin && request()->department && !$totalContractors->isEmpty())
+                    @if ($is_admin && request()->department && !$totalContractors->isEmpty())
                         <div class="row">
                             <div class="card rounded">
                                 <div class="card-header px-2 py-3">
@@ -479,7 +438,7 @@
 
                 {{-- Office/Ward wise details --}}
                 <div class="col-12 px-0">
-                    @if ( $is_admin && request()->department )
+                    @if ($is_admin && request()->department)
                         <div class="row">
                             <div class="card rounded">
                                 <div class="card-header px-2 py-3">
@@ -488,9 +447,9 @@
                                 <div class="row">
                                     @foreach ($totalWards as $totalWard)
                                         @php
-                                            $currentWardData = $todayPunchData->where( fn($item) => $item->user->ward_id == $totalWard->id );
-                                            $currentWardData = $currentWardData->where( fn($item) => $item->user->department_id == request()->department );
-                                            $currentWardData = $currentWardData->where( fn($item) => $item->user->employee_type == $employeeType );
+                                            $currentWardData = $todayPunchData->where(fn($item) => $item->user->ward_id == $totalWard->id);
+                                            $currentWardData = $currentWardData->where(fn($item) => $item->user->department_id == request()->department);
+                                            $currentWardData = $currentWardData->where(fn($item) => $item->user->employee_type == $employeeType);
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                             <div class="card custom-card rounded">
@@ -503,11 +462,11 @@
                                                         </div>
                                                         <div class="col-4 br-right text-center">
                                                             <h6 class="mb-0">Present</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentWardData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $totalWard->users_count ? round(($currentWardData->count()/$totalWard->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentWardData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $totalWard->users_count ? round(($currentWardData->count() / $totalWard->users_count) * 100) : '0' }}%)</strong> <br>
                                                         </div>
                                                         <div class="col-4 text-center">
                                                             <h6 class="mb-0">Absent</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $totalWard->users_count-$currentWardData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $totalWard->users_count ? round(((($totalWard->users_count-$currentWardData->count() ))/$totalWard->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ abs($totalWard->users_count - $currentWardData->count()) }} </span><span style="font-size:14px; display:inline-block;">({{ $totalWard->users_count ? round((($totalWard->users_count - $currentWardData->count()) / $totalWard->users_count) * 100) : '0' }}%)</strong> <br>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -529,7 +488,7 @@
 
                 {{-- Department wise details --}}
                 <div class="col-12 px-0">
-                    @if ( $is_admin && !request()->department )
+                    @if ($is_admin && !request()->department)
                         <div class="row">
                             <div class="card rounded">
                                 <div class="card-header px-2 py-3">
@@ -539,9 +498,9 @@
                                     @foreach ($departments as $department)
                                         @php
                                             $currentDeptData = $todayPunchData
-                                                            // ->where( fn($item) => $item->user->ward_id == request()->ward )
-                                                            ->where( fn($item) => $item->user?->department_id == $department->id )
-                                                            ->where( fn($item) => $item->user->employee_type == $employeeType );
+                                                // ->where( fn($item) => $item->user->ward_id == request()->ward )
+                                                ->where(fn($item) => $item->user?->department_id == $department->id)
+                                                ->where(fn($item) => $item->user->employee_type == $employeeType);
                                         @endphp
                                         <div class="col-md-4 col-lg-4 col-xl-4 box-col-4">
                                             <div class="card custom-card rounded">
@@ -554,11 +513,11 @@
                                                         </div>
                                                         <div class="col-4 br-right text-center">
                                                             <h6 class="mb-0">Present</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentDeptData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(($currentDeptData->count()/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ $currentDeptData->count() }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(($currentDeptData->count() / $department->users_count) * 100) : '0' }}%)</strong> <br>
                                                         </div>
                                                         <div class="col-4 text-center">
                                                             <h6 class="mb-0">Absent</h6>
-                                                            <strong style="font-size:22px; display:inline-block;">{{ abs( $department->users_count-$currentDeptData->count() ) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round(((($department?->users_count-$currentDeptData->count() ))/$department->users_count)*100) : '0' }}%)</strong> <br>
+                                                            <strong style="font-size:22px; display:inline-block;">{{ abs($department->users_count - $currentDeptData->count()) }} </span><span style="font-size:14px; display:inline-block;">({{ $department->users_count ? round((($department?->users_count - $currentDeptData->count()) / $department->users_count) * 100) : '0' }}%)</strong> <br>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -601,20 +560,64 @@
 
 
             </div>
+            @if ($isHigherAuthority)
+                <div class="row">
+                    <div class="col-sm-12">
 
+                        <div class="card">
+
+
+                            <div class="card-body">
+
+                                <div>
+                                    <livewire:leave-application-overlap />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="card">
+
+
+                            <div class="card-body">
+
+                                <div>
+                                    <livewire:leave-application-class />
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div class="card">
+
+                            <div class="card-body">
+                                <livewire:leave-application-class-balance />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
         </div>
-        <!-- Container-fluid Ends-->
     </div>
+        <!-- Container-fluid Ends-->
 
-    @push('scripts')
-        <!-- Open Change Password Modal-->
-        <script>
-            setInterval(function(){
-                window.location.reload(1);
-            }, 300000);
-        </script>
-    @endpush
-    <livewire:scripts />
+
+        @push('scripts')
+            <!-- Open Change Password Modal-->
+            <script>
+                setInterval(function() {
+                    window.location.reload(1);
+                }, 300000);
+            </script>
+        @endpush
+        <livewire:scripts />
 </x-admin.admin-layout>
-

@@ -65,7 +65,7 @@
                                                     <option value="{{ $department->id }}">{{ $department->name }}</option>
                                                 @endforeach
                                             </select>
-                                            <span class="text-danger error-text departments_id_err"></span>
+                                            <span class="text-danger error-text departments_id[]_err"></span>
                                         </div>
 
                                         {{-- <div class="col-md-4 mt-3">
