@@ -21,7 +21,7 @@ class LeaveApplicationOverlap extends Component
     public $records_per_page = 10;
     public $search = '';
     public $column = 'from_date';
-    public $order = 'ASC';
+    public $order = 'DESC';
     public $type_const = 'pending';
 
     public function render()
