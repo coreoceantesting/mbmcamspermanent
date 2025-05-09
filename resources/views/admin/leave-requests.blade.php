@@ -109,7 +109,7 @@
                                         @endif
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="file">Choose File <span class="text-danger">*</span> </label>
+                                            <label class="col-form-label" for="file">Choose File </label>
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
                                         </div>
@@ -246,7 +246,7 @@
                                         <div class="col-md-3 mt-3" id="edit_img"></div>
 
                                         <div class="col-md-3 mt-3">
-                                            <label class="col-form-label" for="file">Choose File<span class="text-danger">*</span> </label>
+                                            <label class="col-form-label" for="file">Choose File </label>
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
                                             <span class="text-danger error-text" style="font-size:11px">Choose if want to replace existing file</span>

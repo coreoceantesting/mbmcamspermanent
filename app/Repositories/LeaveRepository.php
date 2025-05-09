@@ -22,7 +22,6 @@ class LeaveRepository
     {
         DB::beginTransaction();
         $input['path'] = isset($input['file']) ? $input['file']->store('leave_document') : '';
-        $input['path'] = "";
         $input['user_id'] = $user->id;
         $type_const = strtoupper('LEAVE_FOR_TYPE_' . $input['page_type']);
         $input['request_for_type'] = constant("App\Models\LeaveRequest::$type_const");

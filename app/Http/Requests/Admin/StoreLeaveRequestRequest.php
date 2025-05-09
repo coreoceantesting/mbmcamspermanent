@@ -32,7 +32,7 @@ class StoreLeaveRequestRequest extends FormRequest
 
             'leave_type_id' => 'required_unless:page_type,half_day',
             'from_date' => 'required_unless:page_type,half_day|date',
-            'file' => 'required|mimes:png,jpg,jpeg,pdf',
+            'file' => 'nullable|sometimes|mimes:png,jpg,jpeg,pdf',
             'remark' => 'required',
         ];
         if (request()->page_type != 'half_day') {
