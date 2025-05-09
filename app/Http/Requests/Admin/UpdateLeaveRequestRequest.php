@@ -32,7 +32,7 @@ class UpdateLeaveRequestRequest extends FormRequest
 
             'leave_type_id' => 'required_unless:page_type,half_day',
             'from_date' => 'required_unless:page_type,half_day|date',
-            'file' => 'nullable|mimes:png,jpg,jpeg,pdf',
+            'file' => 'nullable|sometimes|mimes:png,jpg,jpeg,pdf',
             'remark' => 'required',
         ];
 
