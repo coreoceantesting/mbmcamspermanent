@@ -20,12 +20,12 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // 1 => Permanent  0 =>  Contractual 
+        // 1 => Permanent  0 =>  Contractual
         $employeeType = 1;
 
         $authUser = auth()->user()->load('designation');
         $is_admin = $authUser->hasRole(['Admin', 'Super Admin', 'Officer']) ? true : false;
-        $department = $request->ward; 
+        $department = $request->ward;
 $is_higher_authority = $authUser->designation?->name === "Commissioner";
 
         $totalEmployees = User::when(!$is_higher_authority && !$is_admin , function ($query) use ($department, $authUser) {
@@ -37,7 +37,7 @@ $is_higher_authority = $authUser->designation?->name === "Commissioner";
             });
         })
        ->where('employee_type', $employeeType)
-        
+
         ->count();
 
         $departments = '';
@@ -59,7 +59,7 @@ $is_higher_authority = $authUser->designation?->name === "Commissioner";
         } else {
             $totalDepartments = 1;
         }
-    
+
 
 
         $totalHolidays = Holiday::where('year', date('Y'))->count();
@@ -89,7 +89,7 @@ $is_higher_authority = $authUser->designation?->name === "Commissioner";
         //             ->where('employee_type', $employeeType)
         //     )
         //     ->latest()->get();
-        
+
         $punchData = Punch::whereIn('punch_date', [$todaysDate, $backDate])
     ->select('id', 'emp_code', 'check_in', 'check_out', 'duration', 'punch_date', 'is_latemark', 'is_latemark_updated', 'punch_by', 'type', 'leave_type_id')
     ->withWhereHas('user', function ($query) use ($is_admin, $is_higher_authority, $department, $authUser, $employeeType) {
@@ -122,7 +122,7 @@ $is_higher_authority = $authUser->designation?->name === "Commissioner";
               });
     }
 ], 'no_of_days')
-->get(); 
+->get();
         return view('admin.dashboard.index')->with([
             'is_admin' => $is_admin,
             'totalEmployees' => $totalEmployees,

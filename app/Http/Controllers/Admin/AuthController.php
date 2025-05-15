@@ -53,7 +53,10 @@ class AuthController extends Controller
 
                     return response()->json(['success' => 'login successful', 'user_type' => 'employee']);
                 }
-                $user = User::where('email', $username)->orWhere('mobile', $username)->first();
+                $user = User::where(function($q) use($username){
+                    $q->where('email', $username)->orWhere('mobile', $username);
+                })->where('is_employee', 0)->first();
+
 
                 if (!$user)
                     return response()->json(['error2' => 'No user found with this username']);
@@ -61,8 +64,11 @@ class AuthController extends Controller
                 if ($user->active_status == '0' && !$user->roles)
                     return response()->json(['error2' => 'You are not authorized to login, contact HOD']);
 
-                if (!auth()->attempt(['email' => $username, 'password' => $password], $remember_me) && !auth()->attempt(['mobile' => $username, 'password' => $password], $remember_me))
+                if (!Hash::check($password, $user->password)) {
                     return response()->json(['error2' => 'Your entered credentials are invalid']);
+                }
+
+                auth()->login($user, $remember_me);
 
                 $userType = '';
                 if ($user->hasRole(['Maker']))

@@ -187,8 +187,9 @@ class UserController extends Controller
             if (array_key_exists('departments_id', $request->all())) {
                 $user->departments()->sync(is_array($departments) ? $departments : []);
             }
-           
+
             $user->roles()->detach();
+            $user->update(Arr::only($input, Auth::user()->getFillable()));
             DB::table('model_has_roles')->insert(['role_id' => $input['role'], 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
             DB::commit();
 
