@@ -507,10 +507,22 @@ class ReportController extends Controller
 
         $periods = [];
         if(isset($request->period) && $request->period != ""){
-            $time = Carbon::now()->subYears($request->period)->toDateString();
-            // return $time;
+            if($request->period == 10){
+                $startPeriod = 10;
+                $endPeriod = 20;
+            }else if($request->period == 20){
+                $startPeriod = 20;
+                $endPeriod = 30;
+            }else{
+                $startPeriod = 30;
+                $endPeriod = 200;
+            }
+            $startTime = Carbon::now()->subYears($startPeriod)->toDateString();
+            $endTime = Carbon::now()->subYears($endPeriod)->toDateString();
+
             $periods = User::with(['ward', 'department', 'clas'])
-                     ->whereDate('doj', '<=', $time)
+                     ->whereDate('doj', '<=', $startPeriod)
+                     ->whereDate('doj', '>', $endPeriod)
                      ->where('is_employee', 1)
                      ->when(isset($request->ward) &&  $request->ward != "", function($q) use($request){
                         $q->where('ward_id', $request->ward);
