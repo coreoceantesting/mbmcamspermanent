@@ -464,6 +464,11 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'leave-balance.delete',
                 'group' => 'leave-balance',
             ],
+            [
+                'id' => 91,
+                'name' => 'reports.completed-year',
+                'group' => 'reports'
+            ]
         ];
 
         foreach ($permissions as $permission) {

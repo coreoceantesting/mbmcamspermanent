@@ -218,6 +218,9 @@
                                 @can('reports.emp-wise-report')
                                     <li><a href="{{ route('dashboard.employee-wise-report') }}">Emp wise report </a></li>
                                 @endcan
+                                @can('reports.completed-year')
+                                    <li><a href="{{ route('reports.completed-year') }}">10-20-30 report </a></li>
+                                @endcan
                             </ul>
                         </li>
                     @endcan

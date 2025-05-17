@@ -133,6 +133,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('todays_leave_bifurcation', [App\Http\Controllers\Admin\ReportController::class, 'todaysLeaveBifurcation'])->name('dashboard.todays-leave-bifurcation');
     Route::get('month_wise_latemark', [App\Http\Controllers\Admin\ReportController::class, 'monthWiseLatemark'])->name('dashboard.month-wise-latemark');
     Route::get('employee_wise_report', [App\Http\Controllers\Admin\ReportController::class, 'employeeWiseReport'])->name('dashboard.employee-wise-report');
+    Route::get('report/employee-complete-year', [App\Http\Controllers\Admin\ReportController::class, 'employeeCompletedYear'])->name('reports.completed-year');
 
 
     // fetch contractor

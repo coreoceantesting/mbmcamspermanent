@@ -497,4 +497,38 @@ class ReportController extends Controller
             'toDate' => $toDate,
         ]);
     }
+
+    public function employeeCompletedYear(Request $request){
+        $wards = Ward::select('id', 'name')->get();
+
+        $departments = Department::select('id', 'name')->get();
+
+        $class = Clas::select('id', 'name')->get();
+
+        $periods = [];
+        if(isset($request->period) && $request->period != ""){
+            $time = Carbon::now()->subYears($request->period)->toDateString();
+            // return $time;
+            $periods = User::with(['ward', 'department', 'clas'])
+                     ->whereDate('doj', '<=', $time)
+                     ->where('is_employee', 1)
+                     ->when(isset($request->ward) &&  $request->ward != "", function($q) use($request){
+                        $q->where('ward_id', $request->ward);
+                     })
+                     ->when(isset($request->department) &&  $request->department != "", function($q) use($request){
+                        $q->where('department_id', $request->department);
+                     })
+                     ->when(isset($request->class) &&  $request->class != "", function($q) use($request){
+                        $q->where('clas_id', $request->class);
+                     })
+                     ->get();
+        }
+
+        return view('admin.reports.completed-year')->with([
+            'wards' => $wards,
+            'departments' => $departments,
+            'class' => $class,
+            'periods' => $periods
+        ]);
+    }
 }
