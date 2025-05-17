@@ -25,6 +25,11 @@ Route::middleware(['guest', 'PreventBackHistory'])->group(function () {
     // Route::get('/', [App\Http\Controllers\Admin\AuthController::class, 'showLogin'])->name('/');
     Route::get('login', [App\Http\Controllers\Admin\AuthController::class, 'showLogin'])->name('login');
     Route::post('login', [App\Http\Controllers\Admin\AuthController::class, 'login'])->name('signin');
+
+
+    Route::get('otp-login', [App\Http\Controllers\Admin\AuthOtpLoginController::class, 'showLogin'])->name('otp-login');
+    Route::post('generate-otp', [App\Http\Controllers\Admin\AuthOtpLoginController::class, 'generateOtp'])->name('generate-otp');
+    Route::post('otp-login', [App\Http\Controllers\Admin\AuthOtpLoginController::class, 'login'])->name('otp-signin');
 });
 
 
