@@ -521,8 +521,8 @@ class ReportController extends Controller
             $endTime = Carbon::now()->subYears($endPeriod)->toDateString();
 
             $periods = User::with(['ward', 'department', 'clas'])
-                     ->whereDate('doj', '<=', $startPeriod)
-                     ->whereDate('doj', '>', $endPeriod)
+                     ->whereDate('doj', '<=', $startTime)
+                     ->whereDate('doj', '>', $endTime)
                      ->where('is_employee', 1)
                      ->when(isset($request->ward) &&  $request->ward != "", function($q) use($request){
                         $q->where('ward_id', $request->ward);
