@@ -561,7 +561,7 @@ class ReportController extends Controller
             $periods = User::with(['ward', 'department', 'clas'])
                      ->join('clas', 'app_users.clas_id', '=', 'clas.id')
                      ->whereBetween(
-                        DB::raw("DATE_ADD(app_users.doj, INTERVAL clas.retirement_age YEAR)"),
+                        DB::raw("DATE_ADD(app_users.dob, INTERVAL clas.retirement_age YEAR)"),
                         [$today, $sixMonthsLater]
                      )
                      ->select('app_users.*')
