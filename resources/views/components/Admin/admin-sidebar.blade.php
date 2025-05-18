@@ -221,6 +221,9 @@
                                 @can('reports.completed-year')
                                     <li><a href="{{ route('reports.completed-year') }}">10-20-30 report </a></li>
                                 @endcan
+                                @can('reports.retirement')
+                                    <li><a href="{{ route('reports.retirement') }}">Retirement report </a></li>
+                                @endcan
                             </ul>
                         </li>
                     @endcan

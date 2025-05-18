@@ -1,5 +1,5 @@
 <x-admin.admin-layout>
-    <x-slot name="title">{{ auth()->user()->tenant_name }} - 10-20-30 Report</x-slot>
+    <x-slot name="title">{{ auth()->user()->tenant_name }} - Retirement Report</x-slot>
 
     <div class="page-body">
         <div class="container-fluid">
@@ -8,7 +8,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3>10-20-30 Report</h3>
+                        <h3>Retirement Report</h3>
 
                         @if(Session::has('success'))
                             <div class="alert alert-success text-center">
@@ -17,18 +17,15 @@
                         @endif
 
                         <div class="card">
-                            <form class="theme-form" method="GET" action="{{ route('reports.completed-year') }}">
+                            <form class="theme-form" method="GET" action="{{ route('reports.retirement') }}">
 
                                 <div class="card-body pt-0">
 
                                     <div class="mb-3 row">
-                                        <div class="col-md-3 mt-3">
+                                        <div class="col-md-3 mt-3 d-none">
                                             <label class="col-form-label" for="period">Select Period <span class="text-danger">*</span> </label>
                                             <select name="period" class="form-select" id="period" required>
-                                                <option value="">Select</option>
-                                                <option value="10" @if(isset(request()->period) && request()->period == "10")selected @endif>10</option>
-                                                <option value="20" @if(isset(request()->period) && request()->period == "20")selected @endif>20</option>
-                                                <option value="30" @if(isset(request()->period) && request()->period == "30")selected @endif>30</option>
+                                                <option value="6" selected @if(isset(request()->period) && request()->period == "6")selected @endif>10</option>
                                             </select>
                                             <span class="text-danger error-text year_err"></span>
                                         </div>

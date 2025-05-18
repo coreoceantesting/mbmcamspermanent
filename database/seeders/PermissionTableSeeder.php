@@ -468,6 +468,11 @@ class PermissionTableSeeder extends Seeder
                 'id' => 91,
                 'name' => 'reports.completed-year',
                 'group' => 'reports'
+            ],
+            [
+                'id' => 92,
+                'name' => 'reports.retirement',
+                'group' => 'reports'
             ]
         ];
 

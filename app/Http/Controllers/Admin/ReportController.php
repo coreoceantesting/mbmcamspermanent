@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 use Barryvdh\Snappy\Facades\SnappyPdf;
 use Carbon\CarbonPeriod;
 use Crypt;
@@ -537,6 +538,48 @@ class ReportController extends Controller
         }
 
         return view('admin.reports.completed-year')->with([
+            'wards' => $wards,
+            'departments' => $departments,
+            'class' => $class,
+            'periods' => $periods
+        ]);
+    }
+
+    public function retirmentReport(Request $request){
+        $wards = Ward::select('id', 'name')->get();
+
+        $departments = Department::select('id', 'name')->get();
+
+        $class = Clas::select('id', 'name')->get();
+
+        $periods = [];
+        if(isset($request->period) && $request->period != ""){
+
+            $today = Carbon::today();
+            $sixMonthsLater = $today->copy()->addMonths($request->period);
+
+            $periods = User::with(['ward', 'department', 'clas'])
+                     ->join('clas', 'app_users.clas_id', '=', 'clas.id')
+                     ->whereBetween(
+                        DB::raw("DATE_ADD(app_users.doj, INTERVAL clas.retirement_age YEAR)"),
+                        [$today, $sixMonthsLater]
+                     )
+                     ->select('app_users.*')
+                     ->where('is_employee', 1)
+                     ->when(isset($request->ward) &&  $request->ward != "", function($q) use($request){
+                        $q->where('ward_id', $request->ward);
+                     })
+                     ->when(isset($request->department) &&  $request->department != "", function($q) use($request){
+                        $q->where('department_id', $request->department);
+                     })
+                     ->when(isset($request->class) &&  $request->class != "", function($q) use($request){
+                        $q->where('clas_id', $request->class);
+                     })
+                     ->get();
+
+        }
+
+        return view('admin.reports.retirement')->with([
             'wards' => $wards,
             'departments' => $departments,
             'class' => $class,

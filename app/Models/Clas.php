@@ -11,7 +11,7 @@ class Clas extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'initial'];
+    protected $fillable = ['name', 'initial', 'retirement_age'];
 
     public static function booted()
     {
