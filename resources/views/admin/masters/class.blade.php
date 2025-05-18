@@ -18,8 +18,13 @@
                                     <div class="mb-3 row">
                                         <div class="col-md-4">
                                             <label class="col-form-label" for="name">Class Name <span class="text-danger">*</span></label>
-                                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter Class Name">
+                                            <input class="form-control" id="name" name="name" type="text" placeholder="Enter Class Name" required>
                                             <span class="text-danger error-text name_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4">Retirement Age <span class="text-danger">*</span></label>
+                                            <input class="form-control" id="retirement_age" name="retirement_age" type="text" placeholder="Enter Retirement Age" required>
+                                            <span class="text-danger error-text retirement_age_err"></span>
                                         </div>
                                     </div>
 
@@ -53,6 +58,11 @@
                                             <label class="col-form-label" for="edit_name">Class Name</label>
                                             <input class="form-control" id="edit_name" name="edit_name" type="text" placeholder="Class Name">
                                             <span class="text-danger error-text edit_name_err"></span>
+                                        </div>
+
+                                        <div class="col-md-4">Retirement Age <span class="text-danger">*</span></label>
+                                            <input class="form-control" id="retirement_age" name="retirement_age" type="text" placeholder="Enter Retirement Age" required>
+                                            <span class="text-danger error-text retirement_age_err"></span>
                                         </div>
                                     </div>
 
@@ -103,6 +113,7 @@
                                             <th>Sr No</th>
                                             <th style="max-width: 150px;">Class Initial</th>
                                             <th>Class Name</th>
+                                            <th>Retirement Age</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -114,6 +125,7 @@
                                                 <td>
                                                     <strong> {{ $clas->name }} </strong>
                                                 </td>
+                                                <td>{{ $clas->retirement_age }}</td>
                                                 <td>
                                                     @can('classes.edit')
                                                         <button class="edit-element btn btn-primary px-2 py-1" title="Edit clas" data-id="{{ $clas->id }}"><i data-feather="edit"></i></button>
@@ -268,6 +280,7 @@
                 {
                     $("#editForm input[name='edit_model_id']").val(data.clas.id);
                     $("#editForm input[name='edit_name']").val(data.clas.name);
+                    $("#editForm input[name='retirement_age']").val(data.clas.retirement_age);
                 }
                 else
                 {

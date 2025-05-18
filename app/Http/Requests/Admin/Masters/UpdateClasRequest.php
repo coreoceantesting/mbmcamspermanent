@@ -22,7 +22,8 @@ class UpdateClasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'edit_name' => 'required'
+            'edit_name' => 'required',
+            'retirement_age' => 'required'
         ];
     }
 }

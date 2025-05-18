@@ -22,7 +22,8 @@ class StoreClasRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:clas,name'
+            'name' => 'required|unique:clas,name',
+            'retirement_age' => 'required'
         ];
     }
 }
