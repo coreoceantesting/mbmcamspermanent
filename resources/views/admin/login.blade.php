@@ -103,12 +103,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group d-flex pb-5">
+                            <div class="form-group d-flex pb-2">
                                 @if (request()->device_type == 'mobile')
                                     <a class="btn-link ms-0 me-auto align-self-center" href="{{ route('employee.register') }}" type="submit">Register</a>
                                 @endif
                                 <button class="btn btn-primary me-0 ms-auto" id="loginForm_submit" type="submit">Sign in</button>
                             </div>
+                            <p class="text-dark">For mobile otp login <a href="{{ route('otp-login') }}" class="text-primary">Click Here</a></p>
 
                         </form>
                     </div>
