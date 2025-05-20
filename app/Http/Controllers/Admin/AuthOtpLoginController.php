@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\GenerateOtp;
+use Illuminate\Support\Facades\Http;
 
 class AuthOtpLoginController extends Controller
 {
@@ -39,13 +40,35 @@ class AuthOtpLoginController extends Controller
                 GenerateOtp::where('mobile', $request->mobile)->delete();
 
                 $otp = rand(1000, 9999);
-                GenerateOtp::create([
-                    'mobile' => $request->mobile,
-                    'otp' => $otp,
-                    'ip' => request()->ip()
+                $mobile = $request->mobile;
+                $text = "OTP for MBMC LOGIN is $otp for Mobile No $mobile. Please do not share OTP with anyone. Regards, Mira Bhaindar Municipal Corporation.";
+                $url = "https://japi.instaalerts.zone/httpapi/QueryStringReceiver";
+
+                $response = Http::get($url, [
+                    'ver' => '1.0',
+                    'key' => 'Isc5fvdX8tT3JF6X9aT9sA==',
+                    'encrpt' => '0',
+                    'dest' => '91' . $mobile,
+                    'send' => 'MBMCPT',
+                    'text' => $text,
+                    'dlt_entity_id' => '1001158085062848906',
+                    'dlt_template_id' => '1007530691210273647',
                 ]);
 
-                return response()->json(['success' => 'otp generated successfully', 'otp' => $otp]);
+
+
+                if ($response->successful()) {
+                    GenerateOtp::create([
+                        'mobile' => $request->mobile,
+                        'otp' => $otp,
+                        'ip' => request()->ip()
+                    ]);
+                    return response()->json(['success' => 'otp generated successfully']);
+                } else {
+                    return response()->json(['error' => 'Failed to send OTP', 'error' => $response->body()], 500);
+                }
+
+
             }else{
                 return response()->json(['error' => "No user found"]);
             }
