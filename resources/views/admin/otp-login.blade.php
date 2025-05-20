@@ -79,7 +79,7 @@
                             <h6>Welcome back! Log in to your account</h6>
 
                             <div class="form-group">
-                                <label>Mobile No <span id="generatedOTPMsg"></span></label>
+                                <label>Mobile No</label>
                                 <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
                                     <input class="form-control" type="text" name="mobile" id="mobile"
                                         placeholder="">
@@ -145,11 +145,9 @@
                             if(data.success != ""){
                                 $('#generateOtp').addClass('d-none');
                                 $('.displayOtp').removeClass('d-none');
-                                $('#generatedOTPMsg').text(data.otp)
                             }else{
                                 $('#generateOtp').removeClass('d-none');
                                 $('.displayOtp').addClass('d-none');
-                                $('#generatedOTPMsg').text('')
                             }
                         } else {
                             if (data.error2) {
