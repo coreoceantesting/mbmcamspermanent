@@ -473,7 +473,28 @@ class PermissionTableSeeder extends Seeder
                 'id' => 92,
                 'name' => 'reports.retirement',
                 'group' => 'reports'
-            ]
+            ],
+
+             [
+                'id' => 93,
+                'name' => 'leave_request_hierarchies.view',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 94,
+                'name' => 'leave_request_hierarchies.create',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 95,
+                'name' => 'leave_request_hierarchies.edit',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 96,
+                'name' => 'leave_request_hierarchies.delete',
+                'group' => 'leave-request-hierarchies',
+            ],
         ];
 
         foreach ($permissions as $permission) {
