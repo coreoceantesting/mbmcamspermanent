@@ -474,8 +474,7 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'reports.retirement',
                 'group' => 'reports'
             ],
-
-             [
+            [
                 'id' => 93,
                 'name' => 'leave_request_hierarchies.view',
                 'group' => 'leave-request-hierarchies',
