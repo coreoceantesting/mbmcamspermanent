@@ -38,6 +38,7 @@ class LeaveApplication extends Component
                                     ->when(!$isAdmin, fn($qr) => $qr
                                         ->withWhereHas('approvalHierarchy', fn($q) => $q
                                             ->where('approver_user_id', $authUser->id)
+                                            ->where('next_approval_flag', 1)
                                             ->where('status', constant("App\Models\LeaveRequest::$this->type_const"))
                                         )
                                     )

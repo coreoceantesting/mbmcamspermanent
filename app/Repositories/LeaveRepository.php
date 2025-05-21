@@ -68,6 +68,7 @@ class LeaveRepository
                     'approver_designation_id' => $approver->designation_id,
                     'approver_department_id' =>  $hierarchy->{'1_approver_department_id'},
                     'status' => 0,
+                    'next_approval_flag' => 1,
                 ]);
             }
         }
@@ -232,21 +233,28 @@ class LeaveRepository
         $hierarchy->status = 1;
         $hierarchy->save();
 
-        if(!LeaveApprovalHierarchy::where(['leave_request_id' => $leave_request->id, 'status' => 0])->exists())
+        $nextHierarchy = LeaveApprovalHierarchy::where(['leave_request_id' => $leave_request->id])->whereNot('id', $hierarchy->id)->where('id', '>', $hierarchy->id)->first();
+        if($nextHierarchy)
         {
-            $leave_request->is_approved = $input['status'];
-            $leave_request->save();
+            $nextHierarchy->next_approval_flag = 1;
+            $nextHierarchy->save();
         }
 
-        // Check if leave is half day
-        if ($leave_request->to_date == null && $leave_request->request_for_type == 2)
-            $this->createLeaveRequestPunch($leave_request, 'half_day');
 
-        // else if( $leave_request->to_date == null && $leave_request->request_for_type != 2 )                 // Check if leave is Unpredictable/Medical leave
-        //     $this->createLeaveRequestPunch($leave_request, 'medical');
+        if(!$nextHierarchy && $input['status'] == 1){
+            $leave_request->is_approved = $input['status'];
+            $leave_request->save();
 
-        else                                                                                                // Else leave is full day predictable
-            $this->createLeaveRequestPunch($leave_request, 'full_day');
+            // Check if leave is half day
+            if ($leave_request->to_date == null && $leave_request->request_for_type == 2)
+                $this->createLeaveRequestPunch($leave_request, 'half_day');
+
+            // else if( $leave_request->to_date == null && $leave_request->request_for_type != 2 )                 // Check if leave is Unpredictable/Medical leave
+            //     $this->createLeaveRequestPunch($leave_request, 'medical');
+
+            else                                                                                                // Else leave is full day predictable
+                $this->createLeaveRequestPunch($leave_request, 'full_day');
+        }
         DB::commit();
 
         return true;

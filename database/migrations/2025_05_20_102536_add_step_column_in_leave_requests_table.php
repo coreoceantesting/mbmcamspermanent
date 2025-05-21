@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('leave_requests', function (Blueprint $table) {
-            $table->integer('step_completed')->nullable()->after('half_day_type');
+        Schema::table('leave_approval_hierarchies', function (Blueprint $table) {
+            $table->boolean('next_approval_flag')->default(0)->after('status');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('leave_requests', function (Blueprint $table) {
-            $table->dropColumn('step_completed');
+        Schema::table('leave_approval_hierarchies', function (Blueprint $table) {
+            $table->dropColumn('next_approval_flag');
         });
     }
 };
