@@ -106,17 +106,31 @@ class EmployeeController extends Controller
         //
     }
 
-    public function fetchInfo(User $employee)
+   public function fetchInfo(User $employee)
     {
         $authUser = auth()->user();
+        $userId = $employee->id;
 
-        if ($authUser->hasRole(['Admin', 'Super Admin']))
-            return $employee->load(['ward', 'clas', 'department']);
+        $leave_types = LeaveType::withSum([
+                                'leaveRequests' => function ($query) use ($userId) {
+                                    $query->where('user_id', $userId)->where('is_approved', "1");
+                                }
+                                ], 'no_of_days')
+                                ->with([
+                                    'userLeaves' => function ($query) use ($userId) {
+                                        $query->where('user_id', $userId);
+                                    },
+                                ])->get();
 
-        if ($authUser->sub_department_id != $employee->sub_department_id)
-            return response()->json(['error2' => 'Employee does not belongs to your department']);
+        if ($authUser->hasRole(['Admin', 'Super Admin']) || $authUser->sub_department_id == $employee->sub_department_id) {
+            $employee->load(['ward', 'clas', 'department']);
 
-        return $employee->load(['ward', 'clas', 'department']);
+            return response()->json([
+                'employee' => $employee,
+                'leave_types' => $leave_types,
+            ]);
+        }
+        return response()->json(['error' => 'Employee does not belong to your department'], 403);
     }
 
     public function list(Request $request)

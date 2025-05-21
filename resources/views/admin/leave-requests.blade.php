@@ -136,6 +136,13 @@
                                             <textarea class="form-control" name="remark" style="min-height: 60px; max-height:60px"></textarea>
                                             <span class="text-danger error-text remark_err"></span>
                                         </div>
+                                        <div class="col-md-12 mt-3 mb-2">
+                                            <h5 class="mb-2"> Balance Leaves</h5>
+                                            <div class="row leave_types_container">
+
+                                            </div>
+
+                                        </div>
                                     </div>
 
                                 </div>
@@ -451,12 +458,42 @@
                     },
                     success: function(data, textStatus, jqXHR)
                     {
+                        console.log(data);
                         if (!data.error2)
                         {
-                            $("#addForm input[name='name']").val(data.name);
-                            $("#addForm input[name='ward']").val(data.ward.name);
-                            $("#addForm input[name='department']").val(data.department.name);
-                            $("#addForm input[name='class']").val(data.clas.name);
+                            $("#addForm input[name='name']").val(data.employee.name);
+                            $("#addForm input[name='ward']").val(data.employee.ward.name);
+                            $("#addForm input[name='department']").val(data.employee.department.name);
+                            $("#addForm input[name='class']").val(data.employee.clas.name);
+
+                            if (data.leave_types) {
+                                let container = $(".leave_types_container"); // A parent .row or .container element
+                                container.empty(); // Optional: Clear old content
+                                 let available =0 ;
+                                 data.leave_types.forEach(function(type) {
+                                     if (Array.isArray(type.user_leaves)) {
+                                            available = type.user_leaves.reduce((sum, leave) => {
+                                                   const leaveDays = parseInt(leave.leave_days, 10) || 0;
+                                                     return sum + leaveDays;
+                                                }, 0);
+                                    }
+                                    let totalAvailable = available - type.leave_requests_sum_no_of_days ;
+                                    let block = `
+                                        <div class="col-md-2 mb-3">
+                                            <div class="border p-2 rounded">
+                                                <strong>${type.name}</strong><br>
+                                                Available: ${totalAvailable}<br>
+
+                                            </div>
+                                        </div>
+                                    `;
+                                    container.append(block);
+                                });
+
+                                // Set class name somewhere if needed
+                                $(".employee_class").text(data.employee.clas.name);
+                            }
+
                         } else {
                             swal("Error!", data.error2, "error");
                         }
