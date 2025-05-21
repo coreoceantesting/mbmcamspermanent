@@ -71,6 +71,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('shifts', App\Http\Controllers\Admin\Masters\ShiftController::class);
     Route::resource('devices', App\Http\Controllers\Admin\Masters\DeviceController::class);
     Route::resource('contractors', App\Http\Controllers\Admin\Masters\ContractorController::class);
+     Route::resource('leave_request_hierarchies', App\Http\Controllers\Admin\Masters\LeaveRequestHierarchiesController::class);
 
 
     // Users Roles n Permissions

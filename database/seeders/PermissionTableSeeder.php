@@ -464,6 +464,27 @@ class PermissionTableSeeder extends Seeder
                 'name' => 'leave-balance.delete',
                 'group' => 'leave-balance',
             ],
+
+             [
+                'id' => 91,
+                'name' => 'leave_request_hierarchies.view',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 92,
+                'name' => 'leave_request_hierarchies.create',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 93,
+                'name' => 'leave_request_hierarchies.edit',
+                'group' => 'leave-request-hierarchies',
+            ],
+            [
+                'id' => 94,
+                'name' => 'leave_request_hierarchies.delete',
+                'group' => 'leave-request-hierarchies',
+            ],
         ];
 
         foreach ($permissions as $permission) {
