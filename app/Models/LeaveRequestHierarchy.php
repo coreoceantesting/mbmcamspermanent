@@ -128,7 +128,7 @@ class LeaveRequestHierarchy extends Model
 
     public function fourthApproverDesignations()
     {
-        return $this->hasOne(Department::class, 'id','4_approver_designation_id');
+        return $this->hasOne(Designation::class, 'id','4_approver_designation_id');
     }
 
 

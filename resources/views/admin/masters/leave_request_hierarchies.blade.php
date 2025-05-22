@@ -323,14 +323,15 @@
                                                 <td>{{ $leave_request_hierarchie->firstApproverDesignations->name ?? 'N/A' }}</td>
                                                 <td>{{ $leave_request_hierarchie->firstApproverDepartments->name ?? 'NA' }}</td>
 
+                                                 <td>{{ $leave_request_hierarchie->secondApproverDesignations->name ?? 'NA' }}</td>
                                                 <td>{{ $leave_request_hierarchie->secondApproverDepartments->name ?? 'N/A' }}</td>
-                                                <td>{{ $leave_request_hierarchie->secondApproverDesignations->name ?? 'NA' }}</td>
 
-                                                <td>{{ $leave_request_hierarchie->thirdApproverDepartments->name ?? 'N/A' }}</td>
                                                 <td>{{ $leave_request_hierarchie->thirdApproverDesignations->name ?? 'NA' }}</td>
+                                                <td>{{ $leave_request_hierarchie->thirdApproverDepartments->name ?? 'N/A' }}</td>
 
+                                                 <td>{{ $leave_request_hierarchie->fourthApproverDesignations->name ?? 'NA' }}</td>
                                                 <td>{{ $leave_request_hierarchie->fourthApproverDepartments->name ?? 'N/A' }}</td>
-                                                <td>{{ $leave_request_hierarchie->fourthApproverDesignations->name ?? 'NA' }}</td>
+
                                                 <td>
                                                     @can('leave_request_hierarchies.edit')
                                                       <button class="edit-element btn btn-primary px-2 py-1" title="Edit leave request hierarchie" data-id="{{ $leave_request_hierarchie->id }}"><i data-feather="edit"></i></button>
