@@ -32,7 +32,7 @@ class LeaveApplication extends Component
         $leaveRequests = Search::add(
                                 ModelsLeaveRequest::with('leaveType', 'document','user.userLeaves')
                                     ->withWhereHas('user', fn($qr)=> $qr
-                                        ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
+                                        // ->when( !$isAdmin, fn($q)=> $q->where('sub_department_id', $authUser->sub_department_id))
                                         ->with('ward', 'clas', 'department')
                                     )
                                     ->when(!$isAdmin, fn($qr) => $qr
@@ -42,8 +42,6 @@ class LeaveApplication extends Component
                                         )
                                     )
                                     ->whereIsApproved( constant("App\Models\LeaveRequest::$this->type_const") )
-                                    // ->whereNot('leave_type_id', '7')
-                                    // ->orWhere( fn($q) => $q->where('leave_type_id', null)->whereIsApproved(constant("App\Models\LeaveRequest::$this->type_const")) )
                                     ->latest(),
                                 [ 'id', 'from_date', 'to_date', 'no_of_days', 'remark', 'user.name', 'user.emp_code' ]
                             )
