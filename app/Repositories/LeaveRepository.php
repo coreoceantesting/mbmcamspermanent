@@ -33,7 +33,7 @@ class LeaveRepository
         $leaveRequest = LeaveRequest::create(Arr::only($input, LeaveRequest::getFillables()));
 
 
-        $hierarchy = LeaveRequestHierarchy::where(['clas_id'=> $user->clas_id,'requester_department_id'=> $user->department_id, 'requester_designation_id' => $user->designation_id])->where('is_employee',0)->first();
+        $hierarchy = LeaveRequestHierarchy::where(['clas_id'=> $user->clas_id,'requester_department_id'=> $user->department_id, 'requester_designation_id' => $user->designation_id])->first();
         if (!$hierarchy) {
             return response()->json(['error' => 'No hierarchy available'], 500);
         }
