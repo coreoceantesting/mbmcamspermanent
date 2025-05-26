@@ -53,11 +53,11 @@ class UpdateEmployeeRequest extends FormRequest
             'designation_id' => 'nullable',
             'leave_durations'=>'nullable',
 
-            'issue_order_date' => 'required|date',
-            'is_benifit' => 'required|in:0,1',
+            'issue_order_date' => 'nullable|date',
+            'is_benifit' => 'nullable|in:0,1',
             'benefit_document' => $this->hasFile('benefit_document') || !$this->benefit_document_existing ? 'required|file|mimes:pdf,jpg,jpeg'  : 'nullable|file|mimes:pdf,jpg,jpeg',
-            'fixation_date' => 'required|date',
-            'fixation_document' => !$this->fixation_document_existing ? 'required|file|mimes:pdf,jpg,jpeg': 'nullable|file|mimes:pdf,jpg,jpeg',
+            'fixation_date' => 'nullable|date',
+            'fixation_document' => !$this->fixation_document_existing ? 'nullable|file|mimes:pdf,jpg,jpeg': 'nullable|file|mimes:pdf,jpg,jpeg',
         ];
     }
 

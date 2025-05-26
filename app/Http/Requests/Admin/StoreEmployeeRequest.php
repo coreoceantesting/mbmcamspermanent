@@ -51,11 +51,11 @@ class StoreEmployeeRequest extends FormRequest
             'is_ot' => ['required', Rule::in(['y', 'n'])],
             'is_divyang' => ['required', Rule::in(['y', 'n'])],
             'leave_durations' => 'nullable',
-            'fixation_date' => 'required|date',
-            'issue_order_date' => 'required|date',
-            'is_benifit' => 'required|in:0,1',
+            'fixation_date' => 'nullable|date',
+            'issue_order_date' => 'nullable|date',
+            'is_benifit' => 'nullable|in:0,1',
             'benefit_document' => 'required_if:is_benifit,1|file|mimes:pdf,jpg,jpeg',
-            'fixation_document' => 'required|file|mimes:pdf,jpg,jpeg',
+            'fixation_document' => 'nullable|file|mimes:pdf,jpg,jpeg',
 
         ];
     }
