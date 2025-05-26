@@ -71,6 +71,8 @@ class LeaveRepository
                     'approver_department_id' =>  $hierarchy->{'1_approver_department_id'},
                     'status' => 0,
                 ]);
+            }else{
+                return response()->json(['error' => 'No Approver Found'], 500);
             }
         }
 
@@ -105,6 +107,8 @@ class LeaveRepository
                     'approver_department_id' =>  $hierarchy->{'2_approver_department_id'},
                     'status' => 0,
                 ]);
+            }else{
+                return response()->json(['error' => 'No Approver Found'], 500);
             }
         }
 
@@ -140,6 +144,9 @@ class LeaveRepository
                     'approver_department_id'   =>  $hierarchy->{'3_approver_department_id'},
                     'status' => 0,
                 ]);
+            }
+            else{
+                return response()->json(['error' => 'No Approver Found'], 500);
             }
         }
 

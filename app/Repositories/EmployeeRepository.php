@@ -15,6 +15,7 @@ use App\Models\Department;
 use App\Models\Designation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,8 +39,11 @@ class EmployeeRepository
         if (request()->hasFile('fixation_document')) {
             $input['fixation_document'] = request()->file('fixation_document')->store('uploads/fixations', 'public');
         }
+        $input['password'] = Hash::make('password');
         $user = User::create(Arr::only($input, Auth::user()->getFillable()));
-
+        // $employeRole = Role::updateOrCreate(['name' => 'Employee','tenant_id' => 1]);
+        // DB::table('model_has_roles')->insert(['role_id'=> $employeRole->id, 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
+        // $user->assignRole('Employee');
         if (!empty($input['leave_durations']) && is_array($input['leave_durations']))
         {
             foreach ($input['leave_durations'] as $leaveTypeId => $leaveDays)
