@@ -54,9 +54,9 @@ class StoreEmployeeRequest extends FormRequest
             'fixation_date' => 'nullable|date',
             'issue_order_date' => 'nullable|date',
             'is_benifit' => 'nullable|in:0,1',
-            'benefit_document' => 'required_if:is_benifit,1|file|mimes:pdf,jpg,jpeg',
+            'benefit_document' => 'nullable|file|mimes:pdf,jpg,jpeg',
             'fixation_document' => 'nullable|file|mimes:pdf,jpg,jpeg',
-
+// required_if:is_benifit,1
         ];
     }
 
