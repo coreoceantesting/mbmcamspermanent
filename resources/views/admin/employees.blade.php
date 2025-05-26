@@ -216,17 +216,63 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="work_duration">Work Duration </label>
-                                            <input class="form-control" id="work_duration" name="work_duration" type="number" min="1" max="24" placeholder="Enter Work Duration" step="any">
+                                            <label class="col-form-label" for="work_duration">Work  </label>
+                                            <input class="form-control" id="work_duration" name="work_duration" type="number" min="1" max="24" placeholder="Enter Work " step="any">
                                             <span class="text-danger error-text work_duration_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="sa_duration">Saturday Work Duration </label>
-                                            <input class="form-control" id="sa_duration" name="sa_duration" type="number" min="1" max="24" placeholder="Enter Saturday Work Duration" step="any">
+                                            <label class="col-form-label" for="sa_duration">Saturday Work  </label>
+                                            <input class="form-control" id="sa_duration" name="sa_duration" type="number" min="1" max="24" placeholder="Enter Saturday Work " step="any">
                                             <span class="text-danger error-text sa_duration_err"></span>
                                         </div>
+ <div class="col-12"></div>
+                                         <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="is_benifit">Is Benifit given or not ? <span class="text-danger">*</span></label>
+                                            <div class="col">
+                                                <label class="me-3" for="is_benifit">
+                                                    <input class="radio_animated" id="is_benifit_yes" type="radio" name="is_benifit" value="1">Yes
+                                                </label>
+                                                <label class="me-3" for="is_benifit_no">
+                                                    <input class="radio_animated" id="is_benifit_no" type="radio" name="is_benifit" checked="" value="0">No
+                                                </label>
+                                            </div>
+                                            <span class="text-danger error-text is_benifit_err"></span>
+                                        </div>
 
+                                        <div class="col-md-4 mt-3 benefit-upload" style="display: none">
+                                            <label class="col-form-label" for="benefit_document">Upload Document <span class="text-danger">*</span> </label>
+                                            <input class="form-control" id="benefit_document" name="benefit_document" type="file">
+                                            <span class="text-danger error-text benefit_document_err"></span>
+                                            <span id="benefit_document_view"></span>
+                                             <input id="benefit_document_existing" type="hidden" name="benefit_document_existing" >
+                                        </div>
+                                        <div class="col-12"></div>
+
+
+                                        <div class="col-md-4 mt-3 fixation_date">
+                                            <label class="col-form-label" for="fixation_date">Fixation Date <span class="text-danger">*</span> </label>
+                                            <input class="form-control" id="fixation_date" name="fixation_date" type="date">
+                                            <span class="text-danger error-text fixation_date_err"></span>
+
+                                        </div>
+
+                                         <div class="col-md-4 mt-3 fixation_document">
+                                            <label class="col-form-label" for="fixation_document">Upload Document <span class="text-danger">*</span></label>
+                                            <input class="form-control" id="fixation_document" name="fixation_document" type="file">
+                                            <span class="text-danger error-text fixation_document_err"></span>
+                                            <span id="fixation_document_view"></span>
+
+
+                                             <input type="hidden"  id="fixation_document_existing" name="fixation_document_existing" >
+                                        </div>
+
+                                        <div class="col-12"></div>
+                                        <div class="col-md-4 mt-3">
+                                            <label class="col-form-label" for="issue_order_date">Date of Issue Order <span class="text-danger">*</span> </label>
+                                            <input class="form-control" id="issue_order_date" name="issue_order_date" type="date">
+                                            <span class="text-danger error-text issue_order_date_err"></span>
+                                        </div>
 
                                         <h5 class="mt-4">Leave  Durations</h5>
 
@@ -234,7 +280,7 @@
                                             @foreach ($leave_types as $leave_type)
                                                 <div class="col-md-4 mt-3">
                                                     <label class="col-form-label" for="leave_duration_{{ $leave_type->id }}">
-                                                        {{ $leave_type->name }} Duration  
+                                                        {{ $leave_type->name }}
                                                     </label>
                                                     <input
                                                         class="form-control"
@@ -242,7 +288,7 @@
                                                         name="leave_durations[{{ $leave_type->id }}]"
                                                         type="number"
                                                         value="0"
-                                                        placeholder="Enter {{ $leave_type->name }} Duration"
+                                                        placeholder="Enter {{ $leave_type->name }} "
                                                         step="any">
                                                     <span class="text-danger error-text leave_duration_{{ $leave_type->id }}_err"></span>
                                                 </div>
@@ -523,12 +569,39 @@
                     $("#editForm input[name='permanent_address']").val(data.user.permanent_address);
                     $("#editForm select[name='employee_type']").val(data.user.employee_type);
                     $("#editForm select[name='is_rotational']").val(data.user.is_rotational);
-
-                     $("#editForm select[name='is_rotational']").val(data.user.is_rotational);
-
-                     // Clear previous leave duration values if any
+                    $("#editForm select[name='is_rotational']").val(data.user.is_rotational);
                     $("#editForm").find("input[name^='leave_durations']").val(0);
+                    $('#benefit_document_view').html('');
+                    $('#fixation_document_view').html('');
+                    $("#editForm input[name='is_benifit'][value='" + data.user.is_benifit + "']").prop("checked", true);
+                    $("#editForm input[name='fixation_date']").val(data.user.fixation_date);
+                    $("#editForm input[name='issue_order_date']").val(data.user.issue_order_date);
+                     if (data.user.is_benifit == 1) {
+                        $(".benefit-upload").show();
+                    } else {
+                        $(".benefit-upload").hide();
+                    }
+                    if (data.user.benefit_document) {
+                        $('#benefit_document_existing').val(data.user.benefit_document);
+                        $("#benefit_document_view").html(`
+                            <div class="mt-2">
+                                <a href="storage/${data.user.benefit_document}" target="_blank">
+                                    View
+                                </a>
+                            </div>
+                        `);
+                    }
 
+                    if (data.user.fixation_document) {
+                        $('#fixation_document_existing').val(data.user.fixation_document);
+                        $("#fixation_document_view").html(`
+                            <div class="mt-2">
+                                <a href="storage/${data.user.fixation_document}" target="_blank">
+                                    View
+                                </a>
+                            </div>
+                        `);
+                    }
 
                     if (data.user_leaves && Array.isArray(data.user_leaves)) {
                         data.user_leaves.forEach(function (leave) {
@@ -775,5 +848,14 @@
             $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
         });
 
+    });
+
+
+      $("[name='is_benifit']").change(function () {
+        if ($(this).val() === "1") {
+            $(".benefit-upload").show();
+        } else {
+            $(".benefit-upload").hide();
+        }
     });
 </script>

@@ -4,6 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class UpdateEmployeeRequest extends FormRequest
 {
@@ -50,7 +51,27 @@ class UpdateEmployeeRequest extends FormRequest
             'ward_id' => 'required',
             'clas_id' => 'nullable',
             'designation_id' => 'nullable',
-            'leave_durations'=>'nullable'
+            'leave_durations'=>'nullable',
+
+            'issue_order_date' => 'required|date',
+            'is_benifit' => 'required|in:0,1',
+            'benefit_document' => $this->hasFile('benefit_document') || !$this->benefit_document_existing ? 'required|file|mimes:pdf,jpg,jpeg'  : 'nullable|file|mimes:pdf,jpg,jpeg',
+            'fixation_date' => 'required|date',
+            'fixation_document' => !$this->fixation_document_existing ? 'required|file|mimes:pdf,jpg,jpeg': 'nullable|file|mimes:pdf,jpg,jpeg',
+        ];
+    }
+
+
+    public function messages()
+    {
+        return [
+            'benefit_document.required_if' => 'The upload document field is required.',
+            'fixation_document.required'=>'The upload document field is required.',
+            'shift_id.required'=>'The shift field is required.',
+            'device_id.required' => 'The device field is required.',
+            'department_id.required' => 'The department field is required.',
+            'ward_id.required' => 'The ward field is required.',
+            'clas_id.required' => 'The clas field is required.',
         ];
     }
 }
