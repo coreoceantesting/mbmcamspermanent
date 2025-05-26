@@ -29,7 +29,9 @@ class LeaveRepository
         $type_const = strtoupper('LEAVE_FOR_TYPE_' . $input['page_type']);
         $input['request_for_type'] = constant("App\Models\LeaveRequest::$type_const");
         $input['is_backdated'] = Carbon::parse($input['from_date'])->lte(Carbon::today()->toDateString()) ? 1 : 0;
-
+        if(!isset($input['leave_type_id'])){
+            $input['leave_type_id'] = 6; //default Leave CL
+        }
         $leaveRequest = LeaveRequest::create(Arr::only($input, LeaveRequest::getFillables()));
 
 
