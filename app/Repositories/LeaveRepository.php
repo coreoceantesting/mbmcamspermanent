@@ -72,7 +72,7 @@ class LeaveRepository
                     'status' => 0,
                 ]);
             }else{
-                return response()->json(['error' => 'No Approver Found'], 500);
+                return response()->json(['error' => 'Oops! Looks like no first approver is set up for this request.'], 500);
             }
         }
 
@@ -108,7 +108,7 @@ class LeaveRepository
                     'status' => 0,
                 ]);
             }else{
-                return response()->json(['error' => 'No Approver Found'], 500);
+                return response()->json(['error' => 'Oops! Looks like no second approver is set up for this request.'], 500);
             }
         }
 
@@ -146,7 +146,7 @@ class LeaveRepository
                 ]);
             }
             else{
-                return response()->json(['error' => 'No Approver Found'], 500);
+                return response()->json(['error' => 'Oops! Looks like no third approver is set up for this request.'], 500);
             }
         }
 
