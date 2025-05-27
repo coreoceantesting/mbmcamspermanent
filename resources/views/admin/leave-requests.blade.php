@@ -377,8 +377,12 @@
                                                     <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View File</a>
                                                 </td>
                                                 <td>
+
+                                                    <button class="edit-element btn btn-primary px-2 py-1" title="Revoke" data-id="{{ $request->id }}">Revoke</button>
+                                                    @if($request->leaveType->name == 'EL')
+                                                     <a href="{{ route('leave-requests.generate_pdf', $request->id) }}" class="btn btn-primary px-2 py-1" title="Generate Pdf"  data-id="{{ $request->id }}">Generate Pdf</a>
+                                                    @endif
                                                     @if ($request->is_approved == 0)
-                                                        <button class="edit-element btn btn-primary px-2 py-1" title="Revoke" data-id="{{ $request->id }}">Revoke</button>
                                                         <button class="rem-element btn btn-danger px-2 py-1" title="Delete Leave Request" data-id="{{ $request->id }}"><i data-feather="trash"></i></button>
                                                     @endif
                                                     {{-- @if ($request->is_approved == 0)

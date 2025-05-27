@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\LeaveRepository;
 use App\Models\LeaveApprovalHierarchy;
+use Barryvdh\Snappy\Facades\SnappyPdf;
 use function App\Helpers\caseMatchTable;
 use App\Http\Controllers\Admin\Controller;
 use App\Http\Requests\Admin\StoreLeaveRequestRequest;
@@ -279,5 +280,24 @@ class LeaveRequestController extends Controller
         $pageType = $request->page_type ?? 'pending';
 
         return view('admin.leave-applications')->with(['pageType' => $pageType]);
+    }
+
+
+    public function generatePdf(LeaveRequest $leave_request){
+         $data = [];
+        //  $data = [
+        // 'leave_request' => $leave_request,
+        // // add more data if required
+        // ];
+
+        // return view('admin.pdf.leave_approved', $data); // just return the view
+         $pdf = SnappyPdf::loadView('admin.pdf.leave_approved', $data)
+                    ->setPaper('a4')
+                    ->setOrientation('portrait')
+                    ->setOption('margin-bottom', 0)
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 0)
+                    ->setOption('margin-right', 0);
+        return $pdf->inline("generated_approved_leave_document.pdf");
     }
 }

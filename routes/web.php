@@ -111,6 +111,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('active-medical-leave-requests', [App\Http\Controllers\Admin\LeaveRequestController::class, 'activeMedicalLeaveRequest'])->name('leave-requests.active-medical-leave');
     Route::get('completed-medical-leave-requests', [App\Http\Controllers\Admin\LeaveRequestController::class, 'completedMedicalLeaveRequest'])->name('leave-requests.completed-medical-leave');
     Route::get('leave-applications', [App\Http\Controllers\Admin\LeaveRequestController::class, 'pendingLeaveRequest'])->name('leave-requests.application');
+    Route::get('leave-requests/{leave_request}/generate_pdf', [App\Http\Controllers\Admin\LeaveRequestController::class, 'generatePdf'])->name('leave-requests.generate_pdf');
 
 
 
