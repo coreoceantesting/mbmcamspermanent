@@ -122,7 +122,7 @@ class EmployeeController extends Controller
                                     },
                                 ])->get();
 
-        if ($authUser->hasRole(['Admin', 'Super Admin']) || $authUser->sub_department_id == $employee->sub_department_id) {
+        if ($authUser->hasAnyRole(['Admin', 'Super Admin']) || $authUser->sub_department_id == $employee->sub_department_id) {
             $employee->load(['ward', 'clas', 'department']);
 
             return response()->json([
