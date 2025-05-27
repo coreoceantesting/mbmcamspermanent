@@ -223,6 +223,10 @@ class LeaveRepository
         DB::beginTransaction();
         $input['from_date'] = $input['from_date'] ?? $input['date'];
         $leave_request->update(Arr::only($input, LeaveRequest::getFillables()));
+
+        LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)
+            ->update(['status' => 0]);
+
         DB::commit();
 
         return true;

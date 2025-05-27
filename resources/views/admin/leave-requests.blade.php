@@ -256,13 +256,14 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-md-3 mt-3" id="edit_img"></div>
+
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="file">Choose File </label>
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
                                             <span class="text-danger error-text" style="font-size:11px">Choose if want to replace existing file</span>
+                                            <div class="" id="edit_img"></div>
                                         </div>
 
                                         @if ( $pageType == 'half_day' )
@@ -377,7 +378,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($request->is_approved == 0)
-                                                        <button class="edit-element btn btn-primary px-2 py-1" title="Edit Leave Request" data-id="{{ $request->id }}"><i data-feather="edit"></i></button>
+                                                        <button class="edit-element btn btn-primary px-2 py-1" title="Revoke" data-id="{{ $request->id }}">Revoke</button>
                                                         <button class="rem-element btn btn-danger px-2 py-1" title="Delete Leave Request" data-id="{{ $request->id }}"><i data-feather="trash"></i></button>
                                                     @endif
                                                     {{-- @if ($request->is_approved == 0)
@@ -824,7 +825,7 @@
         $("#addForm input[name='no_of_days']").val(difference_in_days);
     });
 
-    $("#editForm input[name='to_date'], editForm input[name='from_date']").focusout(function() {
+    $("#editForm input[name='to_date'], #editForm input[name='from_date']").focusout(function() {
         var from_date_obj = new Date( $("#editForm input[name='from_date']").val() );
         var to_date_obj = new Date( $("#editForm input[name='to_date']").val() );
         var difference_in_days = Math.ceil((to_date_obj - from_date_obj) / (1000 * 3600 * 24))+1;

@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Punch;
+use Carbon\CarbonPeriod;
+use App\Models\LeaveType;
+use App\Models\UserLeave;
+use App\Models\LeaveRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\LeaveRepository;
+use App\Models\LeaveApprovalHierarchy;
+use function App\Helpers\caseMatchTable;
 use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\ChangeLeaveRequestStatusRequest;
 use App\Http\Requests\Admin\StoreLeaveRequestRequest;
 use App\Http\Requests\Admin\UpdateLeaveRequestRequest;
-use App\Models\LeaveRequest;
-use App\Models\LeaveType;
-use App\Models\Punch;
-use App\Models\User;
-use App\Models\UserLeave;
-use App\Repositories\LeaveRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
-use function App\Helpers\caseMatchTable;
+use App\Http\Requests\Admin\ChangeLeaveRequestStatusRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -218,7 +219,9 @@ class LeaveRequestController extends Controller
                     ]);
                 }
             }
+            LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)->delete();
             $leave_request->delete();
+
             // DB::commit();
         } catch (\Exception $e) {
             Log::error("Error while deleting leave request");
