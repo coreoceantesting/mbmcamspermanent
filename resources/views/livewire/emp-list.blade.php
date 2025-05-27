@@ -88,7 +88,7 @@
                                     @endif
                                 @endif
                                 {{-- @if (Auth::user()->hasRole(['Super Admin'])) --}}
-                                    <button class="btn btn-warning assign-role px-2 py-1" title="Assign Role" data-id="{{ $emp ->id }}"><i data-feather="user-check"></i></button>
+                                    <button class="btn btn-warning assign-role px-2 py-1" title="Assign Role" data-id="{{ $emp ->id }}"><i class="fa fa-user-plus"></i></button>
 
                                 {{-- @endif --}}
 
