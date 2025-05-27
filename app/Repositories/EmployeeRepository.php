@@ -26,7 +26,6 @@ class EmployeeRepository
     {
         DB::beginTransaction();
         $input['tenant_id'] = Auth::user()->tenant_id;
-        $input['password'] = Hash::make('password');
         $input['emp_code'] = strtoupper($input['emp_code']);
         $input['is_employee'] = '1';
         $input['shift_id'] = $input['shift_id'] ?? '1';
@@ -39,7 +38,7 @@ class EmployeeRepository
         if (request()->hasFile('fixation_document')) {
             $input['fixation_document'] = request()->file('fixation_document')->store('uploads/fixations', 'public');
         }
-        $input['password'] = Hash::make('password');
+        $input['password'] = Hash::make('Mbmc@123');
         $user = User::create(Arr::only($input, Auth::user()->getFillable()));
         $employeRole = Role::updateOrCreate(['name' => 'Employee','tenant_id' => 1]);
         if( $employeRole){
