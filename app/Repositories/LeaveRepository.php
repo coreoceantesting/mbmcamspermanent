@@ -53,6 +53,9 @@ class LeaveRepository
 
             $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'},'department_id'=> $hierarchy->{'1_approver_department_id'}])->where('is_employee',0)->first();
 
+            if(empty($approver)){
+                $approver = User::where(['designation_id'=> $hierarchy->{'1_approver_designation_id'},'department_id'=> $hierarchy->{'1_approver_department_id'}])->where('is_employee',1)->first();
+            }
             // ->whereHas('departments', function ($query) use ($hierarchy) {
             //     $query->where('department_id', $hierarchy->{'1_approver_department_id'});
             // })
@@ -88,7 +91,9 @@ class LeaveRepository
             // })
             // ->first();
             $approver = User::where(['designation_id'=> $hierarchy->{'2_approver_designation_id'},'department_id'=> $hierarchy->{'2_approver_department_id'}])->where('is_employee',0)->first();
-
+            if(empty($approver)){
+            $approver = User::where(['designation_id'=> $hierarchy->{'2_approver_designation_id'},'department_id'=> $hierarchy->{'2_approver_department_id'}])->where('is_employee',1)->first();
+            }
             // ->whereHas('departments', function ($query) use ($hierarchy) {
             //     $query->where('department_id', $hierarchy->{'2_approver_department_id'});
             // })
@@ -115,7 +120,9 @@ class LeaveRepository
         if($hierarchy->{'3_approver_designation_id'})
         {
             $approver = User::where(['designation_id'=> $hierarchy->{'3_approver_designation_id'},'department_id'=> $hierarchy->{'3_approver_department_id'}])->where('is_employee',0)->first();
-
+            if(empty($approver)){
+                $approver = User::where(['designation_id'=> $hierarchy->{'3_approver_designation_id'},'department_id'=> $hierarchy->{'3_approver_department_id'}])->where('is_employee',1)->first();
+            }
             // $approver = User::where('designation_id', $hierarchy->{'3_approver_designation_id'})
             // ->where('clas_id', $user->clas_id)
             // ->where(function ($query) use ($hierarchy) {
