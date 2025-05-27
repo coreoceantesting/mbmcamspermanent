@@ -85,8 +85,12 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('users/{user}/retire', [App\Http\Controllers\Admin\UserController::class, 'retire'])->name('users.retire');
     Route::put('users/{user}/change-password', [App\Http\Controllers\Admin\UserController::class, 'changePassword'])->name('users.change-password');
     Route::get('users/{user}/get-role', [App\Http\Controllers\Admin\UserController::class, 'getRole'])->name('users.get-role');
+    Route::get('users/{user}/get-multi-role', [App\Http\Controllers\Admin\UserController::class, 'getMultiRole'])->name('users.get-multi-role');
+
     Route::put('users/{user}/assign-role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('users.assign-role');
+    Route::put('users/{user}/multi-assign-role', [App\Http\Controllers\Admin\UserController::class, 'multiAssignRole'])->name('users.multi-assign-role');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
+    Route::get('assign_employee_role', [App\Http\Controllers\Admin\UserController::class, 'assignEmployeeRoleToAllUsers'])->name('users.assign_employee_role');
 
 
     // Employees Routes

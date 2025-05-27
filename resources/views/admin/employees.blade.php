@@ -90,7 +90,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Employee Type<span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Employee Type<span class="text-danger">*</span></label>
                                             <select class="form-select col-sm-12" name="employee_type">
                                                 <option value="1" selected> Permanent </option>
                                                 {{-- <option value="0"> Contractual </option> --}}
@@ -99,7 +99,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Contractor Name<span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Contractor Name<span class="text-danger">*</span></label>
                                             <select class="form-select col-sm-12" name="contractor_id">
                                                 <option value=""> Select Contractor </option>
                                             </select>
@@ -107,7 +107,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Is Rotational ?<span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Is Rotational ?<span class="text-danger">*</span></label>
                                             <select class="form-select col-sm-12" name="is_rotational">
                                                 <option value=""> Is Rotational ? </option>
                                                 <option value="0"> No </option>
@@ -117,7 +117,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3 d-none">
-                                            <label class="col-form-label" >Select Shift <span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Select Shift <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" name="shift_id">
                                                 <option value="">--Select Shift--</option>
                                             </select>
@@ -128,7 +128,7 @@
 
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Select Office <span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Select Office <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" name="ward_id">
                                                 <option value="">--Select Office--</option>
                                             </select>
@@ -152,7 +152,7 @@
                                         </div> --}}
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Select Machine <span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Select Machine <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" name="device_id">
                                                 <option value="">--Select Machine--</option>
                                             </select>
@@ -160,7 +160,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Select Class <span class="text-danger">*</span></label>
+                                            <label class="col-form-label">Select Class <span class="text-danger">*</span></label>
                                             <select class="js-example-basic-single col-sm-12" name="clas_id">
                                                 <option value="">--Select Class--</option>
                                             </select>
@@ -168,7 +168,7 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" >Select Designation </label>
+                                            <label class="col-form-label">Select Designation </label>
                                             <select class="js-example-basic-single col-sm-12" name="designation_id">
                                                 <option value="">--Select Designation--</option>
                                             </select>
@@ -216,18 +216,18 @@
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="work_duration">Work  </label>
+                                            <label class="col-form-label" for="work_duration">Work </label>
                                             <input class="form-control" id="work_duration" name="work_duration" type="number" min="1" max="24" placeholder="Enter Work " step="any">
                                             <span class="text-danger error-text work_duration_err"></span>
                                         </div>
 
                                         <div class="col-md-4 mt-3">
-                                            <label class="col-form-label" for="sa_duration">Saturday Work  </label>
+                                            <label class="col-form-label" for="sa_duration">Saturday Work </label>
                                             <input class="form-control" id="sa_duration" name="sa_duration" type="number" min="1" max="24" placeholder="Enter Saturday Work " step="any">
                                             <span class="text-danger error-text sa_duration_err"></span>
                                         </div>
- <div class="col-12"></div>
-                                         <div class="col-md-4 mt-3">
+                                        <div class="col-12"></div>
+                                        <div class="col-md-4 mt-3">
                                             <label class="col-form-label" for="is_benifit">Is Benifit given or not ? <span class="text-danger">*</span></label>
                                             <div class="col">
                                                 <label class="me-3" for="is_benifit">
@@ -245,7 +245,7 @@
                                             <input class="form-control" id="benefit_document" name="benefit_document" type="file">
                                             <span class="text-danger error-text benefit_document_err"></span>
                                             <span id="benefit_document_view"></span>
-                                             <input id="benefit_document_existing" type="hidden" name="benefit_document_existing" >
+                                            <input id="benefit_document_existing" type="hidden" name="benefit_document_existing">
                                         </div>
                                         <div class="col-12"></div>
 
@@ -257,14 +257,14 @@
 
                                         </div>
 
-                                         <div class="col-md-4 mt-3 fixation_document">
+                                        <div class="col-md-4 mt-3 fixation_document">
                                             <label class="col-form-label" for="fixation_document">Upload Document <span class="text-danger">*</span></label>
                                             <input class="form-control" id="fixation_document" name="fixation_document" type="file">
                                             <span class="text-danger error-text fixation_document_err"></span>
                                             <span id="fixation_document_view"></span>
 
 
-                                             <input type="hidden"  id="fixation_document_existing" name="fixation_document_existing" >
+                                            <input type="hidden" id="fixation_document_existing" name="fixation_document_existing">
                                         </div>
 
                                         <div class="col-12"></div>
@@ -274,7 +274,7 @@
                                             <span class="text-danger error-text issue_order_date_err"></span>
                                         </div>
 
-                                        <h5 class="mt-4">Leave  Durations</h5>
+                                        <h5 class="mt-4">Leave Durations</h5>
 
                                         <div class="row">
                                             @foreach ($leave_types as $leave_type)
@@ -282,14 +282,7 @@
                                                     <label class="col-form-label" for="leave_duration_{{ $leave_type->id }}">
                                                         {{ $leave_type->name }}
                                                     </label>
-                                                    <input
-                                                        class="form-control"
-                                                        id="leave_duration_{{ $leave_type->id }}"
-                                                        name="leave_durations[{{ $leave_type->id }}]"
-                                                        type="number"
-                                                        value="0"
-                                                        placeholder="Enter {{ $leave_type->name }} "
-                                                        step="any">
+                                                    <input class="form-control" id="leave_duration_{{ $leave_type->id }}" name="leave_durations[{{ $leave_type->id }}]" type="number" value="0" placeholder="Enter {{ $leave_type->name }} " step="any">
                                                     <span class="text-danger error-text leave_duration_{{ $leave_type->id }}_err"></span>
                                                 </div>
                                             @endforeach
@@ -333,7 +326,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div >
+                            <div>
                                 <livewire:emp-list />
                             </div>
                         </div>
@@ -348,21 +341,21 @@
 
 
     {{-- Show More Info Modal --}}
-    <div class="modal fade" id="more-info-modal" role="dialog" >
+    <div class="modal fade" id="more-info-modal" role="dialog">
         <div class="modal-dialog" role="document">
 
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Employee Info</h5>
-                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="empMoreInfo">
-
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
-                    </div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Employee Info</h5>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body" id="empMoreInfo">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -412,13 +405,54 @@
         </div>
     </div>
 
+    {{-- Change Assign Role --}}
+    <div class="modal fade" id="assign-role-modal" role="dialog" >
+        <div class="modal-dialog" role="document">
+            <form action="" id="assignRoleForm">
+                @csrf
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Assign Role</h5>
+                        <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
 
-<livewire:scripts />
+                        <input type="hidden" id="role_user_id" name="role_user_id" value="">
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label" for="name">User Name : </label>
+                            <div class="col-sm-9">
+                                <h6 id="role_user_name" class="pt-2"></h6>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                            <label class="col-sm-3 col-form-label" for="name">Role : </label>
+                            <div class="col-sm-9">
+                                <select class="js-example-basic-single" id="edit_role" name="edit_role[]" multiple>
+                                    <option value="">--Select Role--</option>
+                                </select>
+                                <span class="text-danger error-text edit_role_err"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-primary" id="assignRoleSubmit" type="submit">Change</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <livewire:scripts />
 </x-admin.admin-layout>
 
 <!-- Open Change Password Modal-->
 <script>
-    $("#list_table").on("click", ".change-password", function(e) {
+    $(".table").on("click", ".change-password", function(e) {
         e.preventDefault();
         var user_id = $(this).attr("data-id");
         $('#user_id').val(user_id);
@@ -537,13 +571,13 @@
                 editFormBehaviour();
 
                 if (!data.error) {
-                    if ( data.user.is_rotational == '1')
+                    if (data.user.is_rotational == '1')
                         $("select[name='shift_id']").closest('.col-md-4').addClass('d-none');
                     else
                         $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
 
 
-                    if ( data.user.employee_type == '0')
+                    if (data.user.employee_type == '0')
                         $("select[name='contractor_id']").closest('.col-md-4').removeClass('d-none');
                     else
                         $("select[name='contractor_id']").closest('.col-md-4').addClass('d-none');
@@ -576,7 +610,7 @@
                     $("#editForm input[name='is_benifit'][value='" + data.user.is_benifit + "']").prop("checked", true);
                     $("#editForm input[name='fixation_date']").val(data.user.fixation_date);
                     $("#editForm input[name='issue_order_date']").val(data.user.issue_order_date);
-                     if (data.user.is_benifit == 1) {
+                    if (data.user.is_benifit == 1) {
                         $(".benefit-upload").show();
                     } else {
                         $(".benefit-upload").hide();
@@ -604,7 +638,7 @@
                     }
 
                     if (data.user_leaves && Array.isArray(data.user_leaves)) {
-                        data.user_leaves.forEach(function (leave) {
+                        data.user_leaves.forEach(function(leave) {
                             const input = $("#editForm input[name='leave_durations[" + leave.leave_type_id + "]']");
                             if (input.length) {
                                 input.val(leave.leave_days);
@@ -612,9 +646,9 @@
                         });
                     }
 
-                    data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true) ;
-                    data.user.is_ot == 'y' ? $("#editForm input[name='is_ot'][value='y']").prop("checked", true) : $("#editForm input[name='is_ot'][value='n']").prop("checked", true) ;
-                    data.user.is_divyang == 'y' ? $("#editForm input[name='is_divyang'][value='y']").prop("checked", true) : $("#editForm input[name='is_divyang'][value='n']").prop("checked", true) ;
+                    data.user.gender == 'm' ? $("#editForm input[name='gender'][value='m']").prop("checked", true) : $("#editForm input[name='gender'][value='f']").prop("checked", true);
+                    data.user.is_ot == 'y' ? $("#editForm input[name='is_ot'][value='y']").prop("checked", true) : $("#editForm input[name='is_ot'][value='n']").prop("checked", true);
+                    data.user.is_divyang == 'y' ? $("#editForm input[name='is_divyang'][value='y']").prop("checked", true) : $("#editForm input[name='is_divyang'][value='n']").prop("checked", true);
                     $("#editForm input[name='work_duration']").val(data.user.work_duration);
                     $("#editForm input[name='sa_duration']").val(data.user.sa_duration);
                 } else {
@@ -634,10 +668,10 @@
     $(document).ready(function() {
 
         $('select[name="employee_type"]').on('change', function() {
-        if ( this.value == '0')
-            $("select[name='contractor_id']").closest('.col-md-4').removeClass('d-none');
-        else
-            $("select[name='contractor_id']").closest('.col-md-4').addClass('d-none');
+            if (this.value == '0')
+                $("select[name='contractor_id']").closest('.col-md-4').removeClass('d-none');
+            else
+                $("select[name='contractor_id']").closest('.col-md-4').addClass('d-none');
         });
 
 
@@ -684,8 +718,8 @@
                 for (var [key, value] of data) {
                     var field = key.replace('[]', '');
                     $('.' + field + '_err').text('');
-                    $("[name='"+field+"']").removeClass('is-invalid');
-                    $("[name='"+field+"']").addClass('is-valid');
+                    $("[name='" + field + "']").removeClass('is-invalid');
+                    $("[name='" + field + "']").addClass('is-valid');
                 }
             }
 
@@ -693,7 +727,7 @@
                 $.each(msg, function(key, value) {
                     var field = key.replace('[]', '');
                     $('.' + field + '_err').text(value);
-                    $("[name='"+field+"']").addClass('is-invalid');
+                    $("[name='" + field + "']").addClass('is-invalid');
                 });
             }
 
@@ -713,40 +747,40 @@
             })
             .then((yes) => {
                 if (yes) {
-                var model_id = $(this).attr("data-id");
-                var url = "{{ route('users.retire', ':model_id') }}";
+                    var model_id = $(this).attr("data-id");
+                    var url = "{{ route('users.retire', ':model_id') }}";
 
-                $.ajax({
-                    url: url.replace(':model_id', model_id),
-                    type: 'GET',
-                    data: {
-                        '_token': "{{ csrf_token() }}"
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        if (!data.error && !data.error2) {
-                            swal("Success!", data.success, "success");
-                            Livewire.emitTo('emp-list', '$refresh');
-                        } else {
-                            if (data.error) {
-                                swal("Error!", data.error, "error");
+                    $.ajax({
+                        url: url.replace(':model_id', model_id),
+                        type: 'GET',
+                        data: {
+                            '_token': "{{ csrf_token() }}"
+                        },
+                        success: function(data, textStatus, jqXHR) {
+                            if (!data.error && !data.error2) {
+                                swal("Success!", data.success, "success");
+                                Livewire.emitTo('emp-list', '$refresh');
                             } else {
-                                swal("Error!", data.error2, "error");
+                                if (data.error) {
+                                    swal("Error!", data.error, "error");
+                                } else {
+                                    swal("Error!", data.error2, "error");
+                                }
                             }
-                        }
-                    },
-                    error: function(error, jqXHR, textStatus, errorThrown) {
-                        swal("Error!", "Something went wrong", "error");
-                    },
-                });
-            }
-        });
+                        },
+                        error: function(error, jqXHR, textStatus, errorThrown) {
+                            swal("Error!", "Something went wrong", "error");
+                        },
+                    });
+                }
+            });
     });
 </script>
 
 
 <!-- Get Sub departments -->
 <script>
-    $("select[name='department_id']").change( function(e) {
+    $("select[name='department_id']").change(function(e) {
         e.preventDefault();
 
         var model_id = $(this).val();
@@ -758,10 +792,8 @@
             data: {
                 '_token': "{{ csrf_token() }}"
             },
-            success: function(data, textStatus, jqXHR)
-            {
-                if (!data.error)
-                {
+            success: function(data, textStatus, jqXHR) {
+                if (!data.error) {
                     $("select[name='sub_department_id']").html(data.subDepartmentHtml);
                 } else {
                     swal("Error!", data.error, "error");
@@ -788,16 +820,12 @@
             data: {
                 '_token': "{{ csrf_token() }}"
             },
-            success: function(data, textStatus, jqXHR)
-            {
+            success: function(data, textStatus, jqXHR) {
                 console.log(data);
-                if (data.result == 1)
-                {
+                if (data.result == 1) {
                     $("#more-info-modal").modal('show');
                     $("#empMoreInfo").html(data.html);
-                }
-                else
-                {
+                } else {
                     swal("Error!", "Some thing went wrong", "error");
                 }
             },
@@ -810,7 +838,7 @@
 
 <!-- Get Ward wise departments -->
 <script>
-    $("#addForm select[name='ward_id']").change( function(e) {
+    $("#addForm select[name='ward_id']").change(function(e) {
         e.preventDefault();
 
         var model_id = $(this).val();
@@ -822,10 +850,8 @@
             data: {
                 '_token': "{{ csrf_token() }}"
             },
-            success: function(data, textStatus, jqXHR)
-            {
-                if (!data.error)
-                {
+            success: function(data, textStatus, jqXHR) {
+                if (!data.error) {
                     $("select[name='department_id']").html(data.departmentHtml);
                 } else {
                     swal("Error!", data.error, "error");
@@ -839,23 +865,110 @@
 </script>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function() {
 
         $('select[name="is_rotational"]').on('change', function() {
-        if ( this.value === '1')
-            $("select[name='shift_id']").closest('.col-md-4').addClass('d-none');
-        else
-            $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
+            if (this.value === '1')
+                $("select[name='shift_id']").closest('.col-md-4').addClass('d-none');
+            else
+                $("select[name='shift_id']").closest('.col-md-4').removeClass('d-none');
         });
 
     });
 
-
-      $("[name='is_benifit']").change(function () {
+    $("[name='is_benifit']").change(function() {
         if ($(this).val() === "1") {
             $(".benefit-upload").show();
         } else {
             $(".benefit-upload").hide();
         }
+    });
+
+    $(".table").on("click", ".assign-role", function(e) {
+        e.preventDefault();
+        var model_id = $(this).attr("data-id");
+        var url = "{{ route('users.get-multi-role', ':model_id') }}";
+        $('#role_user_id').val(model_id);
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'GET',
+            data: {
+                '_token': "{{ csrf_token() }}"
+            },
+            success: function(data, textStatus, jqXHR) {
+
+                if (!data.error) {
+                    $("#editForm input[name='edit_model_id']").val(data.user.id);
+                    $("#edit_role").html(data.roleHtml);
+                    $("#role_user_name").text(data.user.name);
+                } else {
+                    swal("Error!", data.error, "error");
+                }
+            },
+            error: function(error, jqXHR, textStatus, errorThrown) {
+                swal("Error!", "Some thing went wrong", "error");
+            },
+        });
+
+        $('#assign-role-modal').modal('show');
+    });
+
+    $("#assignRoleForm").submit(function(e) {
+        e.preventDefault();
+        $("#assignRoleSubmit").prop('disabled', true);
+
+        var formdata = new FormData(this);
+        formdata.append('_method', 'PUT');
+        var model_id = $('#role_user_id').val();
+        var url = "{{ route('users.multi-assign-role', ':model_id') }}";
+
+        $.ajax({
+            url: url.replace(':model_id', model_id),
+            type: 'POST',
+            data: formdata,
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                $("#assignRoleSubmit").prop('disabled', false);
+                if (!data.error2)
+                    swal("Successful!", data.success, "success")
+                    .then((action) => {
+                        $("#assign-role-modal").modal('hide');
+                    });
+                else
+                    swal("Error!", data.error2, "error");
+            },
+            statusCode: {
+                422: function(responseObject, textStatus, jqXHR) {
+                    $("#assignRoleSubmit").prop('disabled', false);
+                    resetErrors();
+                    printErrMsg(responseObject.responseJSON.errors);
+                },
+                500: function(responseObject, textStatus, errorThrown) {
+                    $("#assignRoleSubmit").prop('disabled', false);
+                    swal("Error occured!", "Something went wrong please try again", "error");
+                }
+            }
+        });
+
+        function resetErrors() {
+            var form = document.getElementById('assignRoleForm');
+            var data = new FormData(form);
+            for (var [key, value] of data) {
+                $('.' + key + '_err').text('');
+                $('#' + key).removeClass('is-invalid');
+                $('#' + key).addClass('is-valid');
+            }
+        }
+
+        function printErrMsg(msg) {
+            $.each(msg, function(key, value) {
+                $('.' + key + '_err').text(value);
+                $('#' + key).addClass('is-invalid');
+                $('#' + key).removeClass('is-valid');
+            });
+        }
+
     });
 </script>

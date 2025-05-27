@@ -273,6 +273,41 @@ class UserController extends Controller
         return $response;
     }
 
+    public function getMultiRole(User $user)
+    {
+        $user->load('roles');
+
+        if ($user) {
+            // Get all roles for the current tenant
+            $roles = Role::orderBy('id', 'DESC')
+                ->where('tenant_id', Auth::user()->tenant_id)
+                ->get();
+
+            // Collect IDs of the user's assigned roles
+            $userRoleIds = $user->roles->pluck('id')->toArray();
+
+            // Start building the HTML for the select
+            $roleHtml = '<option value="">--Select Role--</option>';
+
+            foreach ($roles as $role) {
+                $is_selected = in_array($role->id, $userRoleIds) ? 'selected' : '';
+                $roleHtml .= '<option value="' . $role->id . '" ' . $is_selected . '>' . $role->name . '</option>';
+            }
+
+            // Return user and role options
+            $response = [
+                'result' => 1,
+                'user' => $user,
+                'roleHtml' => $roleHtml,
+            ];
+        } else {
+            $response = ['result' => 0];
+        }
+
+        return $response;
+    }
+
+
 
     public function assignRole(User $user, AssignUserRoleRequest $request)
     {
@@ -286,4 +321,57 @@ class UserController extends Controller
             return $this->respondWithAjax($e, 'changing', 'User\'s role');
         }
     }
+
+    public function multiAssignRole(User $user, AssignUserRoleRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user->roles()->detach();
+            foreach($request->edit_role as $role){
+                DB::table('model_has_roles')->insert(['role_id' => $role, 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
+            }
+            DB::commit();
+            return response()->json(['success' => 'Role updated successfully']);
+        } catch (\Exception $e) {
+            return $this->respondWithAjax($e, 'changing', 'User\'s role');
+        }
+    }
+
+    public function assignEmployeeRoleToAllUsers()
+    {
+        try {
+            DB::beginTransaction();
+
+            // Fetch the 'Employee' role
+            $employeeRole = Role::where('name', 'Employee')->first();
+
+            if (!$employeeRole) {
+                return response()->json(['error' => 'Employee role not found'], 404);
+            }
+
+            // Process users in chunks of 100 (adjust if needed)
+            User::where('is_employee', 1)
+                ->chunk(100, function ($users) use ($employeeRole) {
+                    foreach ($users as $user) {
+                        // Check if user already has the role
+                        if (!$user->roles->contains($employeeRole->id)) {
+                            DB::table('model_has_roles')->insert([
+                                'role_id'    => $employeeRole->id,
+                                'model_type' => User::class,
+                                'model_id'   => $user->id,
+                                'tenant_id'  => $user->tenant_id,
+                            ]);
+                        }
+                    }
+                });
+
+            DB::commit();
+
+            return response()->json(['success' => 'Employee role assigned to all users in batches']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['error' => 'Failed to assign employee role: ' . $e->getMessage()], 500);
+        }
+    }
+
 }

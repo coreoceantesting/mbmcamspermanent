@@ -87,6 +87,11 @@
                                         <button class="btn btn-info restore-element px-2 py-1" title="Restore Employee" wire:key="{{ $emp->id }}" wire:click="restoreEmployee({{$emp->id}})" ><i class="fa fa-recycle"></i></button>
                                     @endif
                                 @endif
+                                {{-- @if (Auth::user()->hasRole(['Super Admin'])) --}}
+                                    <button class="btn btn-warning assign-role px-2 py-1" title="Assign Role" data-id="{{ $emp ->id }}"><i data-feather="user-check"></i></button>
+
+                                {{-- @endif --}}
+
                             </td>
                         </tr>
                     @endforeach

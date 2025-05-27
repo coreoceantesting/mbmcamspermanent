@@ -23,7 +23,7 @@
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="emp_code">Enter Employee Id<span class="text-danger">*</span></label>
-                                            <input class="form-control" name="emp_code" type="text" placeholder="Enter Employee Code">
+                                            <input class="form-control" name="emp_code" type="text" placeholder="Enter Employee Code" value="{{ Auth::user()->emp_code }}">
                                             <span class="text-danger error-text emp_code_err"></span>
                                         </div>
 
@@ -442,6 +442,9 @@
 {{-- Fetch Emp Info from Emp Code --}}
 <script>
     $(document).ready(function(){
+
+        // $('#searchEmpCode').trigger('click');
+
         $("#searchEmpCode").click(function(e){
             var empCode = $("input[name='emp_code']").val();
 
@@ -788,6 +791,14 @@
                     });
                 }
             });
+    });
+
+
+    $(".table").on("click", ".change-password", function(e) {
+        e.preventDefault();
+        var user_id = $(this).attr("data-id");
+        $('#user_id').val(user_id);
+        $('#change-password-modal').modal('show');
     });
 </script>
 
