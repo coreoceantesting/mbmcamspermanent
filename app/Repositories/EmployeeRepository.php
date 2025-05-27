@@ -41,9 +41,11 @@ class EmployeeRepository
         }
         $input['password'] = Hash::make('password');
         $user = User::create(Arr::only($input, Auth::user()->getFillable()));
-        // $employeRole = Role::updateOrCreate(['name' => 'Employee','tenant_id' => 1]);
-        // DB::table('model_has_roles')->insert(['role_id'=> $employeRole->id, 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
-        // $user->assignRole('Employee');
+        $employeRole = Role::updateOrCreate(['name' => 'Employee','tenant_id' => 1]);
+        if( $employeRole){
+            DB::table('model_has_roles')->insert(['role_id'=> $employeRole->id, 'model_type' => 'App\Models\User', 'model_id' => $user->id, 'tenant_id' => $user->tenant_id]);
+            $user->assignRole('Employee');
+        }
         if (!empty($input['leave_durations']) && is_array($input['leave_durations']))
         {
             foreach ($input['leave_durations'] as $leaveTypeId => $leaveDays)
