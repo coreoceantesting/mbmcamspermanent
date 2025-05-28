@@ -34,7 +34,9 @@ class AuthOtpLoginController extends Controller
         );
 
         if ($validator->passes()) {
-            $user = User::where('mobile', $request->mobile)->where('is_employee', 0)->first();
+            $user = User::where('mobile', $request->mobile)
+            // ->where('is_employee', 0)
+            ->first();
 
             if($user){
                 GenerateOtp::where('mobile', $request->mobile)->delete();
