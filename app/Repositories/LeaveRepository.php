@@ -225,9 +225,14 @@ class LeaveRepository
         $input['from_date'] = $input['from_date'] ?? $input['date'];
         $leave_request->update(Arr::only($input, LeaveRequest::getFillables()));
 
-        LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)
-            ->update(['status' => 0]);
-
+        //Reset Approvel Process
+        LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)->update(['status' => 0,'next_approval_flag'=>0]);
+        $firstApproval = LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)
+            ->orderBy('id', 'asc')
+            ->first();
+        if ($firstApproval) {
+            $firstApproval->update(['next_approval_flag' => 1]);
+        }
         DB::commit();
 
         return true;
