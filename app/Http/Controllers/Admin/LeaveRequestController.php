@@ -284,14 +284,33 @@ class LeaveRequestController extends Controller
 
 
     public function generatePdf(LeaveRequest $leave_request){
-         $data = [];
-        //  $data = [
-        // 'leave_request' => $leave_request,
-        // // add more data if required
-        // ];
 
-        // return view('admin.pdf.leave_approved', $data); // just return the view
-         $pdf = SnappyPdf::loadView('admin.pdf.leave_approved', $data)
+        $data['leave_request'] = $leave_request;
+        $userId =  $leave_request->user_id;
+        $leave_type_id =$leave_request->leave_type_id;
+
+        $userLeave = UserLeave::where('user_id', $userId)
+            ->where('leave_type_id', $leave_type_id)
+            ->first();
+
+        $leaveDays = $userLeave ? $userLeave->leave_days : 0;
+
+        $leaveRequests = LeaveRequest::where('user_id', $userId)
+            ->where('is_approved', "1")
+            ->where('leave_type_id', $leave_type_id)
+            ->sum('no_of_days');
+
+        $data['balance_leaves'] = $leaveDays -  $leaveRequests;
+
+        $data['lastLeaveRequest'] = LeaveRequest::where('user_id', $userId)
+                                    ->where('is_approved', "1")
+                                    ->where('id', '<', $leave_request->id)
+                                    ->orderBy('id', 'desc')
+                                    ->first();
+
+
+
+        $pdf = SnappyPdf::loadView('admin.pdf.leave_approved_ceritificate',  $data)
                     ->setPaper('a4')
                     ->setOrientation('portrait')
                     ->setOption('margin-bottom', 0)

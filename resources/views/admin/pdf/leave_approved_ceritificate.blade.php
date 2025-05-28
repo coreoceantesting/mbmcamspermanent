@@ -106,7 +106,7 @@
     <table>
         <tr>
             <td style="width: 50%;">१. अर्जदाराचे नाव</td>
-            <td style="width: 50%;">:- </td>
+            <td style="width: 50%;">:- {{ $leave_request->user->name}}</td>
         </tr>
         <tr class="spacer">
             <td colspan="2"></td>
@@ -114,7 +114,7 @@
 
         <tr>
             <td>२. धारण केलेले पद</td>
-            <td>:- </td>
+            <td>:-  {{ $leave_request->user->designation->name}}</td>
         </tr>
         <tr class="spacer">
             <td colspan="2"></td>
@@ -122,26 +122,25 @@
 
         <tr>
             <td>३. विभाग, कार्यालय व शाखा</td>
-            <td>:- </td>
+            <td>:- {{ $leave_request->user->department->name}}</td>
         </tr>
 
         <tr>
-            <td>४. सध्याच्या पदावर मिळणारा घरभाडे भत्ता आणि इतर पूरक भत्ते</td>
+            <td>४. वेतन</td>
             <td>:- </td>
         </tr>
 
         <tr>
             <td>
                 ५. सध्याच्या पदावर मिळणारा घरभाडे भत्ता आणि इतर पूरक भत्ते
-                मागितलेल्या रजेचे स्वरुप व कालावधी आणि रजा ज्या तारखेपासून पाहिजे असेल ती तारीख
+
             </td>
             <td>:- </td>
         </tr>
 
         <tr>
             <td>
-                ६. सध्याच्या पदावर मिळणारा घरभाडे भत्ता आणि इतर पूरक भत्ते
-                मागितलेल्या रजेचे स्वरुप व कालावधी आणि रजा ज्या तारखेपासून पाहिजे असेल ती तारीख
+                ६. मागितलेल्या रजेचे स्वरुप व कालावधी आणि रजा ज्या तारखेपासून पाहिजे असेल ती तारीख
             </td>
             <td>:- </td>
         </tr>
@@ -156,7 +155,14 @@
             <td>
                 ९.पूर्वी घेतलेल्या रजेवरुन परत आल्याची तारीख आणि त्या रजेचे स्वरुप व कालावधी
             </td>
-            <td>:- </td>
+            <td>:-
+            @if (!empty($lastLeaveRquest))
+                {{ $lastLeaveRquest->from_date }} To   {{ $lastLeaveRquest->from_date }}<br>
+                &nbsp; &nbsp;No of Days : {{ $lastLeaveRquest->no_of_days }}<br>
+                &nbsp; &nbsp;Leave Type : {{ $lastLeaveRquest->leaveType->name }}
+            @endif
+
+            </td>
         </tr>
         <tr>
             <td>
@@ -219,7 +225,7 @@
     </div>
 
     <p>महोदय,<br></p>
-    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;मी खाली सही करणार श्री./श्रीम. XXXXXXXX हुद्या XXXXXXXX आपणाकडे विनंतीपुर्वक अर्ज करतो / करते की मला XXXXXXXX साठी दि. XXXXXXXX ते दि. XXXXXXXX पर्यंत रजा मिळावी, ही विनंती.</p>
+    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;मी खाली सही करणार श्री./श्रीम. {{ $leave_request->user->name}} हुद्या ____________________ आपणाकडे विनंतीपुर्वक अर्ज करतो / करते की मला "{{ $leave_request->remark }}" साठी दि. {{ $leave_request->from_date }} ते दि. {{ $leave_request->end_date }} पर्यंत रजा मिळावी, ही विनंती.</p>
 
     <p style="width:100%">कळावे,</p>
     <p class="" style="text-align: right">
@@ -228,21 +234,21 @@
     <hr style="1px solid #000; height:5px; background-color:#000;">
 
     <p>सादर,<br></p>
-    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;सदर कर्मचायांच्या वरील रजा XXXXXXXX दिवस शिल्लक आहेत. सबब रजा मंजुर / नामंजुर करण्यास हरकत नाही.</p>
+    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;सदर कर्मचायांच्या वरील रजा {{ $balance_leaves}} दिवस शिल्लक आहेत. सबब रजा मंजुर / नामंजुर करण्यास हरकत नाही.</p>
     <p class="" style="text-align: right">
       लिपीक / वरिष्ठ लिपीक <br>
-      XXXXXX विभाग
+      {{ $leave_request->user->department->name}} विभाग
     </p>
 
     <hr style="1px solid #000; height:5px; background-color:#000;">
 
     <p class="" style="">
-     दि.XXXXXXXX  ते दि. XXXXXXXX  पर्यंत रजा मंजुर / नामंजुर.
+     दि.{{ $leave_request->from_date }}  ते दि. {{ $leave_request->to_date }}  पर्यंत रजा मंजुर / नामंजुर.
     </p>
 
      <p class="" style="text-align: right">
         विभाग प्रमुख,<br>
-        XXXXXX विभाग<br>
+        {{ $leave_request->user->department->name}} विभाग<br>
         मिरा-भाईंदर महानगरपालिका.
 
     </p>
