@@ -19,6 +19,7 @@ class LeaveApprovalHierarchy extends Model
         'approver_designation_id',
         'approver_department_id',
         'status',
+        'next_approval_flag'
     ];
 
     public function requestHierarchy()
