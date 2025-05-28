@@ -380,7 +380,7 @@
 
                                                     <button class="edit-element btn btn-primary px-2 py-1" title="Revoke" data-id="{{ $request->id }}">Revoke</button>
                                                     @if($request->leaveType->name == 'EL' && $request->is_approved == 1)
-                                                     <a href="{{ route('leave-requests.generate_pdf', $request->id) }}" class="btn btn-primary px-2 py-1" title="Generate Pdf"  data-id="{{ $request->id }}">Generate Pdf</a>
+                                                     <a href="{{ route('leave-requests.generate_pdf', $request->id) }}" class="ml-1 w-50 btn btn-primary px-2 py-1" title="Generate Pdf"  data-id="{{ $request->id }}">Generate Pdf</a>
                                                     @endif
                                                     @if ($request->is_approved == 0)
                                                         <button class="rem-element btn btn-danger px-2 py-1" title="Delete Leave Request" data-id="{{ $request->id }}"><i data-feather="trash"></i></button>

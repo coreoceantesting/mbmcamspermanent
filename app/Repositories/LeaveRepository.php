@@ -256,17 +256,17 @@ class LeaveRepository
         {
             $leave_request->is_approved = $input['status'];
             $leave_request->save();
+            // Check if leave is half day
+            if ($leave_request->to_date == null && $leave_request->request_for_type == 2)
+                $this->createLeaveRequestPunch($leave_request, 'half_day');
+
+            // else if( $leave_request->to_date == null && $leave_request->request_for_type != 2 )                 // Check if leave is Unpredictable/Medical leave
+            //     $this->createLeaveRequestPunch($leave_request, 'medical');
+
+            else                                                                                                // Else leave is full day predictable
+                $this->createLeaveRequestPunch($leave_request, 'full_day');
+
         }
-
-        // Check if leave is half day
-        if ($leave_request->to_date == null && $leave_request->request_for_type == 2)
-            $this->createLeaveRequestPunch($leave_request, 'half_day');
-
-        // else if( $leave_request->to_date == null && $leave_request->request_for_type != 2 )                 // Check if leave is Unpredictable/Medical leave
-        //     $this->createLeaveRequestPunch($leave_request, 'medical');
-
-        else                                                                                                // Else leave is full day predictable
-            $this->createLeaveRequestPunch($leave_request, 'full_day');
         DB::commit();
 
         return true;
