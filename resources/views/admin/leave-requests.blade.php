@@ -23,7 +23,7 @@
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="emp_code">Enter Employee Id<span class="text-danger">*</span></label>
-                                            <input class="form-control" name="emp_code" type="text" placeholder="Enter Employee Code">
+                                            <input class="form-control" name="emp_code" type="text" placeholder="Enter Employee Code" value="{{ Auth::user()->emp_code }}">
                                             <span class="text-danger error-text emp_code_err"></span>
                                         </div>
 
@@ -135,6 +135,13 @@
                                             <label class="col-form-label" for="remark">Remark <span class="text-danger">*</span> </label>
                                             <textarea class="form-control" name="remark" style="min-height: 60px; max-height:60px"></textarea>
                                             <span class="text-danger error-text remark_err"></span>
+                                        </div>
+                                        <div class="col-md-12 mt-3 mb-2">
+                                            <h5 class="mb-2"> Balance Leaves</h5>
+                                            <div class="row leave_types_container">
+
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -249,13 +256,14 @@
                                             </div>
                                         @endif
 
-                                        <div class="col-md-3 mt-3" id="edit_img"></div>
+
 
                                         <div class="col-md-3 mt-3">
                                             <label class="col-form-label" for="file">Choose File </label>
                                             <input class="form-control" name="file" type="file" accept="application/pdf, image/png, image/jpeg,  image/jpg" placeholder="Choose File" >
                                             <span class="text-danger error-text file_err"></span>
                                             <span class="text-danger error-text" style="font-size:11px">Choose if want to replace existing file</span>
+                                            <div class="" id="edit_img"></div>
                                         </div>
 
                                         @if ( $pageType == 'half_day' )
@@ -369,8 +377,12 @@
                                                     <a class="btn btn-primary" target="_blank" href="{{asset($request->document->path)}}">View File</a>
                                                 </td>
                                                 <td>
+
+                                                    <button class="edit-element btn btn-primary px-2 py-1" title="Revoke" data-id="{{ $request->id }}">Revoke</button>
+                                                    @if($request->leaveType->name == 'EL' && $request->is_approved == 1)
+                                                     <a href="{{ route('leave-requests.generate_pdf', $request->id) }}" class="ml-1 w-50 btn btn-primary px-2 py-1" title="Generate Pdf"  data-id="{{ $request->id }}">Generate Pdf</a>
+                                                    @endif
                                                     @if ($request->is_approved == 0)
-                                                        <button class="edit-element btn btn-primary px-2 py-1" title="Edit Leave Request" data-id="{{ $request->id }}"><i data-feather="edit"></i></button>
                                                         <button class="rem-element btn btn-danger px-2 py-1" title="Delete Leave Request" data-id="{{ $request->id }}"><i data-feather="trash"></i></button>
                                                     @endif
                                                     {{-- @if ($request->is_approved == 0)
@@ -435,6 +447,9 @@
 {{-- Fetch Emp Info from Emp Code --}}
 <script>
     $(document).ready(function(){
+
+        // $('#searchEmpCode').trigger('click');
+
         $("#searchEmpCode").click(function(e){
             var empCode = $("input[name='emp_code']").val();
 
@@ -451,12 +466,42 @@
                     },
                     success: function(data, textStatus, jqXHR)
                     {
+                        console.log(data);
                         if (!data.error2)
                         {
-                            $("#addForm input[name='name']").val(data.name);
-                            $("#addForm input[name='ward']").val(data.ward.name);
-                            $("#addForm input[name='department']").val(data.department.name);
-                            $("#addForm input[name='class']").val(data.clas.name);
+                            $("#addForm input[name='name']").val(data.employee.name);
+                            $("#addForm input[name='ward']").val(data.employee.ward.name);
+                            $("#addForm input[name='department']").val(data.employee.department.name);
+                            $("#addForm input[name='class']").val(data.employee.clas.name);
+
+                            if (data.leave_types) {
+                                let container = $(".leave_types_container"); // A parent .row or .container element
+                                container.empty(); // Optional: Clear old content
+                                 let available =0 ;
+                                 data.leave_types.forEach(function(type) {
+                                     if (Array.isArray(type.user_leaves)) {
+                                            available = type.user_leaves.reduce((sum, leave) => {
+                                                   const leaveDays = parseInt(leave.leave_days, 10) || 0;
+                                                     return sum + leaveDays;
+                                                }, 0);
+                                    }
+                                    let totalAvailable = available - type.leave_requests_sum_no_of_days ;
+                                    let block = `
+                                        <div class="col-md-2 mb-3">
+                                            <div class="border p-2 rounded">
+                                                <strong>${type.name}</strong><br>
+                                                Available: ${totalAvailable}<br>
+
+                                            </div>
+                                        </div>
+                                    `;
+                                    container.append(block);
+                                });
+
+                                // Set class name somewhere if needed
+                                $(".employee_class").text(data.employee.clas.name);
+                            }
+
                         } else {
                             swal("Error!", data.error2, "error");
                         }
@@ -752,6 +797,14 @@
                 }
             });
     });
+
+
+    $(".table").on("click", ".change-password", function(e) {
+        e.preventDefault();
+        var user_id = $(this).attr("data-id");
+        $('#user_id').val(user_id);
+        $('#change-password-modal').modal('show');
+    });
 </script>
 
 
@@ -776,7 +829,7 @@
         $("#addForm input[name='no_of_days']").val(difference_in_days);
     });
 
-    $("#editForm input[name='to_date'], editForm input[name='from_date']").focusout(function() {
+    $("#editForm input[name='to_date'], #editForm input[name='from_date']").focusout(function() {
         var from_date_obj = new Date( $("#editForm input[name='from_date']").val() );
         var to_date_obj = new Date( $("#editForm input[name='to_date']").val() );
         var difference_in_days = Math.ceil((to_date_obj - from_date_obj) / (1000 * 3600 * 24))+1;

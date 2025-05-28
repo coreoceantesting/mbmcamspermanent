@@ -55,6 +55,12 @@
                                 @can('wards.view')
                                     <li><a href="{{ route('wards.index') }}">Office </a></li>
                                 @endcan
+
+                                 @can('leave_request_hierarchies.view')
+                                    <li><a href="{{ route('leave_request_hierarchies.index') }}">Leave Request Hierarchies  </a></li>
+                                @endcan
+
+
                                 {{-- @can('contractors.view')
                                     <li><a href="{{ route('contractors.index') }}">Contractors </a></li>
                                 @endcan --}}

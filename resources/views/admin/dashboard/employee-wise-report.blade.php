@@ -180,10 +180,10 @@
                     {
                         if (!data.error2)
                         {
-                            $("#addForm input[name='name']").val(data.name);
-                            $("#addForm input[name='ward']").val(data.ward.name);
-                            $("#addForm input[name='department']").val(data.department.name);
-                            $("#addForm input[name='class']").val(data.clas.name);
+                            $("#addForm input[name='name']").val(data.employee.name);
+                            $("#addForm input[name='ward']").val(data.employee?.ward?.name);
+                            $("#addForm input[name='department']").val(data.employee?.department?.name);
+                            $("#addForm input[name='class']").val(data.employee?.clas?.name);
                         } else {
                             swal("Error!", data.error2, "error");
                         }

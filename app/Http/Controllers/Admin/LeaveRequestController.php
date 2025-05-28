@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Punch;
+use Carbon\CarbonPeriod;
+use App\Models\LeaveType;
+use App\Models\UserLeave;
+use App\Models\LeaveRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+use App\Repositories\LeaveRepository;
+use App\Models\LeaveApprovalHierarchy;
+use Barryvdh\Snappy\Facades\SnappyPdf;
+use function App\Helpers\caseMatchTable;
 use App\Http\Controllers\Admin\Controller;
-use App\Http\Requests\Admin\ChangeLeaveRequestStatusRequest;
 use App\Http\Requests\Admin\StoreLeaveRequestRequest;
 use App\Http\Requests\Admin\UpdateLeaveRequestRequest;
-use App\Models\LeaveRequest;
-use App\Models\LeaveType;
-use App\Models\Punch;
-use App\Models\User;
-use App\Models\UserLeave;
-use App\Repositories\LeaveRepository;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
-use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
-use function App\Helpers\caseMatchTable;
+use App\Http\Requests\Admin\ChangeLeaveRequestStatusRequest;
 
 class LeaveRequestController extends Controller
 {
@@ -48,7 +50,7 @@ class LeaveRequestController extends Controller
                                     )
                                     ->whereRequestForType(constant("App\Models\LeaveRequest::$type_const"))
                                     ->when($pageType == 'full_day', fn($qr) => $qr->whereNotIn('leave_type_id', ['2', '7']))
-                                    ->whereIsApproved('0')
+                                    // ->whereIsApproved('0')
                                     ->where('user_id', Auth::user()->id)
                                     ->latest()->get();
 
@@ -78,11 +80,11 @@ class LeaveRequestController extends Controller
         $input = $request->validated();
         $input['from_date'] = $input['from_date'] ?? $input['date'];
 
-        if (!$this->isLeaveApplicable($input, $user))
+        if (isset($input['leave_type_id']) && isset($input['no_of_days']) && !$this->isLeaveApplicable($input, $user))
             return response()->json([
                 'error2' => 'You do not have enough available leave balance for this leave type.'
             ]);
-        
+
         if ($this->isLeaveAlreadyAppliedForThisDay($input, $user))
             return response()->json(['error2' => 'Leave request is already applied for this day, revoke existing leave and apply again!']);
 
@@ -218,7 +220,9 @@ class LeaveRequestController extends Controller
                     ]);
                 }
             }
+            LeaveApprovalHierarchy::where('leave_request_id', $leave_request->id)->delete();
             $leave_request->delete();
+
             // DB::commit();
         } catch (\Exception $e) {
             Log::error("Error while deleting leave request");
@@ -276,5 +280,43 @@ class LeaveRequestController extends Controller
         $pageType = $request->page_type ?? 'pending';
 
         return view('admin.leave-applications')->with(['pageType' => $pageType]);
+    }
+
+
+    public function generatePdf(LeaveRequest $leave_request){
+
+        $data['leave_request'] = $leave_request;
+        $userId =  $leave_request->user_id;
+        $leave_type_id =$leave_request->leave_type_id;
+
+        $userLeave = UserLeave::where('user_id', $userId)
+            ->where('leave_type_id', $leave_type_id)
+            ->first();
+
+        $leaveDays = $userLeave ? $userLeave->leave_days : 0;
+
+        $leaveRequests = LeaveRequest::where('user_id', $userId)
+            ->where('is_approved', "1")
+            ->where('leave_type_id', $leave_type_id)
+            ->sum('no_of_days');
+
+        $data['balance_leaves'] = $leaveDays -  $leaveRequests;
+
+        $data['lastLeaveRequest'] = LeaveRequest::where('user_id', $userId)
+                                    ->where('is_approved', "1")
+                                    ->where('id', '<', $leave_request->id)
+                                    ->orderBy('id', 'desc')
+                                    ->first();
+
+
+
+        $pdf = SnappyPdf::loadView('admin.pdf.leave_approved_ceritificate',  $data)
+                    ->setPaper('a4')
+                    ->setOrientation('portrait')
+                    ->setOption('margin-bottom', 0)
+                    ->setOption('margin-top', 3)
+                    ->setOption('margin-left', 0)
+                    ->setOption('margin-right', 0);
+        return $pdf->inline("generated_approved_leave_document.pdf");
     }
 }

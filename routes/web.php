@@ -76,6 +76,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::resource('shifts', App\Http\Controllers\Admin\Masters\ShiftController::class);
     Route::resource('devices', App\Http\Controllers\Admin\Masters\DeviceController::class);
     Route::resource('contractors', App\Http\Controllers\Admin\Masters\ContractorController::class);
+     Route::resource('leave_request_hierarchies', App\Http\Controllers\Admin\Masters\LeaveRequestHierarchiesController::class);
 
 
     // Users Roles n Permissions
@@ -84,8 +85,12 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('users/{user}/retire', [App\Http\Controllers\Admin\UserController::class, 'retire'])->name('users.retire');
     Route::put('users/{user}/change-password', [App\Http\Controllers\Admin\UserController::class, 'changePassword'])->name('users.change-password');
     Route::get('users/{user}/get-role', [App\Http\Controllers\Admin\UserController::class, 'getRole'])->name('users.get-role');
+    Route::get('users/{user}/get-multi-role', [App\Http\Controllers\Admin\UserController::class, 'getMultiRole'])->name('users.get-multi-role');
+
     Route::put('users/{user}/assign-role', [App\Http\Controllers\Admin\UserController::class, 'assignRole'])->name('users.assign-role');
+    Route::put('users/{user}/multi-assign-role', [App\Http\Controllers\Admin\UserController::class, 'multiAssignRole'])->name('users.multi-assign-role');
     Route::resource('roles', App\Http\Controllers\Admin\RoleController::class);
+    Route::get('assign_employee_role', [App\Http\Controllers\Admin\UserController::class, 'assignEmployeeRoleToAllUsers'])->name('users.assign_employee_role');
 
 
     // Employees Routes
@@ -106,6 +111,7 @@ Route::middleware(['auth', 'PreventBackHistory'])->group(function () {
     Route::get('active-medical-leave-requests', [App\Http\Controllers\Admin\LeaveRequestController::class, 'activeMedicalLeaveRequest'])->name('leave-requests.active-medical-leave');
     Route::get('completed-medical-leave-requests', [App\Http\Controllers\Admin\LeaveRequestController::class, 'completedMedicalLeaveRequest'])->name('leave-requests.completed-medical-leave');
     Route::get('leave-applications', [App\Http\Controllers\Admin\LeaveRequestController::class, 'pendingLeaveRequest'])->name('leave-requests.application');
+    Route::get('leave-requests/{leave_request}/generate_pdf', [App\Http\Controllers\Admin\LeaveRequestController::class, 'generatePdf'])->name('leave-requests.generate_pdf');
 
 
 

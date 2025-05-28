@@ -57,6 +57,11 @@ class User extends Authenticatable
         'permanent_address',
         'present_address',
         'contractor_id',
+        'fixation_date',
+        'issue_order_date',
+        'is_benifit',
+        'benefit_document',
+        'fixation_document',
     ];
 
     /**

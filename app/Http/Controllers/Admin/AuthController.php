@@ -55,7 +55,9 @@ class AuthController extends Controller
                 }
                 $user = User::where(function($q) use($username){
                     $q->where('email', $username)->orWhere('mobile', $username);
-                })->where('is_employee', 0)->first();
+                })
+                // ->where('is_employee', 0)
+                ->first();
 
 
                 if (!$user)

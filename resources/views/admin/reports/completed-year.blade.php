@@ -126,6 +126,7 @@
                                             <th >Email</th>
                                             <th >Mobile</th>
                                             <th >Date Of Joining</th>
+                                            <th >Date Of Completion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -140,6 +141,7 @@
                                             <td>{{ $period->email }}</td>
                                             <td>{{ $period->mobile }}</td>
                                             <td>{{ \Carbon\Carbon::parse($period->doj)->format('d-m-Y') }}</td>
+                                            <td>{{ \Carbon\Carbon::parse($period->doj)->addYears(request()->period)->format('d-m-Y') }} </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
