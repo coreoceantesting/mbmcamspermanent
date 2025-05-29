@@ -304,12 +304,10 @@ class LeaveRequestController extends Controller
 
         $data['lastLeaveRequest'] = LeaveRequest::where('user_id', $userId)
                                     ->where('is_approved', "1")
+                                    ->where('leave_type_id', $leave_type_id)
                                     ->where('id', '<', $leave_request->id)
                                     ->orderBy('id', 'desc')
                                     ->first();
-
-
-
         $pdf = SnappyPdf::loadView('admin.pdf.leave_approved_ceritificate',  $data)
                     ->setPaper('a4')
                     ->setOrientation('portrait')
@@ -317,6 +315,6 @@ class LeaveRequestController extends Controller
                     ->setOption('margin-top', 3)
                     ->setOption('margin-left', 0)
                     ->setOption('margin-right', 0);
-        return $pdf->inline("generated_approved_leave_document.pdf");
+        return $pdf->inline("leave_approved_ceritificate.pdf");
     }
 }

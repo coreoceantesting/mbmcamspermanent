@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Muster Report</title>
+    <title>Leave Approved Ceritificate</title>
     <style>
         @page {
             size: A4;
@@ -156,10 +156,10 @@
                 ९.पूर्वी घेतलेल्या रजेवरुन परत आल्याची तारीख आणि त्या रजेचे स्वरुप व कालावधी
             </td>
             <td>:-
-            @if (!empty($lastLeaveRquest))
-                {{ $lastLeaveRquest->from_date }} To   {{ $lastLeaveRquest->from_date }}<br>
-                &nbsp; &nbsp;No of Days : {{ $lastLeaveRquest->no_of_days }}<br>
-                &nbsp; &nbsp;Leave Type : {{ $lastLeaveRquest->leaveType->name }}
+            @if (!empty($lastLeaveRequest))
+                {{ $lastLeaveRequest->from_date }} To   {{ $lastLeaveRequest->from_date }}<br>
+                &nbsp; &nbsp;No of Days : {{ $lastLeaveRequest->no_of_days }}<br>
+                &nbsp; &nbsp;Leave Type : {{ $lastLeaveRequest->leaveType->name }}
             @endif
 
             </td>
