@@ -62,6 +62,7 @@ class User extends Authenticatable
         'is_benifit',
         'benefit_document',
         'fixation_document',
+        'benifit_year'
     ];
 
     /**

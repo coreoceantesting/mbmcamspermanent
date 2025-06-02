@@ -57,6 +57,7 @@ class StoreEmployeeRequest extends FormRequest
             'benefit_document' => 'nullable|file|mimes:pdf,jpg,jpeg',
             'fixation_document' => 'nullable|file|mimes:pdf,jpg,jpeg',
             // required_if:is_benifit,1
+            'benifit_year'=>'nullable'
         ];
     }
 

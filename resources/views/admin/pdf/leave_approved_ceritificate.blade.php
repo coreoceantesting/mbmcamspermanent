@@ -157,7 +157,7 @@
             </td>
             <td>:-
             @if (!empty($lastLeaveRequest))
-                {{ $lastLeaveRequest->from_date }} To   {{ $lastLeaveRequest->from_date }}<br>
+                {{ $lastLeaveRequest->from_date }} To   {{ $lastLeaveRequest->to_date }}<br>
                 &nbsp; &nbsp;No of Days : {{ $lastLeaveRequest->no_of_days }}<br>
                 &nbsp; &nbsp;Leave Type : {{ $lastLeaveRequest->leaveType->name }}
             @endif
@@ -225,7 +225,7 @@
     </div>
 
     <p>महोदय,<br></p>
-    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;मी खाली सही करणार श्री./श्रीम. {{ $leave_request->user->name}} हुद्या ____________________ आपणाकडे विनंतीपुर्वक अर्ज करतो / करते की मला "{{ $leave_request->remark }}" साठी दि. {{ $leave_request->from_date }} ते दि. {{ $leave_request->end_date }} पर्यंत रजा मिळावी, ही विनंती.</p>
+    <p style="width:100%">&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;मी खाली सही करणार श्री./श्रीम. {{ $leave_request->user->name}} हुद्या ____________________ आपणाकडे विनंतीपुर्वक अर्ज करतो / करते की मला "{{ $leave_request->remark }}" साठी दि. {{ $leave_request->from_date }} ते दि. {{ $leave_request->to_date }} पर्यंत रजा मिळावी, ही विनंती.</p>
 
     <p style="width:100%">कळावे,</p>
     <p class="" style="text-align: right">

@@ -239,6 +239,16 @@
                                             </div>
                                             <span class="text-danger error-text is_benifit_err"></span>
                                         </div>
+                                        <div class="col-md-4 mt-3 benefit-upload" style="display: none">
+                                              <label class="col-form-label" >Benifit Year<span class="text-danger">*</span></label>
+                                            <select class="form-select col-sm-12" name="benifit_year">
+                                                <option value="" selected> Select Year</option>
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                            </select>
+                                            <span class="text-danger error-text employee_type_err"></span>
+                                        </div>
 
                                         <div class="col-md-4 mt-3 benefit-upload" style="display: none">
                                             <label class="col-form-label" for="benefit_document">Upload Document <span class="text-danger">*</span> </label>
@@ -615,6 +625,9 @@
                     } else {
                         $(".benefit-upload").hide();
                     }
+
+                    $("#editForm select[name='benifit_year']").val(data.user.benifit_year).trigger('change');
+
                     if (data.user.benefit_document) {
                         $('#benefit_document_existing').val(data.user.benefit_document);
                         $("#benefit_document_view").html(`

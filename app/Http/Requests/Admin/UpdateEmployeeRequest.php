@@ -58,6 +58,7 @@ class UpdateEmployeeRequest extends FormRequest
             'benefit_document' => $this->hasFile('benefit_document') || !$this->benefit_document_existing ? 'nullable|file|mimes:pdf,jpg,jpeg'  : 'nullable|file|mimes:pdf,jpg,jpeg',
             'fixation_date' => 'nullable|date',
             'fixation_document' => !$this->fixation_document_existing ? 'nullable|file|mimes:pdf,jpg,jpeg': 'nullable|file|mimes:pdf,jpg,jpeg',
+            'benifit_year'=>'nullable'
         ];
     }
 
