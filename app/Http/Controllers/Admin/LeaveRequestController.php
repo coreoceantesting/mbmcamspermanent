@@ -80,19 +80,20 @@ class LeaveRequestController extends Controller
         $input = $request->validated();
         $input['from_date'] = $input['from_date'] ?? $input['date'];
 
-        if (isset($input['leave_type_id']) && isset($input['no_of_days']) && !$this->isLeaveApplicable($input, $user))
-            return response()->json([
-                'error2' => 'You do not have enough available leave balance for this leave type.'
-            ]);
+        if($input['page_type'] != 'outpost'){
+            if (isset($input['leave_type_id']) && isset($input['no_of_days']) && !$this->isLeaveApplicable($input, $user))
+                return response()->json([
+                    'error2' => 'You do not have enough available leave balance for this leave type.'
+                ]);
 
-        if ($this->isLeaveAlreadyAppliedForThisDay($input, $user))
-            return response()->json(['error2' => 'Leave request is already applied for this day, revoke existing leave and apply again!']);
+            if ($this->isLeaveAlreadyAppliedForThisDay($input, $user))
+                return response()->json(['error2' => 'Leave request is already applied for this day, revoke existing leave and apply again!']);
 
-            // dd(1);
-        // $canApplyLeave = $this->leaveRepository->hasLeaveCountsAvailable($input);
-        // if(!$canApplyLeave['status'])
-        //     return response()->json(['error2'=> $canApplyLeave['message']]);
-
+                // dd(1);
+            // $canApplyLeave = $this->leaveRepository->hasLeaveCountsAvailable($input);
+            // if(!$canApplyLeave['status'])
+            //     return response()->json(['error2'=> $canApplyLeave['message']]);
+        }
         try {
             $response = $this->leaveRepository->storeLeaveRequest($input, $user);
 
